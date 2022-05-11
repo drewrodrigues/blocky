@@ -60,8 +60,11 @@ let selectedButton = null;
 function insertButtonsInPage(sortedBlocks) {
   console.log("insertButtonsInPage");
 
+  const container = document.createElement("aside");
+  container.classList.add("container");
   const buttonContainer = document.createElement("header");
   buttonContainer.classList = "button-container";
+  container.append(buttonContainer);
 
   for (const block of sortedBlocks) {
     const title = Object.keys(block)[0];
@@ -88,7 +91,7 @@ function insertButtonsInPage(sortedBlocks) {
 
   // we place this in the body because re-renders can remove this element
   // when placed in sub elements
-  document.querySelector("body").prepend(buttonContainer);
+  document.querySelector(".tEhMVd").append(container);
 }
 
 async function createEventOnModal(title, calendar) {
@@ -96,9 +99,8 @@ async function createEventOnModal(title, calendar) {
   const titleInput = document.querySelector('[aria-label="Add title"]');
   titleInput.value = title;
   titleInput.click();
-  await sleep(5000);
   document.querySelector('[data-key="calendar"]').click();
-  await sleep(2000); // wait for dropdown to open
+  await sleep(500); // wait for dropdown to open
 
   const dropdownElements = document.querySelectorAll(
     "div[role='presentation'].OA0qNb.ncFHed .Z7IIl.jT5e9"
@@ -108,7 +110,7 @@ async function createEventOnModal(title, calendar) {
     if (dropdownText === calendar) {
       console.log(element);
       element.click();
-      await sleep(5000);
+      await sleep(250);
       // save
       document
         .querySelector("[role='button'].uArJ5e.UQuaGc.Y5sE8d.pEVtpe")
@@ -125,7 +127,7 @@ chrome.extension.sendMessage({}, function (response) {
     if (document.readyState === "complete") {
       clearInterval(readyStateCheckInterval);
 
-      await sleep(5000); // wait for events to be loaded
+      await sleep(200); // wait for events to be loaded
       const allBlocks = getFullDetailsFromAllBlocks();
       const sortedBlocks = blocksSortedByOccurances(allBlocks);
 
