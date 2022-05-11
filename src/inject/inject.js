@@ -56,46 +56,57 @@ function listenForModal() {
   });
 }
 
-function insertAtTopOfModal(containerElement, sortedBlocks) {
-  console.log("insertAtTopOfModal");
-  console.log(containerElement);
+let selectedButton = null;
+function insertButtonsInPage(sortedBlocks) {
+  console.log("insertButtonsInPage");
 
   const buttonContainer = document.createElement("header");
   buttonContainer.classList = "button-container";
 
   for (const block of sortedBlocks) {
-    const blockTitle = Object.keys(block)[0];
+    const title = Object.keys(block)[0];
     const calendar = Object.values(block)[0].calendar;
 
     const button = document.createElement("button");
     button.classList += "block-button";
-    button.onclick = () => createBlockOnButtonClick(blockTitle, calendar);
+    button.onclick = () => {
+      selectedButton = {
+        calendar,
+        title,
+      };
+      button.classList.add("active");
+      console.log("Setting selected button");
+      console.log(selectedButton);
+    };
 
     const text = document.createElement("span");
-    text.textContent = blockTitle;
+    text.textContent = title;
     button.append(text);
 
     buttonContainer.append(button);
   }
 
-  containerElement.prepend(buttonContainer);
+  // we place this in the body because re-renders can remove this element
+  // when placed in sub elements
+  document.querySelector("body").prepend(buttonContainer);
 }
 
-async function createBlockOnButtonClick(title, calendar) {
+async function createEventOnModal(title, calendar) {
   console.log({ title, calendar });
   const titleInput = document.querySelector('[aria-label="Add title"]');
   titleInput.value = title;
   titleInput.click();
   await sleep(5000);
   document.querySelector('[data-key="calendar"]').click();
+  await sleep(2000); // wait for dropdown to open
 
-  const dropdownElements = document.querySelectorAll(".Z7IIl.jT5e9");
+  const dropdownElements = document.querySelectorAll(
+    "div[role='presentation'].OA0qNb.ncFHed .Z7IIl.jT5e9"
+  );
   for (const element of dropdownElements) {
     const dropdownText = element.textContent;
     if (dropdownText === calendar) {
-      console.log("Found element");
       console.log(element);
-      await sleep(5000);
       element.click();
       await sleep(5000);
       // save
@@ -110,17 +121,24 @@ async function createBlockOnButtonClick(title, calendar) {
 }
 
 chrome.extension.sendMessage({}, function (response) {
-  var readyStateCheckInterval = setInterval(function () {
+  var readyStateCheckInterval = setInterval(async function () {
     if (document.readyState === "complete") {
       clearInterval(readyStateCheckInterval);
 
+      await sleep(5000); // wait for events to be loaded
       const allBlocks = getFullDetailsFromAllBlocks();
       const sortedBlocks = blocksSortedByOccurances(allBlocks);
-      console.log(sortedBlocks);
 
-      listenForModal().then((container) =>
-        insertAtTopOfModal(container, sortedBlocks)
-      );
+      await sleep(2000);
+      console.log(sortedBlocks);
+      insertButtonsInPage(sortedBlocks);
+
+      listenForModal().then((container) => {
+        // TODO: insert title immediately when modal is opened (this will take advantage of the focus event)
+        if (selectedButton) {
+          createEventOnModal(selectedButton.title, selectedButton.calendar);
+        }
+      });
     }
   }, 10);
 });
