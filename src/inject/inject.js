@@ -78,6 +78,12 @@ function insertButtonsInPage(sortedBlocks) {
         calendar,
         title,
       };
+      const alreadyActiveButton = document.querySelector(
+        ".block-button.active"
+      );
+      if (alreadyActiveButton) {
+        alreadyActiveButton.classList.remove("active");
+      }
       button.classList.add("active");
       console.log("Setting selected button");
       console.log(selectedButton);
