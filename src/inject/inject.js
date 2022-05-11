@@ -43,20 +43,21 @@ function blocksSortedByOccurances(blocks) {
   return keys.map((key) => ({ [key]: blocks[key] }));
 }
 
-function listenForModal() {
-  return new Promise((resolve) => {
-    const interval = setInterval(() => {
-      console.log("listenForModal");
-      const container = document.querySelector(".K0f0Xc");
-      if (container) {
-        clearInterval(interval);
-        resolve(container);
-      }
-    }, 1000);
-  });
+let selectedButton = null;
+let isCreatingEvent = false;
+const MODAL_SELECTOR = ".K0f0Xc";
+
+function createEventOnModalOpen() {
+  setInterval(() => {
+    console.log("listenForModal");
+    const container = document.querySelector(MODAL_SELECTOR);
+    if (container && selectedButton && !isCreatingEvent) {
+      isCreatingEvent = true;
+      createEventOnModal(selectedButton.title, selectedButton.calendar);
+    }
+  }, 100);
 }
 
-let selectedButton = null;
 function insertButtonsInPage(sortedBlocks) {
   console.log("insertButtonsInPage");
 
@@ -115,10 +116,13 @@ async function createEventOnModal(title, calendar) {
       document
         .querySelector("[role='button'].uArJ5e.UQuaGc.Y5sE8d.pEVtpe")
         .click();
+      await sleep(250);
+      isCreatingEvent = false;
       return;
     }
   }
 
+  isCreatingEvent = false;
   throw new Error("Failed to create block");
 }
 
@@ -135,12 +139,7 @@ chrome.extension.sendMessage({}, function (response) {
       console.log(sortedBlocks);
       insertButtonsInPage(sortedBlocks);
 
-      listenForModal().then((container) => {
-        // TODO: insert title immediately when modal is opened (this will take advantage of the focus event)
-        if (selectedButton) {
-          createEventOnModal(selectedButton.title, selectedButton.calendar);
-        }
-      });
+      createEventOnModalOpen();
     }
   }, 10);
 });
