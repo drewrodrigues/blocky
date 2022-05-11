@@ -23,33 +23,16 @@ function getFullDetailsFromAllBlocks() {
   });
 
   console.log(blocks);
+  return blocks;
 }
 
-function insertAtTopOfModal(containerElement) {
-  console.log("insertAtTopOfModal");
-  console.log(containerElement);
+function blocksSortedByOccurances(blocks) {
+  const keys = Object.keys(blocks);
 
-  const buttonContainer = document.createElement("header");
-  buttonContainer.style += "display: flex; background: #ccc;";
+  keys.sort((a, b) => blocks[b].count - blocks[a].count);
 
-  const button = document.createElement("button");
-  button.textContent = "Some Element";
-
-  buttonContainer.append(button);
-  containerElement.prepend(buttonContainer);
+  return keys.map((key) => ({ [key]: blocks[key] }));
 }
-
-chrome.extension.sendMessage({}, function (response) {
-  var readyStateCheckInterval = setInterval(function () {
-    if (document.readyState === "complete") {
-      clearInterval(readyStateCheckInterval);
-
-      getFullDetailsFromAllBlocks();
-
-      listenForModal().then(insertAtTopOfModal);
-    }
-  }, 10);
-});
 
 function listenForModal() {
   return new Promise((resolve) => {
@@ -64,20 +47,37 @@ function listenForModal() {
   });
 }
 
-function _getAllTitles() {
-  const possibleBlocks = {};
+function insertAtTopOfModal(containerElement, sortedBlocks) {
+  console.log("insertAtTopOfModal");
+  console.log(containerElement);
 
-  const previousTitles = document.querySelectorAll(".FAxxKc");
+  const buttonContainer = document.createElement("header");
+  buttonContainer.classList = "button-container";
 
-  for (const titleElement of previousTitles) {
-    const title = titleElement.textContent;
-
-    if (possibleBlocks[title]) {
-      possibleBlocks[title]++;
-    } else {
-      possibleBlocks[title] = 1;
-    }
+  for (const block of sortedBlocks) {
+    const button = document.createElement("button");
+    button.classList += "block-button";
+    const text = document.createElement("span");
+    text.textContent = Object.keys(block)[0];
+    button.append(text);
+    buttonContainer.append(button);
   }
 
-  // console.log(possibleBlocks);
+  containerElement.prepend(buttonContainer);
 }
+
+chrome.extension.sendMessage({}, function (response) {
+  var readyStateCheckInterval = setInterval(function () {
+    if (document.readyState === "complete") {
+      clearInterval(readyStateCheckInterval);
+
+      const allBlocks = getFullDetailsFromAllBlocks();
+      const sortedBlocks = blocksSortedByOccurances(allBlocks);
+      console.log(sortedBlocks);
+
+      listenForModal().then((container) =>
+        insertAtTopOfModal(container, sortedBlocks)
+      );
+    }
+  }, 10);
+});
