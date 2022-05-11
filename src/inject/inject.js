@@ -1,3 +1,12 @@
+function sleep(duration) {
+  console.log("Sleeping for: ", duration);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, duration);
+  });
+}
+
 function getFullDetailsFromAllBlocks() {
   // '12am to 12:45am, Dad, Calendar: ❤️ Relationships, No location, May 9, 2022'
   const calendarBlock = document.querySelectorAll("div.ynRLnc");
@@ -55,15 +64,49 @@ function insertAtTopOfModal(containerElement, sortedBlocks) {
   buttonContainer.classList = "button-container";
 
   for (const block of sortedBlocks) {
+    const blockTitle = Object.keys(block)[0];
+    const calendar = Object.values(block)[0].calendar;
+
     const button = document.createElement("button");
     button.classList += "block-button";
+    button.onclick = () => createBlockOnButtonClick(blockTitle, calendar);
+
     const text = document.createElement("span");
-    text.textContent = Object.keys(block)[0];
+    text.textContent = blockTitle;
     button.append(text);
+
     buttonContainer.append(button);
   }
 
   containerElement.prepend(buttonContainer);
+}
+
+async function createBlockOnButtonClick(title, calendar) {
+  console.log({ title, calendar });
+  const titleInput = document.querySelector('[aria-label="Add title"]');
+  titleInput.value = title;
+  titleInput.click();
+  await sleep(5000);
+  document.querySelector('[data-key="calendar"]').click();
+
+  const dropdownElements = document.querySelectorAll(".Z7IIl.jT5e9");
+  for (const element of dropdownElements) {
+    const dropdownText = element.textContent;
+    if (dropdownText === calendar) {
+      console.log("Found element");
+      console.log(element);
+      await sleep(5000);
+      element.click();
+      await sleep(5000);
+      // save
+      document
+        .querySelector("[role='button'].uArJ5e.UQuaGc.Y5sE8d.pEVtpe")
+        .click();
+      return;
+    }
+  }
+
+  throw new Error("Failed to create block");
 }
 
 chrome.extension.sendMessage({}, function (response) {
