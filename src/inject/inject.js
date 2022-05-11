@@ -14,6 +14,7 @@ function getFullDetailsFromAllBlocks() {
   calendarBlock.forEach((block) => {
     // time block can be formatted with ',' at times. So, we'll just remove the whole section
     // and the calendar section sometimes has 'Calendar: '
+    const styledElement = block.parentElement;
     const sanitizedText = block.textContent
       .replace(/.*(am, |pm, )/, "")
       .replace("Calendar: ", "");
@@ -27,6 +28,7 @@ function getFullDetailsFromAllBlocks() {
       blocks[title] = {
         count: 1,
         calendar,
+        style: styledElement?.style.backgroundColor,
       };
     }
   });
@@ -49,7 +51,6 @@ const MODAL_SELECTOR = ".K0f0Xc";
 
 function createEventOnModalOpen() {
   setInterval(() => {
-    console.log("listenForModal");
     const container = document.querySelector(MODAL_SELECTOR);
     if (container && selectedButton && !isCreatingEvent) {
       isCreatingEvent = true;
@@ -88,6 +89,7 @@ function insertButtonsInPage(sortedBlocks) {
       console.log("Setting selected button");
       console.log(selectedButton);
     };
+    button.style.backgroundColor = Object.values(block)[0].style;
 
     const text = document.createElement("span");
     text.textContent = title;
@@ -142,7 +144,6 @@ chrome.extension.sendMessage({}, function (response) {
       const sortedBlocks = blocksSortedByOccurances(allBlocks);
 
       await sleep(2000);
-      console.log(sortedBlocks);
       insertButtonsInPage(sortedBlocks);
 
       createEventOnModalOpen();
