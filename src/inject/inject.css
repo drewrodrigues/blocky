@@ -12,6 +12,24 @@
   width: 300px;
   overflow-y: scroll;
   background: #f0f2f5;
+  padding: 20px;
+  font-family: "Product Sans";
+}
+
+.section-title {
+  margin: 0;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #333;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.section-subtitle {
+  color: #777;
+  font-size: 12px;
+  margin: 0 0 10px 0;
+  font-weight: 400;
 }
 
 .button-container {
@@ -20,13 +38,12 @@
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 10px;
+  margin: 0 -2.5px;
 }
 
 .block-button {
   width: 48%;
-  margin-right: 5px;
-  margin-bottom: 5px;
+  margin: 0 2.5px 5px;
   color: #4b4b4b;
   border: none;
   border-radius: 10px;
