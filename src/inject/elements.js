@@ -21,7 +21,7 @@ function Section(title, subtitle) {
   return sectionElement;
 }
 
-function Buttons(sortedBlocks) {
+function GeneratedBlocks(sortedBlocks) {
   const sectionElement = Section(
     "Generated Blocks",
     "Click on a block then your calendar to create a block"
@@ -38,17 +38,23 @@ function Buttons(sortedBlocks) {
     const button = document.createElement("button");
     button.classList += "block-button";
     button.onclick = () => {
-      selectedButton = {
-        calendar,
-        title,
-      };
-      const alreadyActiveButton = document.querySelector(
-        ".block-button.active"
-      );
-      if (alreadyActiveButton) {
-        alreadyActiveButton.classList.remove("active");
+      const buttonAlreadyActive = button.classList.contains("active");
+      if (buttonAlreadyActive) {
+        selectedButton = null;
+        button.classList.remove("active");
+      } else {
+        selectedButton = {
+          calendar,
+          title,
+        };
+        const alreadyActiveButton = document.querySelector(
+          ".block-button.active"
+        );
+        if (alreadyActiveButton) {
+          alreadyActiveButton.classList.remove("active");
+        }
+        button.classList.add("active");
       }
-      button.classList.add("active");
     };
     button.style.backgroundColor = Object.values(block)[0].style;
 

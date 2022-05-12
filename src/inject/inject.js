@@ -64,7 +64,7 @@ function createEventOnModalOpen() {
 
 function renderSidebar(sortedBlocks) {
   const sidebar = Sidebar();
-  sidebar.append(Buttons(sortedBlocks));
+  sidebar.append(GeneratedBlocks(sortedBlocks));
   document.querySelector(".tEhMVd").append(sidebar);
 }
 
