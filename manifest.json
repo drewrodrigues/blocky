@@ -17,16 +17,7 @@
   "permissions": ["https://calendar.google.com/*"],
   "content_scripts": [
     {
-      "matches": ["https://www.google.com/*"],
-      "css": ["src/inject/inject.css"]
-    },
-    {
-      "matches": ["https://www.google.com/*"],
-      "css": ["src/inject/inject.css"],
-      "js": ["src/inject/inject.js", "src/inject/elements.js"]
-    },
-    {
-      "matches": ["https://*/*", "http://*/*"],
+      "matches": ["https://calendar.google.com/calendar*"],
       "css": ["src/inject/inject.css"],
       "js": ["src/inject/inject.js", "src/inject/elements.js"]
     }
