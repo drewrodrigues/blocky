@@ -1,9 +1,12 @@
-function createGeneratedBlocksSection(sortedBlocks) {
-  const container = document.createElement("aside");
-  container.classList.add("container");
+function Sidebar() {
+  const sidebar = document.createElement("aside");
+  sidebar.classList.add("sidebar");
+  return sidebar;
+}
+
+function Buttons(sortedBlocks) {
   const buttonContainer = document.createElement("header");
   buttonContainer.classList = "button-container";
-  container.append(buttonContainer);
 
   for (const block of sortedBlocks) {
     const title = Object.keys(block)[0];
@@ -33,5 +36,5 @@ function createGeneratedBlocksSection(sortedBlocks) {
     buttonContainer.append(button);
   }
 
-  return container;
+  return buttonContainer;
 }

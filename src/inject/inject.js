@@ -62,9 +62,10 @@ function createEventOnModalOpen() {
   }, 100);
 }
 
-function insertButtonsInPage(sortedBlocks) {
-  const container = createGeneratedBlocksSection(sortedBlocks);
-  document.querySelector(".tEhMVd").append(container);
+function renderSidebar(sortedBlocks) {
+  const sidebar = Sidebar();
+  sidebar.append(Buttons(sortedBlocks));
+  document.querySelector(".tEhMVd").append(sidebar);
 }
 
 async function createEventOnModal(title, calendar) {
@@ -108,7 +109,7 @@ chrome.extension.sendMessage({}, function (response) {
       const sortedBlocks = blocksSortedByOccurances(allBlocks);
 
       await sleep(2000);
-      insertButtonsInPage(sortedBlocks);
+      renderSidebar(sortedBlocks);
 
       createEventOnModalOpen();
     }
