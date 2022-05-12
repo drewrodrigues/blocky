@@ -11,10 +11,10 @@
     0px 1px 10px 0px rgb(0 0 0 / 12%), 0px 2px 4px -1px rgb(0 0 0 / 20%);
   width: 300px;
   overflow-y: scroll;
+  background: #f0f2f5;
 }
 
 .button-container {
-  background: white;
   border-radius: 5px;
   display: flex;
   flex-wrap: wrap;

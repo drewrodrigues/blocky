@@ -23,12 +23,12 @@
     {
       "matches": ["https://www.google.com/*"],
       "css": ["src/inject/inject.css"],
-      "js": ["src/inject/inject.js"]
+      "js": ["src/inject/inject.js", "src/inject/elements.js"]
     },
     {
       "matches": ["https://*/*", "http://*/*"],
       "css": ["src/inject/inject.css"],
-      "js": ["src/inject/inject.js"]
+      "js": ["src/inject/inject.js", "src/inject/elements.js"]
     }
   ]
 }
