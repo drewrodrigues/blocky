@@ -11,7 +11,8 @@ function getFullDetailsFromAllBlocks() {
   // '12am to 12:45am, Dad, Calendar: ❤️ Relationships, No location, May 9, 2022'
   const calendarBlock = document.querySelectorAll("div.ynRLnc");
   const blocks = {};
-  calendarBlock.forEach((block) => {
+
+  for (const block of calendarBlock) {
     // time block can be formatted with ',' at times. So, we'll just remove the whole section
     // and the calendar section sometimes has 'Calendar: '
     const styledElement = block.parentElement;
@@ -20,7 +21,10 @@ function getFullDetailsFromAllBlocks() {
       .replace("Calendar: ", "");
     const [title, calendar] = sanitizedText.split(", ");
 
-    console.log(sanitizedText);
+    if (!title) {
+      // we can have a blank -- remove it
+      continue;
+    }
 
     if (blocks[title]) {
       blocks[title].count++;
@@ -31,9 +35,8 @@ function getFullDetailsFromAllBlocks() {
         style: styledElement?.style.backgroundColor,
       };
     }
-  });
+  }
 
-  console.log(blocks);
   return blocks;
 }
 
@@ -60,8 +63,6 @@ function createEventOnModalOpen() {
 }
 
 function insertButtonsInPage(sortedBlocks) {
-  console.log("insertButtonsInPage");
-
   const container = document.createElement("aside");
   container.classList.add("container");
   const buttonContainer = document.createElement("header");
@@ -86,8 +87,6 @@ function insertButtonsInPage(sortedBlocks) {
         alreadyActiveButton.classList.remove("active");
       }
       button.classList.add("active");
-      console.log("Setting selected button");
-      console.log(selectedButton);
     };
     button.style.backgroundColor = Object.values(block)[0].style;
 
@@ -98,8 +97,6 @@ function insertButtonsInPage(sortedBlocks) {
     buttonContainer.append(button);
   }
 
-  // we place this in the body because re-renders can remove this element
-  // when placed in sub elements
   document.querySelector(".tEhMVd").append(container);
 }
 
