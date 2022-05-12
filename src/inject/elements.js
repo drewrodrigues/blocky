@@ -52,8 +52,10 @@ function GeneratedBlocks(sortedBlocks) {
         );
         if (alreadyActiveButton) {
           alreadyActiveButton.classList.remove("active");
+          alreadyActiveButton.style.boxShadow = "";
         }
         button.classList.add("active");
+        button.style.boxShadow = `0 0 20px 5px ${button.style.backgroundColor}`;
       }
     };
     button.style.backgroundColor = Object.values(block)[0].style;
