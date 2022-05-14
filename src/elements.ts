@@ -1,3 +1,4 @@
+import { onSelectBlockClick } from './actions'
 import { ParsedCalendarBlockByOccurrence } from './types'
 
 export function Sidebar() {
@@ -40,27 +41,7 @@ export function GeneratedBlocks(
 
     const button = document.createElement('button')
     button.classList.add('block-button')
-    button.onclick = () => {
-      const buttonAlreadyActive = button.classList.contains('active')
-      if (buttonAlreadyActive) {
-        window.selectedButton = undefined
-        button.classList.remove('active')
-      } else {
-        window.selectedButton = {
-          calendar,
-          title,
-        }
-        const alreadyActiveButton = document.querySelector(
-          '.block-button.active',
-        ) as HTMLElement
-        if (alreadyActiveButton) {
-          alreadyActiveButton.classList.remove('active')
-          alreadyActiveButton.style.boxShadow = ''
-        }
-        button.classList.add('active')
-        button.style.boxShadow = `0 0 20px 5px ${button.style.backgroundColor}`
-      }
-    }
+    button.onclick = () => onSelectBlockClick(button, title, calendar)
     button.style.backgroundColor = backgroundColor
 
     const text = document.createElement('span')

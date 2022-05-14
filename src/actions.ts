@@ -50,3 +50,30 @@ export function createEventOnModalOpen() {
     }
   }, 100)
 }
+
+export function onSelectBlockClick(
+  button: HTMLButtonElement,
+  calendar: string,
+  title: string,
+) {
+  const buttonAlreadyActive = button.classList.contains('active')
+  if (buttonAlreadyActive) {
+    window.selectedButton = undefined
+    button.classList.remove('active')
+    button.style.boxShadow = ''
+  } else {
+    window.selectedButton = {
+      calendar,
+      title,
+    }
+    const otherActiveButton = document.querySelector(
+      '.block-button.active',
+    ) as HTMLElement
+    if (otherActiveButton) {
+      otherActiveButton.classList.remove('active')
+      otherActiveButton.style.boxShadow = ''
+    }
+    button.classList.add('active')
+    button.style.boxShadow = `0 0 20px 5px ${button.style.backgroundColor}`
+  }
+}
