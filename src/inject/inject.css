@@ -13,6 +13,7 @@
   overflow-y: scroll;
   padding: 20px;
   font-family: "Product Sans";
+  flex-shrink: 0;
 }
 
 .section-title {
