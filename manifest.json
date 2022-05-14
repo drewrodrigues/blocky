@@ -19,7 +19,7 @@
     {
       "matches": ["https://calendar.google.com/calendar*"],
       "css": ["src/inject/inject.css"],
-      "js": ["src/inject/inject.js", "src/inject/elements.js"]
+      "js": ["dist/bundle.js"]
     }
   ]
 }
