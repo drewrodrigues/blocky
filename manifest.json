@@ -1,7 +1,7 @@
 {
   "name": "Blockly",
   "version": "0.0.1",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "description": "Easily create time blocks in Google Calendar.",
   "homepage_url": "http://extensionizr.com",
   "icons": {
@@ -10,11 +10,7 @@
     "128": "icons/icon128.png"
   },
   "default_locale": "en",
-  "background": {
-    "page": "src/bg/background.html",
-    "persistent": true
-  },
-  "permissions": ["https://calendar.google.com/*"],
+  "host_permissions": ["https://calendar.google.com/*"],
   "content_scripts": [
     {
       "matches": ["https://calendar.google.com/calendar*"],
