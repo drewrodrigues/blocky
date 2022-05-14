@@ -36,8 +36,7 @@ export function GeneratedBlocks(
   sectionElement.append(buttonContainer)
 
   for (const block of sortedBlocks) {
-    const title = Object.keys(block)[0]
-    const calendar = Object.values(block)[0].calendar
+    const { title, calendar, backgroundColor } = block
 
     const button = document.createElement('button')
     button.classList.add('block-button')
@@ -62,7 +61,7 @@ export function GeneratedBlocks(
         button.style.boxShadow = `0 0 20px 5px ${button.style.backgroundColor}`
       }
     }
-    button.style.backgroundColor = Object.values(block)[0].style
+    button.style.backgroundColor = backgroundColor
 
     const text = document.createElement('span')
     text.textContent = title
