@@ -1,38 +1,21 @@
-import './elements'
-import './elements'
-
+import { createEventOnModalOpen } from './actions'
 import {
   blocksSortedByOccurrences,
   getFullDetailsFromAllBlocks,
 } from './blockData'
-import {
-  ParsedCalendarBlockByOccurrence,
-  ParsedCalendarBlocksByTitle,
-} from './types'
-import { getElementOrThrow, sleep } from './utils'
-import { createEventOnModal } from './actions'
+import './elements'
 import { GeneratedBlocks, Sidebar } from './elements'
+import { SELECTOR } from './selectors'
+import { ParsedCalendarBlockByOccurrence } from './types'
+import { getElementOrThrow, sleep } from './utils'
 
 window.selectedButton = undefined
 window.isCreatingEvent = false
-const MODAL_SELECTOR = '.K0f0Xc'
-
-function createEventOnModalOpen() {
-  setInterval(() => {
-    const container = document.querySelector(MODAL_SELECTOR)
-    const { selectedButton, isCreatingEvent } = window
-
-    if (container && selectedButton && !isCreatingEvent) {
-      window.isCreatingEvent = true
-      createEventOnModal(selectedButton.title, selectedButton.calendar)
-    }
-  }, 100)
-}
 
 function renderSidebar(sortedBlocks: ParsedCalendarBlockByOccurrence[]) {
   const sidebar = Sidebar()
   sidebar.append(GeneratedBlocks(sortedBlocks))
-  getElementOrThrow('.tEhMVd').append(sidebar)
+  getElementOrThrow(SELECTOR.SIDEBAR_CONTAINER).append(sidebar)
 }
 
 const readyStateCheckInterval = setInterval(async function () {

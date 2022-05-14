@@ -1,3 +1,4 @@
+import { SELECTOR } from './selectors'
 import {
   ParsedCalendarBlockByOccurrence,
   ParsedCalendarBlocksByTitle,
@@ -6,7 +7,7 @@ import { getElementsOrThrow } from './utils'
 
 export function getFullDetailsFromAllBlocks(): ParsedCalendarBlocksByTitle {
   // '12am to 12:45am, Dad, Calendar: ❤️ Relationships, No location, May 9, 2022'
-  const calendarBlock = getElementsOrThrow('div.ynRLnc')
+  const calendarBlock = getElementsOrThrow(SELECTOR.CALENDAR_BLOCK_TO_PARSE)
   const parsedCalendarBlocks: ParsedCalendarBlocksByTitle = {}
 
   for (const block of calendarBlock) {
