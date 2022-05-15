@@ -33,7 +33,7 @@ export function GeneratedBlocks(
   )
   sectionElement.classList.add('GeneratedBlocks')
 
-  const buttonContainer = document.createElement('header')
+  const buttonContainer = document.createElement('div')
   buttonContainer.classList.add('button-container')
   sectionElement.append(buttonContainer)
 
@@ -51,6 +51,17 @@ export function GeneratedBlocks(
 
     buttonContainer.append(button)
   }
+
+  return sectionElement
+}
+
+export function SavedBlocks() {
+  const sectionElement = Section(
+    `Saved Blocks (${window.savedBlocks.length})`,
+    'Save & create common blocks here',
+  )
+
+  
 
   return sectionElement
 }

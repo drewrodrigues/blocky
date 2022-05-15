@@ -35,7 +35,7 @@ async function _createEventOnModal(title: string, calendar: string) {
     window.isCreatingEvent = false
     throw new Error('Failed to create block')
   } catch (e) {
-    window.errorMessage = e.message
+    // TODO: log this somewhere
   }
 }
 

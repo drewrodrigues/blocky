@@ -2,10 +2,13 @@ export interface ParsedCalendarBlock {
   count: number
   calendar: string
   backgroundColor: string
-}
-
-export type ParsedCalendarBlocksByTitle = Record<string, ParsedCalendarBlock>
-
-export type ParsedCalendarBlockByOccurrence = ParsedCalendarBlock & {
   title: string
 }
+
+export type SavedCalendarBlock = Omit<ParsedCalendarBlock, 'count'>
+
+type title = string
+export type ParsedCalendarBlocksByTitle = Record<title, ParsedCalendarBlock>
+
+export type ParsedCalendarBlockByOccurrence = ParsedCalendarBlock &
+  ParsedCalendarBlock

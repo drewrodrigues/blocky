@@ -52,6 +52,7 @@ function _getFullDetailsFromAllBlocks(): ParsedCalendarBlocksByTitle {
       parsedCalendarBlocks[title].count++
     } else {
       parsedCalendarBlocks[title] = {
+        title,
         count: 1,
         calendar,
         backgroundColor: styledElement.style.backgroundColor,
