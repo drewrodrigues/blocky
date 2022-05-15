@@ -4,18 +4,31 @@ import {
   ParsedCalendarBlockByOccurrence,
   ParsedCalendarBlocksByTitle,
 } from './types'
-import { getElementOrThrow, getElementsOrThrow, sleep } from './utils'
+import { getElementOrThrow, getElementsOrThrow } from './utils'
 
 export function listenToViewAndGenerateBlocks() {
   setInterval(() => {
-    const allBlocks = _getFullDetailsFromAllBlocks()
-    const sortedBlocks = _blocksSortedByOccurrences(allBlocks) // ! only sort blocks if there's been a change/addition to set
-    _renderSidebar(sortedBlocks)
+    const blocksFoundInView = _getFullDetailsFromAllBlocks()
+
+    const mergedOldAndNewBlocks: ParsedCalendarBlocksByTitle = {
+      ...blocksFoundInView,
+      ...window.generatedBlocks,
+    }
+    const anyNewBlocksFound =
+      Object.keys(window.generatedBlocks).length !==
+      Object.keys(mergedOldAndNewBlocks).length
+
+    if (anyNewBlocksFound) {
+      console.log('Found new blocks. Re-rendering.')
+      window.generatedBlocks = mergedOldAndNewBlocks
+      const sortedBlocks = _blocksSortedByOccurrences(mergedOldAndNewBlocks)
+      _renderSidebar(sortedBlocks)
+    }
   }, 1000)
 }
 
 function _getFullDetailsFromAllBlocks(): ParsedCalendarBlocksByTitle {
-  // '12am to 12:45am, Dad, Calendar: ❤️ Relationships, No location, May 9, 2022'
+  // '12am to 12:45am, Mary, Calendar: ❤️ Relationships, No location, May 9, 2022'
   const calendarBlock = getElementsOrThrow(
     CALENDAR_SELECTOR.CALENDAR_BLOCK_TO_PARSE,
   )
@@ -30,8 +43,8 @@ function _getFullDetailsFromAllBlocks(): ParsedCalendarBlocksByTitle {
       .replace('Calendar: ', '')
     const [title, calendar] = sanitizedText.split(', ')
 
-    if (!title) {
-      // we can have a blank -- remove it
+    if (!title || title === 'No title') {
+      // we can have a blank or `No title` when creating a block-- remove it
       continue
     }
 
@@ -67,7 +80,6 @@ function _blocksSortedByOccurrences(
   return sortedBlocksTyped
 }
 
-// ! we can be more selective with which elements to re-render (like only the generated blocks)
 function _renderSidebar(sortedBlocks: ParsedCalendarBlockByOccurrence[]) {
   const existingSidebar = document.querySelector(COMPONENT_SELECTOR.SIDEBAR)
 

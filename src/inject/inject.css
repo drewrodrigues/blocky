@@ -12,8 +12,12 @@
   width: 300px;
   overflow-y: scroll;
   padding: 20px;
-  font-family: "Product Sans";
+  font-family: 'Product Sans';
   flex-shrink: 0;
+}
+
+.section {
+  width: 100%;
 }
 
 .section-title {
@@ -33,16 +37,24 @@
 }
 
 .button-container {
-  border-radius: 5px;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: flex-start;
   margin: 0 -2.5px;
+
+  max-height: 500px;
+  align-content: baseline;
+  overflow-y: scroll;
+  padding: 10px 7.5px;
+  border: 1px solid #dedede;
+  border-radius: 14px;
+  scrollbar-gutter: auto;
+  overflow: overlay;
 }
 
 .block-button {
-  width: 48%;
+  width: calc(50% - 5px);
   margin: 0 2.5px 5px;
   color: #4b4b4b;
   border: none;

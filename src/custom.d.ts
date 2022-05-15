@@ -1,3 +1,5 @@
+import { ParsedCalendarBlocksByTitle } from './types'
+
 export {}
 
 declare global {
@@ -9,6 +11,7 @@ declare global {
         }
       | undefined
     isCreatingEvent: boolean
+    generatedBlocks: ParsedCalendarBlocksByTitle
 
     errorMessage: undefined | string
   }
