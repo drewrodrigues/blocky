@@ -28,9 +28,10 @@ export function GeneratedBlocks(
   sortedBlocks: ParsedCalendarBlockByOccurrence[],
 ) {
   const sectionElement = Section(
-    'Generated Blocks',
+    `Generated Blocks (${sortedBlocks.length})`,
     'Click on a block then your calendar to create a block',
   )
+  sectionElement.classList.add('GeneratedBlocks')
 
   const buttonContainer = document.createElement('header')
   buttonContainer.classList.add('button-container')

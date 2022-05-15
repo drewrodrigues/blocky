@@ -22,7 +22,7 @@ export function listenToViewAndGenerateBlocks() {
       console.log('Found new blocks. Re-rendering.')
       window.generatedBlocks = mergedOldAndNewBlocks
       const sortedBlocks = _blocksSortedByOccurrences(mergedOldAndNewBlocks)
-      _renderSidebar(sortedBlocks)
+      _renderGeneratedBlocks(sortedBlocks)
     }
   }, 1000)
 }
@@ -80,18 +80,10 @@ function _blocksSortedByOccurrences(
   return sortedBlocksTyped
 }
 
-function _renderSidebar(sortedBlocks: ParsedCalendarBlockByOccurrence[]) {
-  const existingSidebar = document.querySelector(COMPONENT_SELECTOR.SIDEBAR)
-
-  const sidebar = Sidebar()
-  sidebar.append(GeneratedBlocks(sortedBlocks))
-
-  const sidebarContainer = getElementOrThrow(
-    CALENDAR_SELECTOR.SIDEBAR_CONTAINER,
-  )
-  if (existingSidebar) {
-    existingSidebar.replaceWith(sidebar)
-  } else {
-    sidebarContainer.append(sidebar)
-  }
+function _renderGeneratedBlocks(
+  sortedBlocks: ParsedCalendarBlockByOccurrence[],
+) {
+  const generatedBlocks = getElementOrThrow(COMPONENT_SELECTOR.GENERATED_BLOCKS)
+  const newBlocks = GeneratedBlocks(sortedBlocks)
+  generatedBlocks.replaceWith(newBlocks)
 }

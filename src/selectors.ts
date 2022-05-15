@@ -10,4 +10,5 @@ export enum CALENDAR_SELECTOR {
 
 export enum COMPONENT_SELECTOR {
   SIDEBAR = '.sidebar',
+  GENERATED_BLOCKS = '.GeneratedBlocks',
 }
