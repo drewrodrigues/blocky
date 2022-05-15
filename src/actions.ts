@@ -1,7 +1,7 @@
 import { SELECTOR } from './selectors'
 import { getElementOrThrow, getElementsOrThrow, sleep } from './utils'
 
-async function createEventOnModal(title: string, calendar: string) {
+async function _createEventOnModal(title: string, calendar: string) {
   try {
     const titleInput = getElementOrThrow<HTMLInputElement>(
       SELECTOR.MODAL_TITLE_INPUT,
@@ -39,22 +39,22 @@ async function createEventOnModal(title: string, calendar: string) {
   }
 }
 
-export function createEventOnModalOpen() {
+export function listenForModalOpen() {
   setInterval(() => {
     const container = document.querySelector(SELECTOR.MODAL)
     const { selectedButton, isCreatingEvent } = window
 
     if (container && selectedButton && !isCreatingEvent) {
       window.isCreatingEvent = true
-      createEventOnModal(selectedButton.title, selectedButton.calendar)
+      _createEventOnModal(selectedButton.title, selectedButton.calendar)
     }
   }, 100)
 }
 
 export function onSelectBlockClick(
   button: HTMLButtonElement,
-  calendar: string,
   title: string,
+  calendar: string,
 ) {
   const buttonAlreadyActive = button.classList.contains('active')
   if (buttonAlreadyActive) {
@@ -63,8 +63,8 @@ export function onSelectBlockClick(
     button.style.boxShadow = ''
   } else {
     window.selectedButton = {
-      calendar,
       title,
+      calendar,
     }
     const otherActiveButton = document.querySelector(
       '.block-button.active',

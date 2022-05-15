@@ -1,4 +1,4 @@
-import { createEventOnModalOpen } from './actions'
+import { listenForModalOpen } from './actions'
 import {
   blocksSortedByOccurrences,
   getFullDetailsFromAllBlocks,
@@ -29,6 +29,6 @@ const readyStateCheckInterval = setInterval(async function () {
     await sleep(2000)
     renderSidebar(sortedBlocks)
 
-    createEventOnModalOpen()
+    listenForModalOpen()
   }
 }, 10)
