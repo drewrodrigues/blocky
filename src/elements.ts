@@ -1,4 +1,4 @@
-import { onSelectBlockClick } from './actions'
+import { addSavedBlock, onSelectBlockClick, removeSavedBlock } from './actions'
 import { ParsedCalendarBlockByOccurrence } from './types'
 
 export function Sidebar() {
@@ -42,7 +42,14 @@ export function GeneratedBlocks(
 
     const button = document.createElement('button')
     button.classList.add('block-button')
-    button.onclick = () => onSelectBlockClick(button, title, calendar)
+    button.oncontextmenu = (e) => {
+      e.preventDefault()
+      addSavedBlock({ title, calendar, backgroundColor })
+    }
+    button.onclick = (e) => {
+      e.preventDefault()
+      onSelectBlockClick(button, title, calendar)
+    }
     button.style.backgroundColor = backgroundColor
 
     const text = document.createElement('span')
@@ -56,12 +63,23 @@ export function GeneratedBlocks(
 }
 
 export function SavedBlocks() {
+  console.log('Rendering SavedBlocks')
   const sectionElement = Section(
     `Saved Blocks (${window.savedBlocks.length})`,
     'Save & create common blocks here',
   )
+  sectionElement.classList.add('SavedBlocks')
 
-  
+  for (const savedBlock of window.savedBlocks) {
+    const block = document.createElement('button')
+    block.textContent = savedBlock.title
+    block.style.backgroundColor = savedBlock.backgroundColor
+    block.oncontextmenu = () => {
+      removeSavedBlock(savedBlock)
+    }
+
+    sectionElement.append(block)
+  }
 
   return sectionElement
 }

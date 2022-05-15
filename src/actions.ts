@@ -1,4 +1,6 @@
-import { CALENDAR_SELECTOR } from './selectors'
+import { SavedBlocks } from './elements'
+import { CALENDAR_SELECTOR, COMPONENT_SELECTOR } from './selectors'
+import { SavedCalendarBlock } from './types'
 import { getElementOrThrow, getElementsOrThrow, sleep } from './utils'
 
 async function _createEventOnModal(title: string, calendar: string) {
@@ -77,4 +79,19 @@ export function onSelectBlockClick(
     button.classList.add('active')
     button.style.boxShadow = `0 0 20px 5px ${button.style.backgroundColor}`
   }
+}
+
+export function addSavedBlock(newBlock: SavedCalendarBlock) {
+  window.savedBlocks.push(newBlock)
+  const savedBlocksElement = getElementOrThrow(COMPONENT_SELECTOR.SAVED_BLOCKS)
+  savedBlocksElement.replaceWith(SavedBlocks()) // re-render
+  // TODO: save to local storage and re-populate too
+}
+
+export function removeSavedBlock(removedBlock: SavedCalendarBlock) {
+  window.savedBlocks = window.savedBlocks.filter(
+    (block) => block !== removedBlock,
+  )
+  const savedBlocksElement = getElementOrThrow(COMPONENT_SELECTOR.SAVED_BLOCKS)
+  savedBlocksElement.replaceWith(SavedBlocks())
 }
