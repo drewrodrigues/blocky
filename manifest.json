@@ -1,6 +1,6 @@
 {
   "name": "Blockly",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 3,
   "description": "Easily create time blocks in Google Calendar.",
   "homepage_url": "http://extensionizr.com",
