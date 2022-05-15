@@ -1,13 +1,24 @@
-import { SELECTOR } from './selectors'
+import { GeneratedBlocks, Sidebar } from './elements'
+import { CALENDAR_SELECTOR, COMPONENT_SELECTOR } from './selectors'
 import {
   ParsedCalendarBlockByOccurrence,
   ParsedCalendarBlocksByTitle,
 } from './types'
-import { getElementsOrThrow } from './utils'
+import { getElementOrThrow, getElementsOrThrow, sleep } from './utils'
 
-export function getFullDetailsFromAllBlocks(): ParsedCalendarBlocksByTitle {
+export function listenToViewAndGenerateBlocks() {
+  setInterval(() => {
+    const allBlocks = _getFullDetailsFromAllBlocks()
+    const sortedBlocks = _blocksSortedByOccurrences(allBlocks) // ! only sort blocks if there's been a change/addition to set
+    _renderSidebar(sortedBlocks)
+  }, 1000)
+}
+
+function _getFullDetailsFromAllBlocks(): ParsedCalendarBlocksByTitle {
   // '12am to 12:45am, Dad, Calendar: ❤️ Relationships, No location, May 9, 2022'
-  const calendarBlock = getElementsOrThrow(SELECTOR.CALENDAR_BLOCK_TO_PARSE)
+  const calendarBlock = getElementsOrThrow(
+    CALENDAR_SELECTOR.CALENDAR_BLOCK_TO_PARSE,
+  )
   const parsedCalendarBlocks: ParsedCalendarBlocksByTitle = {}
 
   for (const block of calendarBlock) {
@@ -38,7 +49,7 @@ export function getFullDetailsFromAllBlocks(): ParsedCalendarBlocksByTitle {
   return parsedCalendarBlocks
 }
 
-export function blocksSortedByOccurrences(
+function _blocksSortedByOccurrences(
   blocks: ParsedCalendarBlocksByTitle,
 ): ParsedCalendarBlockByOccurrence[] {
   const keys = Object.keys(blocks)
@@ -54,4 +65,21 @@ export function blocksSortedByOccurrences(
   })
 
   return sortedBlocksTyped
+}
+
+// ! we can be more selective with which elements to re-render (like only the generated blocks)
+function _renderSidebar(sortedBlocks: ParsedCalendarBlockByOccurrence[]) {
+  const existingSidebar = document.querySelector(COMPONENT_SELECTOR.SIDEBAR)
+
+  const sidebar = Sidebar()
+  sidebar.append(GeneratedBlocks(sortedBlocks))
+
+  const sidebarContainer = getElementOrThrow(
+    CALENDAR_SELECTOR.SIDEBAR_CONTAINER,
+  )
+  if (existingSidebar) {
+    existingSidebar.replaceWith(sidebar)
+  } else {
+    sidebarContainer.append(sidebar)
+  }
 }

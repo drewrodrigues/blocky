@@ -1,23 +1,23 @@
-import { SELECTOR } from './selectors'
+import { CALENDAR_SELECTOR } from './selectors'
 import { getElementOrThrow, getElementsOrThrow, sleep } from './utils'
 
 async function _createEventOnModal(title: string, calendar: string) {
   try {
     const titleInput = getElementOrThrow<HTMLInputElement>(
-      SELECTOR.MODAL_TITLE_INPUT,
+      CALENDAR_SELECTOR.MODAL_TITLE_INPUT,
     )
     titleInput.value = title
     titleInput.click()
 
     const calendarSelectionButton = getElementOrThrow<HTMLButtonElement>(
-      SELECTOR.CALENDAR_OPTION_BUTTON,
+      CALENDAR_SELECTOR.CALENDAR_OPTION_BUTTON,
     )
     calendarSelectionButton.click()
 
     await sleep(500) // wait for dropdown to open
 
     const calendarOptions = getElementsOrThrow<HTMLButtonElement>(
-      SELECTOR.CALENDAR_OPTION,
+      CALENDAR_SELECTOR.CALENDAR_OPTION,
     )
     for (const element of calendarOptions) {
       const dropdownText = element.textContent
@@ -25,7 +25,7 @@ async function _createEventOnModal(title: string, calendar: string) {
         element.click()
         await sleep(250)
         // save
-        const saveButton = getElementOrThrow(SELECTOR.SAVE_BUTTON)
+        const saveButton = getElementOrThrow(CALENDAR_SELECTOR.SAVE_BUTTON)
         saveButton.click()
         await sleep(250)
         window.isCreatingEvent = false
@@ -41,10 +41,11 @@ async function _createEventOnModal(title: string, calendar: string) {
 
 export function listenForModalOpen() {
   setInterval(() => {
-    const container = document.querySelector(SELECTOR.MODAL)
+    const modalFound = document.querySelector(CALENDAR_SELECTOR.MODAL)
     const { selectedButton, isCreatingEvent } = window
 
-    if (container && selectedButton && !isCreatingEvent) {
+    const shouldCreateBlock = modalFound && selectedButton && !isCreatingEvent
+    if (shouldCreateBlock) {
       window.isCreatingEvent = true
       _createEventOnModal(selectedButton.title, selectedButton.calendar)
     }
