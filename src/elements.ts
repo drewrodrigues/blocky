@@ -74,7 +74,8 @@ export function SavedBlocks() {
     const block = document.createElement('button')
     block.textContent = savedBlock.title
     block.style.backgroundColor = savedBlock.backgroundColor
-    block.oncontextmenu = () => {
+    block.oncontextmenu = (e) => {
+      e.preventDefault()
       removeSavedBlock(savedBlock)
     }
 

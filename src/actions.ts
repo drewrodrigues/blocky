@@ -1,3 +1,4 @@
+import { LOCAL_STORAGE_SAVED_BLOCKS } from './consts'
 import { SavedBlocks } from './elements'
 import { CALENDAR_SELECTOR, COMPONENT_SELECTOR } from './selectors'
 import { SavedCalendarBlock } from './types'
@@ -85,12 +86,19 @@ export function addSavedBlock(newBlock: SavedCalendarBlock) {
   window.savedBlocks.push(newBlock)
   const savedBlocksElement = getElementOrThrow(COMPONENT_SELECTOR.SAVED_BLOCKS)
   savedBlocksElement.replaceWith(SavedBlocks()) // re-render
-  // TODO: save to local storage and re-populate too
+  window.localStorage.setItem(
+    LOCAL_STORAGE_SAVED_BLOCKS,
+    JSON.stringify(window.savedBlocks),
+  )
 }
 
 export function removeSavedBlock(removedBlock: SavedCalendarBlock) {
   window.savedBlocks = window.savedBlocks.filter(
     (block) => block !== removedBlock,
+  )
+  window.localStorage.setItem(
+    LOCAL_STORAGE_SAVED_BLOCKS,
+    JSON.stringify(window.savedBlocks),
   )
   const savedBlocksElement = getElementOrThrow(COMPONENT_SELECTOR.SAVED_BLOCKS)
   savedBlocksElement.replaceWith(SavedBlocks())
