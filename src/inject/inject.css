@@ -69,9 +69,12 @@
   align-items: center;
   transition: opacity 250ms, transform 250ms;
   opacity: 0.5;
-
   padding: 0 10px;
   justify-content: flex-start;
+}
+
+.block-button--full {
+  width: 100%;
 }
 
 .block-button span {
@@ -88,6 +91,7 @@
 .block-button.active {
   font-weight: 700;
   opacity: 1;
+  position: relative;
   z-index: 10;
   transform: scale(1.1);
 }

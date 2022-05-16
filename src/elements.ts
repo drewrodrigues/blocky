@@ -74,6 +74,11 @@ export function SavedBlocks() {
     const block = document.createElement('button')
     block.textContent = savedBlock.title
     block.style.backgroundColor = savedBlock.backgroundColor
+    block.classList.add('block-button', 'block-button--full')
+
+    block.onclick = () =>
+      onSelectBlockClick(block, savedBlock.title, savedBlock.calendar)
+
     block.oncontextmenu = (e) => {
       e.preventDefault()
       removeSavedBlock(savedBlock)
