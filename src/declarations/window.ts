@@ -1,9 +1,7 @@
 import {
   ParsedCalendarBlocksByTitle,
   SavedCalendarBlock as SavedBlock,
-} from './types'
-
-export {}
+} from '../types'
 
 declare global {
   interface Window {
@@ -16,5 +14,8 @@ declare global {
     isCreatingEvent: boolean
     generatedBlocks: ParsedCalendarBlocksByTitle
     savedBlocks: SavedBlock[]
+    sidebarToggled: boolean
   }
 }
+
+export {}

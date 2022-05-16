@@ -1,10 +1,31 @@
-import { addSavedBlock, onSelectBlockClick, removeSavedBlock } from './actions'
+import {
+  addSavedBlock,
+  onSelectBlockClick,
+  onToggleSidebar,
+  removeSavedBlock,
+} from './actions'
 import { ParsedCalendarBlockByOccurrence } from './types'
+
+const possibleImageUrl = chrome.runtime.getURL('src/icons/icon48.png')
+console.log({ possibleImageUrl })
 
 export function Sidebar() {
   const sidebar = document.createElement('aside')
   sidebar.classList.add('sidebar')
   return sidebar
+}
+
+export function Toggle() {
+  const toggleButton = document.createElement('button')
+  toggleButton.classList.add('toggle-button')
+
+  toggleButton.onclick = () => onToggleSidebar(toggleButton)
+
+  const icon = document.createElement('img')
+  icon.src = possibleImageUrl
+  toggleButton.append(icon)
+
+  return toggleButton
 }
 
 function Section(title: string, subtitle: string) {

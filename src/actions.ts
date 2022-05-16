@@ -103,3 +103,16 @@ export function removeSavedBlock(removedBlock: SavedCalendarBlock) {
   const savedBlocksElement = getElementOrThrow(COMPONENT_SELECTOR.SAVED_BLOCKS)
   savedBlocksElement.replaceWith(SavedBlocks())
 }
+
+export function onToggleSidebar(button: HTMLButtonElement) {
+  const newToggledState = !window.sidebarToggled
+  window.sidebarToggled = newToggledState
+
+  if (newToggledState) {
+    getElementOrThrow(COMPONENT_SELECTOR.SIDEBAR).style.display = 'flex'
+    button.classList.remove('toggle-button--closed')
+  } else {
+    getElementOrThrow(COMPONENT_SELECTOR.SIDEBAR).style.display = 'none'
+    button.classList.add('toggle-button--closed')
+  }
+}
