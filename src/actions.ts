@@ -1,4 +1,7 @@
-import { LOCAL_STORAGE_SAVED_BLOCKS } from './consts'
+import {
+  LOCAL_STORAGE_SAVED_BLOCKS,
+  LOCAL_STORAGE_SIDEBAR_TOGGLED,
+} from './consts'
 import { SavedBlocks } from './elements'
 import { CALENDAR_SELECTOR, COMPONENT_SELECTOR } from './selectors'
 import { SavedCalendarBlock } from './types'
@@ -111,8 +114,10 @@ export function onToggleSidebar(button: HTMLButtonElement) {
   if (newToggledState) {
     getElementOrThrow(COMPONENT_SELECTOR.SIDEBAR).style.display = 'flex'
     button.classList.remove('toggle-button--closed')
+    window.localStorage.setItem(LOCAL_STORAGE_SIDEBAR_TOGGLED, 'true')
   } else {
     getElementOrThrow(COMPONENT_SELECTOR.SIDEBAR).style.display = 'none'
     button.classList.add('toggle-button--closed')
+    window.localStorage.setItem(LOCAL_STORAGE_SIDEBAR_TOGGLED, 'false')
   }
 }

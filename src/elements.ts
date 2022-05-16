@@ -4,6 +4,7 @@ import {
   onToggleSidebar,
   removeSavedBlock,
 } from './actions'
+import { LOCAL_STORAGE_SAVED_BLOCKS } from './consts'
 import { ParsedCalendarBlockByOccurrence } from './types'
 
 const possibleImageUrl = chrome.runtime.getURL('src/icons/icon48.png')

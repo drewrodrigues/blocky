@@ -4,7 +4,10 @@ import './elements'
 import { GeneratedBlocks, SavedBlocks, Sidebar, Toggle } from './elements'
 import { CALENDAR_SELECTOR } from './selectors'
 import { getElementOrThrow } from './utils'
-import { LOCAL_STORAGE_SAVED_BLOCKS } from './consts'
+import {
+  LOCAL_STORAGE_SAVED_BLOCKS,
+  LOCAL_STORAGE_SIDEBAR_TOGGLED,
+} from './consts'
 
 window.selectedButton = undefined
 window.isCreatingEvent = false
@@ -25,10 +28,11 @@ const readyStateCheckInterval = setInterval(async function () {
   if (document.readyState === 'complete') {
     clearInterval(readyStateCheckInterval)
 
-    _renderToggle()
+    const toggle = _renderToggle()
     const sidebar = _renderSidebar()
     sidebar.append(SavedBlocks())
     sidebar.append(GeneratedBlocks([]))
+    _setInitialToggleAndSidebarVisibility(sidebar, toggle)
     // TODO: analysis
     listenToViewAndGenerateBlocks()
     listenForModalThenMaybeCreateBlock()
@@ -37,7 +41,10 @@ const readyStateCheckInterval = setInterval(async function () {
 
 function _renderToggle() {
   const toggleButton = Toggle()
+
   getElementOrThrow(CALENDAR_SELECTOR.SIDEBAR_CONTAINER).append(toggleButton)
+
+  return toggleButton
 }
 
 function _renderSidebar() {
@@ -49,4 +56,17 @@ function _renderSidebar() {
   sidebarContainer.append(sidebar)
 
   return sidebar
+}
+
+function _setInitialToggleAndSidebarVisibility(
+  sidebar: HTMLElement,
+  toggleButton: HTMLElement,
+) {
+  const isSidebarInitiallyClosed =
+    window.localStorage.getItem(LOCAL_STORAGE_SIDEBAR_TOGGLED) === 'false'
+
+  if (isSidebarInitiallyClosed) {
+    sidebar.style.display = 'none'
+    toggleButton.classList.add('toggle-button--closed')
+  }
 }
