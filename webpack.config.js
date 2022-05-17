@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: './src/plugin/index.ts',
   devtool: 'inline-source-map',
   module: {
     rules: [
@@ -14,7 +14,7 @@ module.exports = {
         test: /\.(png|jpe?g|gif)$/i,
         loader: 'file-loader',
         options: {
-          publicPath: '../src/icons',
+          publicPath: './src/plugin/icons',
         },
       },
     ],
