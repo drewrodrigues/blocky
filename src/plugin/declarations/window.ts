@@ -1,7 +1,7 @@
 import {
   ParsedCalendarBlocksByTitle,
   SavedCalendarBlock as SavedBlock,
-} from '../types'
+} from '../../types'
 
 declare global {
   interface Window {

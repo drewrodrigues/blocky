@@ -4,16 +4,16 @@
   "manifest_version": 3,
   "description": "Easily create time blocks in Google Calendar.",
   "icons": {
-    "16": "src/icons/icon16.png",
-    "48": "src/icons/icon48.png",
-    "128": "src/icons/icon128.png"
+    "16": "src/plugin/icons/icon16.png",
+    "48": "src/plugin/icons/icon48.png",
+    "128": "src/plugin/icons/icon128.png"
   },
   "default_locale": "en",
   "host_permissions": ["https://calendar.google.com/*"],
   "content_scripts": [
     {
       "matches": ["https://calendar.google.com/calendar*"],
-      "css": ["src/_style.css"],
+      "css": ["src/plugin/_style.css"],
       "js": ["dist/bundle.js"]
     }
   ],
