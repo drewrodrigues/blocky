@@ -20,7 +20,7 @@
     "plugin:build:watch": "webpack build --watch",
     "website:start": "concurrently 'npm run _website:styles' 'npm run _website:server'",
     "_plugin:build": "webpack build",
-    "_website:styles": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "_website:styles": "npx tailwindcss -i ./src/website/landing.css -o ./src/website/landing_after.css --watch",
     "_website:server": "live-server --watch=src/website --open=src/website --entry-file=src/website/landing.html"
   },
   "private": true,

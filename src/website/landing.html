@@ -6,11 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blocky</title>
     <link rel="stylesheet" href="./_reset.css" />
-    <link rel="stylesheet" href="./landing.css" />
+    <link rel="stylesheet" href="./landing_after.css" />
   </head>
-  <body>
-    <header class="bg-blue-300">
-      <h1>Blocky</h1>
+  <body class="text-[#444]">
+    <header
+      class="flex justify-between container max-w-[1000px] m-auto p-[20px]"
+    >
+      <h1 class="font-bold flex items-center">
+        <img
+          src="./icon.png"
+          alt="Blocky Icon"
+          class="w-[30px] h-[30px] block"
+        />
+
+        <span class="ml-[5px] inline-block">Blocky</span>
+      </h1>
+
+      <nav class="text-sm">
+        <a href="#">Features</a>
+        <a href="#">About</a>
+        <a href="">Download</a>
+      </nav>
     </header>
+
+    <section
+      class="container m-auto p-[20px] max-w-[1000px] flex justify-between items-center"
+    >
+      <main>
+        <h2 class="text-[2.5rem] font-bold leading-[1] mb-[20px]">
+          Easily create time blocks in Google Calendar
+        </h2>
+        <p class="mb-[20px]">Yea, it's really that simple</p>
+        <button class="bg-[#A8E9FF] text- px-[10px] py-[5px] rounded-[5px]">
+          Get the Chrome Plugin
+        </button>
+      </main>
+
+      <aside>
+        <img
+          src="./site.png"
+          alt="Screenshot of Blocky plugin"
+          class="max-w-[500px] mr-[-17px] rounded-[10px] border-solid border-[#dedede] border-[1px]"
+        />
+      </aside>
+    </section>
   </body>
 </html>
