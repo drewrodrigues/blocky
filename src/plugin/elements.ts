@@ -4,11 +4,9 @@ import {
   onToggleSidebar,
   removeSavedBlock,
 } from './actions'
-import { LOCAL_STORAGE_SAVED_BLOCKS } from './consts'
 import { ParsedCalendarBlockByOccurrence } from './types'
 
-const possibleImageUrl = chrome.runtime.getURL('src/icons/icon48.png')
-console.log({ possibleImageUrl })
+const iconUrl = chrome.runtime.getURL('src/plugin/icons/icon48.png')
 
 export function Sidebar() {
   const sidebar = document.createElement('aside')
@@ -23,7 +21,7 @@ export function Toggle() {
   toggleButton.onclick = () => onToggleSidebar(toggleButton)
 
   const icon = document.createElement('img')
-  icon.src = possibleImageUrl
+  icon.src = iconUrl
   toggleButton.append(icon)
 
   return toggleButton
