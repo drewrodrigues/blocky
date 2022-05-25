@@ -17,10 +17,15 @@
     "webpack-cli": "^4.9.2"
   },
   "scripts": {
+    "_": "Run Scripts",
     "plugin:build:watch": "webpack build --watch",
-    "website:start": "concurrently 'npm run _website:styles' 'npm run _website:server'",
-    "_plugin:build": "webpack build",
-    "_website:styles": "npx tailwindcss -i ./src/website/landing.css -o ./src/website/landing_after.css --watch",
+    "website:start": "concurrently 'npm run _website:styles:watch' 'npm run _website:server'",
+    "__": "Build Scripts",
+    "website:build": "npm run _websites:styles:build",
+    "plugin:build": "webpack build",
+    "___": "Helper Scripts",
+    "_website:styles:build": "npx tailwindcss -i ./src/website/landing.css -o ./src/website/landing_after.css",
+    "_website:styles:watch": "npm run _website:styles:build --watch",
     "_website:server": "live-server --watch=src/website --open=src/website --entry-file=src/website/landing.html"
   },
   "private": true,
