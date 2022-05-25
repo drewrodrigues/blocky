@@ -19,14 +19,14 @@
   "scripts": {
     "_": "Run Scripts",
     "plugin:build:watch": "webpack build --watch",
-    "website:start": "concurrently 'npm run _website:styles:watch' 'npm run _website:server'",
+    "website:start": "concurrently 'npm run _website:server' 'npm run _website:styles:watch'",
     "__": "Build Scripts",
     "website:build": "npm run _websites:styles:build",
     "plugin:build": "webpack build",
     "___": "Helper Scripts",
     "_website:styles:build": "npx tailwindcss -i ./src/website/index.css -o ./src/website/index_after.css",
-    "_website:styles:watch": "npm run _website:styles:build --watch",
-    "_website:server": "live-server --watch=src/website --open=src/website --entry-file=src/website/index.html"
+    "_website:styles:watch": "npx tailwindcss -i ./src/website/index.css -o ./src/website/index_after.css --watch",
+    "_website:server": "live-server --no-css-inject --watch=src/website --open=src/website --entry-file=src/website/index.html"
   },
   "private": true,
   "author": "Drew Rodrigues"
