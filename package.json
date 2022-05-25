@@ -24,9 +24,9 @@
     "website:build": "npm run _websites:styles:build",
     "plugin:build": "webpack build",
     "___": "Helper Scripts",
-    "_website:styles:build": "npx tailwindcss -i ./src/website/landing.css -o ./src/website/landing_after.css",
+    "_website:styles:build": "npx tailwindcss -i ./src/website/index.css -o ./src/website/index_after.css",
     "_website:styles:watch": "npm run _website:styles:build --watch",
-    "_website:server": "live-server --watch=src/website --open=src/website --entry-file=src/website/landing.html"
+    "_website:server": "live-server --watch=src/website --open=src/website --entry-file=src/website/index.html"
   },
   "private": true,
   "author": "Drew Rodrigues"
