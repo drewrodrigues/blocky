@@ -21,7 +21,7 @@
     "plugin:build:watch": "webpack build --watch",
     "website:start": "concurrently 'npm run _website:server' 'npm run _website:styles:watch'",
     "__": "Build Scripts",
-    "website:build": "npm run _websites:styles:build",
+    "website:build": "npm run _website:styles:build",
     "plugin:build": "webpack build",
     "___": "Helper Scripts",
     "_website:styles:build": "npx tailwindcss -i ./src/website/index.css -o ./src/website/index_after.css",
