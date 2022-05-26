@@ -1,4 +1,5 @@
 const path = require('path')
+const CopyPlugin = require('copy-webpack-plugin')
 
 console.log(`Building in mode: ${process.env.ENV}`)
 
@@ -25,6 +26,15 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: 'src/plugin/icons/*', to: 'icons' },
+        path.resolve(__dirname, 'src', 'plugin', '_style.css'),
+        path.resolve(__dirname, 'manifest.json'),
+      ],
+    }),
+  ],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
