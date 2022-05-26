@@ -1,8 +1,11 @@
 const path = require('path')
 
+console.log(`Building in mode: ${process.env.ENV}`)
+
 module.exports = {
+  mode: process.env.ENV === 'prod' ? 'production' : 'development',
   entry: './src/plugin/index.ts',
-  devtool: 'inline-source-map',
+  devtool: process.env.ENV === 'prod' ? 'source-map' : 'inline-source-map',
   module: {
     rules: [
       {
@@ -26,5 +29,4 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  mode: 'development',
 }
