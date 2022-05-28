@@ -35,7 +35,7 @@ module.exports = {
             return 'icons/[name][ext]'
           },
         },
-        path.resolve(__dirname, 'src', 'plugin', '_style.css'),
+        path.resolve(__dirname, 'src', 'plugin', 'style.css'),
         path.resolve(__dirname, 'manifest.json'),
       ],
     }),
