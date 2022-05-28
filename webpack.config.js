@@ -29,7 +29,12 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: 'src/plugin/icons/*', to: 'icons' },
+        {
+          from: 'src/plugin/icons/*',
+          to() {
+            return 'icons/[name][ext]'
+          },
+        },
         path.resolve(__dirname, 'src', 'plugin', '_style.css'),
         path.resolve(__dirname, 'manifest.json'),
       ],
