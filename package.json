@@ -3,9 +3,12 @@
   "version": "0.0.1",
   "description": "",
   "dependencies": {
-    "@types/chrome": "0.0.185"
+    "@types/chrome": "0.0.185",
+    "express": "^4.18.1"
   },
   "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.36",
     "concurrently": "^7.2.0",
     "copy-webpack-plugin": "^11.0.0",
     "file-loader": "^6.2.0",
@@ -13,25 +16,29 @@
     "prettier": "^2.6.2",
     "tailwindcss": "^3.0.24",
     "ts-loader": "^9.3.0",
+    "ts-node": "^10.8.0",
     "typescript": "^4.6.4",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2"
   },
   "scripts": {
-    "_": "Run Scripts",
+    "_": "Dev Run Scripts",
     "plugin:build:watch": "webpack build --watch",
-    "website:start": "concurrently 'npm run _website:server' 'npm run _website:styles:watch'",
+    "server:start:watch": "ts-node --project tsconfig.server.json src/server/index.ts",
+    "website:start:watch": "concurrently 'npm run _website:server' 'npm run _website:styles:watch'",
     "__": "Build Scripts",
     "website:build": "npm run _website:styles:build",
     "plugin:build": "ENV=dev webpack build",
     "plugin:build:prod": "ENV=prod webpack build",
-    "___": "Runtime Scripts",
+    "___": "Dev Runtime Scripts",
     "_website:styles:build": "npx tailwindcss -i ./src/website/index.css -o ./src/website/index_after.css",
     "_website:styles:watch": "npx tailwindcss -i ./src/website/index.css -o ./src/website/index_after.css --watch",
     "_website:server": "live-server --no-css-inject --watch=src/website --open=src/website --entry-file=src/website/index.html",
     "____": "Packaging Scripts",
     "prepack": "rm -f Blocky.zip && rm -rf dist*",
-    "pack": "npm run plugin:build:prod && zip -r Blocky.zip dist"
+    "pack": "npm run plugin:build:prod && zip -r Blocky.zip dist",
+    "_____": "Prod Scripts",
+    "server:start": "node src/server/index.ts"
   },
   "private": true,
   "author": "Drew Rodrigues"
