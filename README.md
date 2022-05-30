@@ -1,7 +1,6 @@
-# 0.2.0
+# Server
 
-- Saved blocks
+The server is responsible for:
 
-# 0.1.0
-
-- Generated blocks from view
+- Handling DB connection & saving blocks
+- Making requests to the Stripe API (to check subscription status)
