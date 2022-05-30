@@ -16,9 +16,9 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif)$/i,
         loader: 'file-loader',
-        options: {
-          publicPath: './src/icons',
-        },
+        // options: {
+        //   publicPath: './src/icons',
+        // },
       },
       {
         test: /\.css$/i,

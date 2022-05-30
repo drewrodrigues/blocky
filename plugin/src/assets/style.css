@@ -5,3 +5,7 @@
 body {
   background-color: red !important;
 }
+
+* {
+  box-sizing: border-box;
+}
