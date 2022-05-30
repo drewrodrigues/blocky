@@ -1,7 +1,8 @@
 {
+  "include": ["src/server/index.ts"],
   "compilerOptions": {
     "sourceMap": true,
-    "outDir": "./dist/",
+    "outDir": "./distServer/",
     "noImplicitAny": true,
     "module": "CommonJS",
     "target": "ES6",

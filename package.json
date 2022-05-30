@@ -38,6 +38,7 @@
     "prepack": "rm -f Blocky.zip && rm -rf dist*",
     "pack": "npm run plugin:build:prod && zip -r Blocky.zip dist",
     "_____": "Prod Scripts",
+    "server:build": "tsc --project tsconfig.server.json",
     "server:start": "node src/server/index.ts"
   },
   "private": true,
