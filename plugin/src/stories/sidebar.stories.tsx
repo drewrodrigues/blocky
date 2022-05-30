@@ -1,6 +1,7 @@
 import React from 'react'
 import { ComponentMeta } from '@storybook/react'
 import { Sidebar } from '../components/sidebar/index'
+import { EmptyPlaceholder } from '../components/placeholder/EmptyPlaceholder'
 
 export default {
   title: 'Sidebar',
@@ -14,11 +15,22 @@ export const sidebar = () => (
         title="Saved Blocks"
         titleCount={20}
         subtitle="Some Subtitle Goes Here"
-      ></Sidebar.Section>
+      >
+        <EmptyPlaceholder
+          title="No Saved Blocks Yet"
+          suggestion="Right click on a generated block to save it."
+        />
+      </Sidebar.Section>
       <Sidebar.Section
         title="Generated Blocks"
+        titleCount={40}
         subtitle="Some Subtitle Goes Here"
-      ></Sidebar.Section>
+      >
+        <EmptyPlaceholder
+          title="No Generated Blocks Yet"
+          suggestion="Navigate through days where you have existing events to generate blocks."
+        />
+      </Sidebar.Section>
       <Sidebar.Toggle />
     </Sidebar.Container>
   </div>

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { Sidebar } from './components/sidebar'
 import { CALENDAR_SELECTOR } from './utils/selectors'
 import './assets/style.css'
+import { EmptyPlaceholder } from './components/placeholder/EmptyPlaceholder'
 
 export function Plugin() {
   const [savedBlocks, setSavedBlocks] = useState([])
@@ -10,9 +11,19 @@ export function Plugin() {
 
   return (
     <Sidebar.Container>
-      <Sidebar.Section title="Saved Blocks"></Sidebar.Section>
+      <Sidebar.Section title="Saved Blocks" subtitle="Try something">
+        <EmptyPlaceholder
+          title="No Saved Blocks Yet"
+          suggestion="Try right clicking on a generated block"
+        />
+      </Sidebar.Section>
 
-      <Sidebar.Section title="Generated Blocks"></Sidebar.Section>
+      <Sidebar.Section title="Generated Blocks" subtitle="Try something">
+        <EmptyPlaceholder
+          title="No Saved Blocks Yet"
+          suggestion="Try right clicking on a generated block"
+        />
+      </Sidebar.Section>
 
       <Sidebar.Toggle />
     </Sidebar.Container>

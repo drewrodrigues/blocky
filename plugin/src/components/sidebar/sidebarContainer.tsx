@@ -6,7 +6,7 @@ interface Props {
 
 export function SidebarContainer(props: Props) {
   return (
-    <aside className="border p-[20px] w-[300px] box-border border-grey-light text-grey-dark h-[100vh] relative">
+    <aside className="border p-[20px] w-[300px] box-border border-grey-light text-grey-dark h-[100vh] relative flex flex-col">
       {props.children}
     </aside>
   )
