@@ -7,10 +7,6 @@ export function Plugin() {
   const [savedBlocks, setSavedBlocks] = useState([])
   const [generatedBlocks, setGeneratedBlocks] = useState([])
 
-  useEffect(() => {
-    console.log('Run it')
-  }, [])
-
   return (
     <Sidebar.Container>
       <Sidebar.Section title="Saved Blocks"></Sidebar.Section>

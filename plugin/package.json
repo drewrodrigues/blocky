@@ -7,15 +7,27 @@
     "prepackage": "rm -f Blocky.zip",
     "package": "ENV=production webpack build",
     "postpackage": "zip -r Blocky.zip dist",
-    "start": "ENV=development webpack build --watch"
+    "start": "ENV=development webpack build --watch",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@storybook/addon-actions": "^6.5.6",
+    "@storybook/addon-essentials": "^6.5.6",
+    "@storybook/addon-interactions": "^6.5.6",
+    "@storybook/addon-links": "^6.5.6",
+    "@storybook/builder-webpack5": "^6.5.6",
+    "@storybook/manager-webpack5": "^6.5.6",
+    "@storybook/react": "^6.5.6",
+    "@storybook/testing-library": "0.0.11",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
+    "babel-loader": "^8.2.5",
     "copy-webpack-plugin": "^11.0.0",
     "typescript": "^4.6.4",
     "webpack": "^5.72.1",
