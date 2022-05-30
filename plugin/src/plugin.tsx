@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Sidebar } from './components/sidebar'
 import { CALENDAR_SELECTOR } from './utils/selectors'
+import './assets/style.css'
 
 export function Plugin() {
   const [savedBlocks, setSavedBlocks] = useState([])

@@ -1,5 +1,6 @@
 const CopyPlugin = require('copy-webpack-plugin')
 const path = require('path')
+const TailwindPlugin = require('tailwindcss')
 
 module.exports = {
   mode: process.env.ENV === 'prod' ? 'production' : 'development',
@@ -19,6 +20,21 @@ module.exports = {
           publicPath: './src/icons',
         },
       },
+      {
+        test: /\.css$/i,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [TailwindPlugin],
+              },
+            },
+          },
+        ],
+      },
     ],
   },
   resolve: {
@@ -33,7 +49,6 @@ module.exports = {
             return 'icons/[name][ext]'
           },
         },
-        path.resolve(__dirname, 'src', 'styles', 'style.css'),
         path.resolve(__dirname, 'manifest.json'),
       ],
     }),
