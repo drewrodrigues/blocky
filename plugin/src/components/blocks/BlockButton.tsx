@@ -8,9 +8,15 @@ interface Props extends Pick<Block, 'backgroundColor' | 'title'> {
   isHighlighted?: boolean
   isLoading?: boolean
   onClick?: () => void
+  onRightClick?: () => void
 }
 
 export function BlockButton(props: Props) {
+  function _onRightClick(e: React.MouseEvent) {
+    e.preventDefault()
+    props.onRightClick?.()
+  }
+
   return (
     <button
       className={clsx(
@@ -23,6 +29,7 @@ export function BlockButton(props: Props) {
         backgroundColor: props.backgroundColor,
       }}
       onClick={props.onClick}
+      onContextMenu={_onRightClick}
     >
       <span>{props.title}</span>
       {props.isLoading && (
