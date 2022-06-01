@@ -1,37 +1,36 @@
-import React from 'react'
 import { ComponentMeta } from '@storybook/react'
-import { Sidebar } from '../components/sidebar/index'
-import { EmptyPlaceholder } from '../components/placeholder/EmptyPlaceholder'
+import React from 'react'
+import { Sidebar, _Sidebar } from '../components/sidebar/index'
+import { Block } from '../utils/types'
 
 export default {
   title: 'Sidebar',
-  component: Sidebar,
-} as ComponentMeta<typeof Sidebar>
+  component: _Sidebar,
+} as ComponentMeta<typeof _Sidebar>
 
-export const sidebar = () => (
+export const emptyStates = () => (
   <div className="flex justify-end">
-    <Sidebar.Container>
-      <Sidebar.Section
-        title="Saved Blocks"
-        titleCount={20}
-        subtitle="Some Subtitle Goes Here"
-      >
-        <EmptyPlaceholder
-          title="No Saved Blocks Yet"
-          suggestion="Right click on a generated block to save it."
-        />
-      </Sidebar.Section>
-      <Sidebar.Section
-        title="Generated Blocks"
-        titleCount={40}
-        subtitle="Some Subtitle Goes Here"
-      >
-        <EmptyPlaceholder
-          title="No Generated Blocks Yet"
-          suggestion="Navigate through days where you have existing events to generate blocks."
-        />
-      </Sidebar.Section>
-      <Sidebar.Toggle />
-    </Sidebar.Container>
+    <Sidebar generatedBlocks={[]} savedBlocks={[]} />
   </div>
 )
+
+export const withBlocks = () => (
+  <div className="flex justify-end">
+    <Sidebar savedBlocks={SAVED_BLOCKS_FIXTURE} generatedBlocks={[]} />
+  </div>
+)
+
+const SAVED_BLOCKS_FIXTURE: Block[] = [
+  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
+  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
+  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
+  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
+  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
+  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
+  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
+  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
+  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
+  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
+  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
+  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
+]
