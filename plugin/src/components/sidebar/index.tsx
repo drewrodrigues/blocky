@@ -47,7 +47,7 @@ export function Sidebar(props: Props) {
           <SavedBlocks blocks={props.savedBlocks} />
         ) : (
           <EmptyPlaceholder
-            title="No Saved Blocks Yet"
+            title="No Saved Blocks Yet"
             suggestion="Right click on a generated block to save it."
           />
         )}
@@ -58,7 +58,11 @@ export function Sidebar(props: Props) {
         titleCount={props.generatedBlocks.length}
       >
         {props.generatedBlocks.length ? (
-          <GeneratedBlocks blocks={props.generatedBlocks} />
+          <GeneratedBlocks
+            blocks={props.generatedBlocks}
+            onClick={props.onSelectBlock}
+            selectedBlock={props.selectedBlock}
+          />
         ) : (
           <EmptyPlaceholder
             title="No Generated Blocks Yet"

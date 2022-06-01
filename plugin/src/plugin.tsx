@@ -21,12 +21,21 @@ export function Plugin() {
     })
   }, [])
 
+  function onSetSelectedBlock(block: Block) {
+    const isBlockAlreadySelected = block.title === selectedBlock?.title
+    if (isBlockAlreadySelected) {
+      setSelectedBlock(undefined)
+    } else {
+      setSelectedBlock(block)
+    }
+  }
+
   return (
     <Sidebar
       savedBlocks={savedBlocks}
       generatedBlocks={Object.values(generatedBlocks)}
       selectedBlock={selectedBlock}
-      onSelectBlock={(block) => setSelectedBlock(block)}
+      onSelectBlock={onSetSelectedBlock}
     />
   )
 }
