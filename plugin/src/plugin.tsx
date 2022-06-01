@@ -7,6 +7,8 @@ import { listenToViewAndGenerateBlocks } from './utils/generatedBlocksParser'
 import { Block, ParsedCalendarBlocksByTitle } from './utils/types'
 import { listenForModalOpen } from './utils/modalListener'
 
+// TODO: don't allow blocks to show up in both saved & generated
+
 export function Plugin() {
   const [savedBlocks, setSavedBlocks] = useState<ParsedCalendarBlocksByTitle>(
     {},
@@ -19,7 +21,7 @@ export function Plugin() {
   const isCreatingEvent = useRef(false)
 
   useEffect(() => {
-    // ! don't force a re-render unless it's needed
+    // ! don't force a re-render unless it's needed -- do a diff here
     const viewListener = listenToViewAndGenerateBlocks({
       isCreatingEvent,
       onUpdate: (blocks) => {
@@ -50,6 +52,7 @@ export function Plugin() {
   }, [selectedBlock])
 
   function onSetSelectedBlock(block: Block) {
+    // ! improve selection logic (flawed & can allow blocks across panels to be selected)
     const isBlockAlreadySelected = block.title === selectedBlock?.title
     if (isBlockAlreadySelected) {
       setSelectedBlock(undefined)
