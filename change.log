@@ -1,7 +1,10 @@
-# 0.2.0
+# 0.2.1
+- Updated UI
+- Migrated to React for dev loop
+- Likely broke website webpack setup
 
+# 0.2.0
 - Saved blocks
 
 # 0.1.0
-
 - Generated blocks from view
