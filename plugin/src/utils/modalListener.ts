@@ -8,14 +8,15 @@ export function listenForModalOpen({
   isCreatingEvent,
   onIsCreatingEvent,
 }: {
-  selectedBlock: Block
-  isCreatingEvent: boolean
+  isCreatingEvent: React.MutableRefObject<boolean>
   onIsCreatingEvent: (isCreatingEvent: boolean) => void
-}) {
-  setInterval(() => {
+  selectedBlock?: Block
+}): NodeJS.Timer {
+  return setInterval(() => {
     const modalFound = document.querySelector(CALENDAR_SELECTOR.MODAL)
 
-    const shouldCreateBlock = modalFound && selectedBlock && !isCreatingEvent
+    const shouldCreateBlock =
+      modalFound && selectedBlock && !isCreatingEvent.current
     if (shouldCreateBlock) {
       onIsCreatingEvent(true)
       _createEventOnModal({
@@ -33,8 +34,8 @@ async function _createEventOnModal({
   onIsCreatingEvent,
 }: {
   title: string
-  calendar?: string
   onIsCreatingEvent: (isCreatingEvent: boolean) => void
+  calendar?: string
 }) {
   try {
     const titleInput = getElementOrThrow<HTMLInputElement>(

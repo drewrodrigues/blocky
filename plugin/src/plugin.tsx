@@ -5,6 +5,7 @@ import { CALENDAR_SELECTOR } from './utils/consts'
 import './assets/style.css'
 import { listenToViewAndGenerateBlocks } from './utils/generatedBlocksParser'
 import { Block, ParsedCalendarBlocksByTitle } from './utils/types'
+import { listenForModalOpen } from './utils/modalListener'
 
 export function Plugin() {
   const [savedBlocks, setSavedBlocks] = useState([])
@@ -12,14 +13,39 @@ export function Plugin() {
     useState<ParsedCalendarBlocksByTitle>({})
   const [selectedBlock, setSelectedBlock] = useState<Block>()
 
+  // to temporarily stop listeners while modal is open
+  const isCreatingEvent = useRef(false)
+
   useEffect(() => {
-    listenToViewAndGenerateBlocks((blocks) => {
-      setGeneratedBlocks((existingBlocks) => ({
-        ...existingBlocks,
-        ...blocks,
-      }))
+    // ! don't force a re-render unless it's needed
+    const viewListener = listenToViewAndGenerateBlocks({
+      isCreatingEvent,
+      onUpdate: (blocks) => {
+        setGeneratedBlocks((existingBlocks) => ({
+          ...existingBlocks,
+          ...blocks,
+        }))
+      },
     })
+
+    return () => {
+      clearInterval(viewListener)
+    }
   }, [])
+
+  useEffect(() => {
+    const modalListener = listenForModalOpen({
+      isCreatingEvent: isCreatingEvent,
+      selectedBlock,
+      onIsCreatingEvent: (_isCreatingEvent) => {
+        isCreatingEvent.current = _isCreatingEvent
+      },
+    })
+
+    return () => {
+      clearInterval(modalListener)
+    }
+  }, [selectedBlock])
 
   function onSetSelectedBlock(block: Block) {
     const isBlockAlreadySelected = block.title === selectedBlock?.title

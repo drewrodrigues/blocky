@@ -2,12 +2,18 @@ import { CALENDAR_SELECTOR } from './consts'
 import { Block, ParsedCalendarBlocksByTitle } from './types'
 import { getElementsOrThrow } from './domAccess'
 
-export function listenToViewAndGenerateBlocks(
-  onUpdate: (blocks: ParsedCalendarBlocksByTitle) => void,
-) {
-  setInterval(() => {
-    const blocksFoundInView = _getFullDetailsFromAllBlocks()
-    onUpdate(blocksFoundInView)
+export function listenToViewAndGenerateBlocks({
+  isCreatingEvent,
+  onUpdate,
+}: {
+  isCreatingEvent: React.MutableRefObject<boolean>
+  onUpdate: (blocks: ParsedCalendarBlocksByTitle) => void
+}) {
+  return setInterval(() => {
+    if (!isCreatingEvent.current) {
+      const blocksFoundInView = _getFullDetailsFromAllBlocks()
+      onUpdate(blocksFoundInView)
+    }
   }, 1000)
 }
 
