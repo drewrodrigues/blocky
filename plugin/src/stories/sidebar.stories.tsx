@@ -14,9 +14,18 @@ export const emptyStates = () => (
   </div>
 )
 
-export const withBlocks = () => (
+export const withSavedBlocks = () => (
   <div className="flex justify-end">
     <Sidebar savedBlocks={SAVED_BLOCKS_FIXTURE} generatedBlocks={[]} />
+  </div>
+)
+
+export const withBothBlocks = () => (
+  <div className="flex justify-end">
+    <Sidebar
+      savedBlocks={SAVED_BLOCKS_FIXTURE}
+      generatedBlocks={SAVED_BLOCKS_FIXTURE}
+    />
   </div>
 )
 

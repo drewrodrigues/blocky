@@ -27,6 +27,9 @@ interface Props {
 }
 
 export function Sidebar(props: Props) {
+  const savedBlockCount = props.savedBlocks.length
+  const generatedBlockCount = props.generatedBlocks.length
+
   return (
     <_Sidebar.Container>
       <header className="flex bg-grey-lighter px-[20px] py-[10px] items-center justify-center select-none">
@@ -40,10 +43,14 @@ export function Sidebar(props: Props) {
 
       <_Sidebar.Section
         title="Saved Blocks"
-        subtitle="Some Subtitle Goes Here"
-        titleCount={props.savedBlocks.length}
+        subtitle={
+          savedBlockCount
+            ? 'Right click on saved blocks to un-save them. Right click on generated block to save them.'
+            : undefined
+        }
+        titleCount={savedBlockCount}
       >
-        {props.savedBlocks.length ? (
+        {savedBlockCount ? (
           <SavedBlocks blocks={props.savedBlocks} />
         ) : (
           <EmptyPlaceholder
@@ -54,10 +61,14 @@ export function Sidebar(props: Props) {
       </_Sidebar.Section>
       <_Sidebar.Section
         title="Generated Blocks"
-        subtitle="Some Subtitle Goes Here"
-        titleCount={props.generatedBlocks.length}
+        subtitle={
+          generatedBlockCount
+            ? 'Navigate through calendar days where you have existing events to generate blocks.'
+            : undefined
+        }
+        titleCount={generatedBlockCount}
       >
-        {props.generatedBlocks.length ? (
+        {generatedBlockCount ? (
           <GeneratedBlocks
             blocks={props.generatedBlocks}
             onClick={props.onSelectBlock}
@@ -66,7 +77,7 @@ export function Sidebar(props: Props) {
         ) : (
           <EmptyPlaceholder
             title="No Generated Blocks Yet"
-            suggestion="Navigate through days where you have existing events to generate blocks."
+            suggestion="Navigate through days where you have existing events to generate blocks"
           />
         )}
       </_Sidebar.Section>

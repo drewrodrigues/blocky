@@ -17,7 +17,7 @@ export function SidebarSection(props: Props) {
         </div>
 
         {props.titleCount !== undefined && (
-          <p className="bg-grey-lighter rounded-[3px] text-[10px] h-[22px] min-w-[22px] text-grey-medium flex items-center justify-center p-[5px]">
+          <p className="bg-grey-lighter rounded-[3px] text-[10px] h-[22px] min-w-[22px] text-grey-medium flex items-center justify-center p-[5px] ml-[10px]">
             <span>{props.titleCount}</span>
           </p>
         )}
