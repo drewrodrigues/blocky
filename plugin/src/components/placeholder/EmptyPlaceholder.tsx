@@ -9,7 +9,7 @@ interface Props {
 
 export function EmptyPlaceholder(props: Props) {
   return (
-    <div className="rounded-[10px] text-grey-medium h-[200px] flex items-center justify-center text-[14px] flex-col border border-grey-light p-[25px] text-center flex-grow">
+    <div className="rounded-[10px] text-grey-medium h-[200px] flex items-center justify-center text-[14px] flex-col border border-grey-light p-[25px] text-center flex-grow select-none">
       <FontAwesomeIcon
         icon={faInfoCircle}
         className="mb-[10px] text-[16px] text-[#42D3FC]"
