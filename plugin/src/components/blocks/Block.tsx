@@ -1,5 +1,5 @@
 import React from 'react'
-import { Block } from './savedBlocks'
+import { Block } from '../../utils/types'
 
 export function BlockButton(props: Block) {
   return (
