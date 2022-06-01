@@ -1,6 +1,6 @@
 import { BlockByTitle } from './types'
 
-type CacheFor = 'SavedBlocks' | 'GeneratedBlocks'
+type CacheFor = 'SavedBlocks'
 
 export const getCacheKey = (keyEnding: CacheFor) =>
   `BLOCKY_CACHE_BASE-${keyEnding}`

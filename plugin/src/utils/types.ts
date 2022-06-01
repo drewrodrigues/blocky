@@ -7,4 +7,4 @@ export interface Block {
 export type SavedCalendarBlock = Omit<Block, 'count'>
 
 type title = string
-export type ParsedCalendarBlocksByTitle = Record<title, Block>
+export type BlockByTitle = Record<title, Block>

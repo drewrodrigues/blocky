@@ -1,5 +1,5 @@
 import { CALENDAR_SELECTOR } from './consts'
-import { Block, ParsedCalendarBlocksByTitle } from './types'
+import { Block, BlockByTitle } from './types'
 import { getElementsOrThrow } from './domAccess'
 
 export function listenToViewAndGenerateBlocks({
@@ -7,7 +7,7 @@ export function listenToViewAndGenerateBlocks({
   onUpdate,
 }: {
   isCreatingEvent: React.MutableRefObject<boolean>
-  onUpdate: (blocks: ParsedCalendarBlocksByTitle) => void
+  onUpdate: (blocks: BlockByTitle) => void
 }) {
   return setInterval(() => {
     if (!isCreatingEvent.current) {
@@ -17,12 +17,12 @@ export function listenToViewAndGenerateBlocks({
   }, 1000)
 }
 
-function _getFullDetailsFromAllBlocks(): ParsedCalendarBlocksByTitle {
+function _getFullDetailsFromAllBlocks(): BlockByTitle {
   // '12am to 12:45am, Mary, Calendar: ❤️ Relationships, No location, May 9, 2022'
   const calendarBlock = getElementsOrThrow(
     CALENDAR_SELECTOR.CALENDAR_BLOCK_TO_PARSE,
   )
-  const parsedCalendarBlocks: ParsedCalendarBlocksByTitle = {}
+  const parsedCalendarBlocks: BlockByTitle = {}
 
   for (const block of calendarBlock) {
     // time block can be formatted with ',' at times. So, we'll just remove the whole section
@@ -48,9 +48,7 @@ function _getFullDetailsFromAllBlocks(): ParsedCalendarBlocksByTitle {
   return parsedCalendarBlocks
 }
 
-function _blocksSortedByOccurrences(
-  blocks: ParsedCalendarBlocksByTitle,
-): Block[] {
+function _blocksSortedByOccurrences(blocks: BlockByTitle): Block[] {
   const keys = Object.keys(blocks)
 
   const sortedBlocksTyped: Block[] = []

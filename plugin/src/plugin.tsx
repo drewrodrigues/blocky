@@ -4,17 +4,17 @@ import { Sidebar, _Sidebar } from './components/sidebar'
 import { CALENDAR_SELECTOR } from './utils/consts'
 import './assets/style.css'
 import { listenToViewAndGenerateBlocks } from './utils/generatedBlocksParser'
-import { Block, ParsedCalendarBlocksByTitle } from './utils/types'
+import { Block, BlockByTitle } from './utils/types'
 import { listenForModalOpen } from './utils/modalListener'
+import { cacheBlocks, pullCachedBlocks } from './utils/cache'
 
 // TODO: don't allow blocks to show up in both saved & generated
 
 export function Plugin() {
-  const [savedBlocks, setSavedBlocks] = useState<ParsedCalendarBlocksByTitle>(
-    {},
+  const [savedBlocks, setSavedBlocks] = useState<BlockByTitle>(
+    pullCachedBlocks('SavedBlocks'),
   )
-  const [generatedBlocks, setGeneratedBlocks] =
-    useState<ParsedCalendarBlocksByTitle>({})
+  const [generatedBlocks, setGeneratedBlocks] = useState<BlockByTitle>({})
   const [selectedBlock, setSelectedBlock] = useState<Block>()
 
   // to temporarily stop listeners while modal is open
@@ -65,13 +65,15 @@ export function Plugin() {
     const blockAlreadyExists = savedBlocks[block.title]
     const shouldUnsaveBlock = blockAlreadyExists
 
+    const newBlocks = { ...savedBlocks }
     if (shouldUnsaveBlock) {
-      const newBlocks = { ...savedBlocks }
       delete newBlocks[block.title]
-      setSavedBlocks(newBlocks)
     } else {
-      setSavedBlocks({ ...savedBlocks, [block.title]: block })
+      newBlocks[block.title] = block
     }
+
+    setSavedBlocks(newBlocks)
+    cacheBlocks('SavedBlocks', newBlocks)
   }
 
   return (
