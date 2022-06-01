@@ -3,18 +3,11 @@ import { Block, ParsedCalendarBlocksByTitle } from './types'
 import { getElementsOrThrow } from './domAccess'
 
 export function listenToViewAndGenerateBlocks(
-  onUpdate: (blocks: Block[]) => void,
+  onUpdate: (blocks: ParsedCalendarBlocksByTitle) => void,
 ) {
   setInterval(() => {
     const blocksFoundInView = _getFullDetailsFromAllBlocks()
-
-    const mergedOldAndNewBlocks: ParsedCalendarBlocksByTitle = {
-      ...blocksFoundInView,
-    }
-
-    console.log('Found new blocks.')
-    const sortedBlocks = _blocksSortedByOccurrences(mergedOldAndNewBlocks)
-    onUpdate(sortedBlocks)
+    onUpdate(blocksFoundInView)
   }, 1000)
 }
 

@@ -58,7 +58,7 @@ export function Sidebar(props: Props) {
         titleCount={props.generatedBlocks.length}
       >
         {props.generatedBlocks.length ? (
-          <GeneratedBlocks />
+          <GeneratedBlocks blocks={props.generatedBlocks} />
         ) : (
           <EmptyPlaceholder
             title="No Generated Blocks Yet"

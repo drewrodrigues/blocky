@@ -4,23 +4,27 @@ import { Sidebar, _Sidebar } from './components/sidebar'
 import { CALENDAR_SELECTOR } from './utils/consts'
 import './assets/style.css'
 import { listenToViewAndGenerateBlocks } from './utils/generatedBlocksParser'
-import { Block } from './utils/types'
+import { Block, ParsedCalendarBlocksByTitle } from './utils/types'
 
 export function Plugin() {
   const [savedBlocks, setSavedBlocks] = useState([])
-  const [generatedBlocks, setGeneratedBlocks] = useState<Block[]>([])
+  const [generatedBlocks, setGeneratedBlocks] =
+    useState<ParsedCalendarBlocksByTitle>({})
   const [selectedBlock, setSelectedBlock] = useState<Block>()
 
   useEffect(() => {
     listenToViewAndGenerateBlocks((blocks) => {
-      setGeneratedBlocks(blocks)
+      setGeneratedBlocks((existingBlocks) => ({
+        ...existingBlocks,
+        ...blocks,
+      }))
     })
   }, [])
 
   return (
     <Sidebar
       savedBlocks={savedBlocks}
-      generatedBlocks={generatedBlocks}
+      generatedBlocks={Object.values(generatedBlocks)}
       selectedBlock={selectedBlock}
       onSelectBlock={(block) => setSelectedBlock(block)}
     />
