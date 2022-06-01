@@ -8,7 +8,9 @@ import { Block, ParsedCalendarBlocksByTitle } from './utils/types'
 import { listenForModalOpen } from './utils/modalListener'
 
 export function Plugin() {
-  const [savedBlocks, setSavedBlocks] = useState([])
+  const [savedBlocks, setSavedBlocks] = useState<ParsedCalendarBlocksByTitle>(
+    {},
+  )
   const [generatedBlocks, setGeneratedBlocks] =
     useState<ParsedCalendarBlocksByTitle>({})
   const [selectedBlock, setSelectedBlock] = useState<Block>()
@@ -56,12 +58,26 @@ export function Plugin() {
     }
   }
 
+  function onSaveOrUnsaveBlock(block: Block) {
+    const blockAlreadyExists = savedBlocks[block.title]
+    const shouldUnsaveBlock = blockAlreadyExists
+
+    if (shouldUnsaveBlock) {
+      const newBlocks = { ...savedBlocks }
+      delete newBlocks[block.title]
+      setSavedBlocks(newBlocks)
+    } else {
+      setSavedBlocks({ ...savedBlocks, [block.title]: block })
+    }
+  }
+
   return (
     <Sidebar
-      savedBlocks={savedBlocks}
+      savedBlocks={Object.values(savedBlocks)}
       generatedBlocks={Object.values(generatedBlocks)}
       selectedBlock={selectedBlock}
       onSelectBlock={onSetSelectedBlock}
+      onSaveOrUnsaveBlock={onSaveOrUnsaveBlock}
     />
   )
 }

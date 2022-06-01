@@ -1,7 +1,7 @@
 import React from 'react'
 import Logo from '../../icons/icon48.png'
 import { Block } from '../../utils/types'
-import { GeneratedBlocks } from '../blocks/generatedBlocks'
+import { BlockContainer } from '../blocks/BlockContainer'
 import { SavedBlocks } from '../blocks/savedBlocks'
 import { EmptyPlaceholder } from '../placeholder/EmptyPlaceholder'
 import { SidebarContainer } from './sidebarContainer'
@@ -24,6 +24,7 @@ interface Props {
   generatedBlocks: Block[]
   selectedBlock?: Block
   onSelectBlock?: (block: Block) => void
+  onSaveOrUnsaveBlock?: (block: Block) => void
 }
 
 export function Sidebar(props: Props) {
@@ -51,7 +52,12 @@ export function Sidebar(props: Props) {
         titleCount={savedBlockCount}
       >
         {savedBlockCount ? (
-          <SavedBlocks blocks={props.savedBlocks} />
+          <BlockContainer
+            blocks={props.savedBlocks}
+            onClick={props.onSelectBlock}
+            onRightClick={props.onSaveOrUnsaveBlock}
+            selectedBlock={props.selectedBlock}
+          />
         ) : (
           <EmptyPlaceholder
             title="No Saved Blocks Yet"
@@ -69,9 +75,10 @@ export function Sidebar(props: Props) {
         titleCount={generatedBlockCount}
       >
         {generatedBlockCount ? (
-          <GeneratedBlocks
+          <BlockContainer
             blocks={props.generatedBlocks}
             onClick={props.onSelectBlock}
+            onRightClick={props.onSaveOrUnsaveBlock}
             selectedBlock={props.selectedBlock}
           />
         ) : (
