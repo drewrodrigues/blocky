@@ -1,32 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Sidebar } from './components/sidebar'
-import { CALENDAR_SELECTOR } from './utils/selectors'
+import { Sidebar, _Sidebar } from './components/sidebar'
+import { CALENDAR_SELECTOR } from './utils/consts'
 import './assets/style.css'
-import { EmptyPlaceholder } from './components/placeholder/EmptyPlaceholder'
+import { listenToViewAndGenerateBlocks } from './utils/generatedBlocksParser'
+import { Block } from './utils/types'
 
 export function Plugin() {
   const [savedBlocks, setSavedBlocks] = useState([])
-  const [generatedBlocks, setGeneratedBlocks] = useState([])
+  const [generatedBlocks, setGeneratedBlocks] = useState<Block[]>([])
+  const [selectedBlock, setSelectedBlock] = useState<Block>()
+
+  useEffect(() => {
+    listenToViewAndGenerateBlocks((blocks) => {
+      setGeneratedBlocks(blocks)
+    })
+  }, [])
 
   return (
-    <Sidebar.Container>
-      <Sidebar.Section title="Saved Blocks" subtitle="Try something">
-        <EmptyPlaceholder
-          title="No Saved Blocks Yet"
-          suggestion="Try right clicking on a generated block"
-        />
-      </Sidebar.Section>
-
-      <Sidebar.Section title="Generated Blocks" subtitle="Try something">
-        <EmptyPlaceholder
-          title="No Saved Blocks Yet"
-          suggestion="Try right clicking on a generated block"
-        />
-      </Sidebar.Section>
-
-      <Sidebar.Toggle />
-    </Sidebar.Container>
+    <Sidebar
+      savedBlocks={savedBlocks}
+      generatedBlocks={generatedBlocks}
+      selectedBlock={selectedBlock}
+      onSelectBlock={(block) => setSelectedBlock(block)}
+    />
   )
 }
 
