@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Logo from '../../icons/icon48.png'
 import { Block } from '../../utils/types'
 import { GeneratedBlocks } from '../blocks/generatedBlocks'
@@ -7,6 +7,11 @@ import { EmptyPlaceholder } from '../placeholder/EmptyPlaceholder'
 import { SidebarContainer } from './sidebarContainer'
 import { SidebarSection } from './sidebarSection'
 import { SidebarToggle } from './sidebarToggle'
+
+const ActualLogoPath =
+  process.env.ENV === 'production'
+    ? chrome.runtime.getURL('./icons/icon48.png')
+    : Logo
 
 export class _Sidebar extends React.Component {
   static Container = SidebarContainer
@@ -26,7 +31,7 @@ export function Sidebar(props: Props) {
     <_Sidebar.Container>
       <header className="flex bg-grey-lighter px-[20px] py-[10px] items-center justify-center select-none">
         <img
-          src={Logo}
+          src={ActualLogoPath}
           alt="Blocky Logo"
           className="w-[25px] h-[25px] mr-[5px]"
         />

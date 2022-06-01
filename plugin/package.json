@@ -4,12 +4,13 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
+    "build-storybook": "build-storybook",
     "prepackage": "rm -f Blocky.zip",
     "package": "ENV=production webpack build",
     "postpackage": "zip -r Blocky.zip dist",
-    "start": "ENV=development webpack build --watch",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "start": "ENV=production webpack build --watch",
+    "_start.comment": "To build dist and then load into chrome extensions unpacked",
+    "storybook": "start-storybook -p 6006"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",

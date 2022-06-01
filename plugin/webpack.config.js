@@ -1,6 +1,7 @@
 const CopyPlugin = require('copy-webpack-plugin')
 const path = require('path')
 const TailwindPlugin = require('tailwindcss')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   mode: process.env.ENV === 'prod' ? 'production' : 'development',
@@ -16,9 +17,9 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif)$/i,
         loader: 'file-loader',
-        // options: {
-        //   publicPath: './src/icons',
-        // },
+        options: {
+          publicPath: '.',
+        },
       },
       {
         test: /\.css$/i,
@@ -52,6 +53,7 @@ module.exports = {
         path.resolve(__dirname, 'manifest.json'),
       ],
     }),
+    new Dotenv({ systemvars: true }),
   ],
   output: {
     filename: 'bundle.js',

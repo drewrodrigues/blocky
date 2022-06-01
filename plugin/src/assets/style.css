@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: red !important;
-}
-
 * {
   box-sizing: border-box;
 }
