@@ -1,6 +1,6 @@
 import React from 'react'
 import { Block } from '../../utils/types'
-import { BlockButton } from './Block'
+import { BlockButton } from './BlockButton'
 
 interface Props {
   blocks: Block[]
