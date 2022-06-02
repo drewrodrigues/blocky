@@ -1,4 +1,7 @@
-import React from 'react'
+import { faClose } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import Logo from '../../icons/icon48.png'
 import { Block } from '../../utils/types'
 import { BlockContainer } from '../blocks/BlockContainer'

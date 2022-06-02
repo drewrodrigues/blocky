@@ -1,6 +1,6 @@
 import { CALENDAR_SELECTOR } from './consts'
-import { Block, BlockByTitle } from './types'
 import { getElementsOrThrow } from './domAccess'
+import { BlockByTitle } from './types'
 
 export function listenToViewAndGenerateBlocks({
   isCreatingEvent,
@@ -18,7 +18,6 @@ export function listenToViewAndGenerateBlocks({
 }
 
 function _getFullDetailsFromAllBlocks(): BlockByTitle {
-  // '12am to 12:45am, Mary, Calendar: ❤️ Relationships, No location, May 9, 2022'
   const calendarBlock = getElementsOrThrow(
     CALENDAR_SELECTOR.CALENDAR_BLOCK_TO_PARSE,
   )
@@ -26,8 +25,7 @@ function _getFullDetailsFromAllBlocks(): BlockByTitle {
 
   for (const block of calendarBlock) {
     // time block can be formatted with ',' at times. So, we'll just remove the whole section
-    // and the calendar section sometimes has 'Calendar: '
-    const styledElement = block.parentElement!
+    //and the calendar section sometimes has 'Calendar: '
     const sanitizedText = (block.textContent || '')
       .replace(/.*(am, |pm, )/, '')
       .replace('Calendar: ', '')
@@ -41,23 +39,9 @@ function _getFullDetailsFromAllBlocks(): BlockByTitle {
     parsedCalendarBlocks[title] = {
       title,
       calendar,
-      backgroundColor: styledElement.style.backgroundColor,
+      backgroundColor: block.parentElement?.style.backgroundColor,
     }
   }
 
   return parsedCalendarBlocks
-}
-
-function _blocksSortedByOccurrences(blocks: BlockByTitle): Block[] {
-  const keys = Object.keys(blocks)
-
-  const sortedBlocksTyped: Block[] = []
-  keys.forEach((key) => {
-    sortedBlocksTyped.push({
-      ...blocks[key],
-      title: key,
-    })
-  })
-
-  return sortedBlocksTyped
 }

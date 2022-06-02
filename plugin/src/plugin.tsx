@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Sidebar, _Sidebar } from './components/sidebar'
-import { CALENDAR_SELECTOR } from './utils/consts'
 import './assets/style.css'
-import { listenToViewAndGenerateBlocks } from './utils/generatedBlocksParser'
-import { Block, BlockByTitle } from './utils/types'
-import { listenForModalOpen } from './utils/modalListener'
+import { Sidebar } from './components/sidebar'
 import { cacheBlocks, pullCachedBlocks } from './utils/cache'
+import { CALENDAR_SELECTOR } from './utils/consts'
+import { listenToViewAndGenerateBlocks } from './utils/generatedBlocksParser'
+import { listenForModalOpen } from './utils/modalListener'
+import { Block, BlockByTitle } from './utils/types'
 
 // TODO: don't allow blocks to show up in both saved & generated
 

@@ -19,31 +19,35 @@ export function listenForModalOpen({
       modalFound && selectedBlock && !isCreatingEvent.current
     if (shouldCreateBlock) {
       onIsCreatingEvent(true)
-      _createEventOnModal({
+      Helpers.createEventOnModal({
         title: selectedBlock.title,
-        calendar: selectedBlock.calendar,
+        calendarTitle: selectedBlock.calendar,
         onIsCreatingEvent,
       })
     }
   }, 100)
 }
 
-async function _createEventOnModal({
-  title,
-  calendar,
-  onIsCreatingEvent,
-}: {
-  title: string
-  onIsCreatingEvent: (isCreatingEvent: boolean) => void
-  calendar?: string
-}) {
-  try {
+namespace Helpers {
+  export async function createEventOnModal(options: {
+    title: string
+    onIsCreatingEvent: (isCreatingEvent: boolean) => void
+    calendarTitle: string
+  }) {
+    _insertTitle(options.title)
+    await _clickSelectedCalendarOption(options.calendarTitle)
+    options.onIsCreatingEvent(false)
+  }
+
+  function _insertTitle(title: string) {
     const titleInput = getElementOrThrow<HTMLInputElement>(
       CALENDAR_SELECTOR.MODAL_TITLE_INPUT,
     )
     titleInput.value = title
     titleInput.click()
+  }
 
+  async function _clickSelectedCalendarOption(calendarTitle: string) {
     const calendarSelectionButton = getElementOrThrow<HTMLButtonElement>(
       CALENDAR_SELECTOR.CALENDAR_OPTION_BUTTON,
     )
@@ -56,20 +60,14 @@ async function _createEventOnModal({
     )
     for (const element of calendarOptions) {
       const dropdownText = element.textContent
-      if (dropdownText === calendar) {
+      if (dropdownText === calendarTitle) {
         element.click()
         await sleep(250)
-        // save
         const saveButton = getElementOrThrow(CALENDAR_SELECTOR.SAVE_BUTTON)
         saveButton.click()
         await sleep(250)
-        onIsCreatingEvent(false)
         return
       }
     }
-    onIsCreatingEvent(false)
-    throw new Error('Failed to create block')
-  } catch (e) {
-    // TODO: log this somewhere
   }
 }

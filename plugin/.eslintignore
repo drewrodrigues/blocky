@@ -1,0 +1,5 @@
+node_modules
+plugin/node_modules
+plugin/dist
+.git
+.vscode
