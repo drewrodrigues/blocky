@@ -1,22 +1,23 @@
 {
-  "name": "plugin",
-  "version": "0.0.0",
-  "description": "",
-  "main": "webpack.config.js",
+  "author": "Drew Rodrigues",
   "scripts": {
-    "build-storybook": "build-storybook",
-    "prepackage": "rm -f Blocky.zip",
-    "package": "ENV=production webpack build",
-    "postpackage": "zip -r Blocky.zip dist",
+    "_": "Dev Loop",
+    "storybook": "start-storybook -p 6006",
     "start": "ENV=production webpack build --watch",
     "_start.comment": "To build dist and then load into chrome extensions unpacked",
-    "storybook": "start-storybook -p 6006"
+    "__": "Packaging",
+    "prepackage": "rm -f Blocky.zip && npm run lint",
+    "package": "ENV=production webpack build",
+    "postpackage": "zip -r Blocky.zip dist",
+    "___": "Quality",
+    "lint": "eslint ./src"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
+    "@types/chrome": "0.0.188",
     "clsx": "^1.1.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
@@ -33,17 +34,23 @@
     "@storybook/testing-library": "0.0.11",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0",
     "autoprefixer": "^10.4.7",
     "babel-loader": "^8.2.5",
     "copy-webpack-plugin": "^11.0.0",
+    "dotenv-webpack": "^7.1.0",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.30.0",
     "postcss": "^8.4.14",
     "postcss-loader": "^7.0.0",
     "tailwindcss": "^3.0.24",
+    "ts-loader": "^9.3.0",
     "typescript": "^4.6.4",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
-  },
-  "author": "",
-  "license": "ISC"
+  }
 }

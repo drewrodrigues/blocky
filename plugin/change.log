@@ -1,0 +1,11 @@
+# 0.2.1
+- Updated UI
+- Migrated to React for faster dev loop
+- Improved wording and styles
+- Sidebar collapsing
+
+# 0.2.0
+- Saved blocks
+
+# 0.1.0
+- Generated blocks from view
