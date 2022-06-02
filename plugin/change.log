@@ -3,6 +3,7 @@
 - Migrated to React for faster dev loop
 - Improved wording and styles
 - Sidebar collapsing
+- Add footer & links
 
 # 0.2.0
 - Saved blocks
