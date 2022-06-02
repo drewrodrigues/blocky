@@ -1,0 +1,3 @@
+pick 9ca8173 Update change log
+pick f59b492 Fixed toggle icon path resolvement
+pick 20fda0b Add config util and update linting issues

@@ -1,35 +1,13 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
-import Logo from '../../icons/icon48.png'
+import { CONFIG } from '../../utils/config'
 import { Block } from '../../utils/types'
 import { BlockContainer } from '../blocks/BlockContainer'
 import { EmptyPlaceholder } from '../placeholder/EmptyPlaceholder'
 import { SidebarContainer } from './sidebarContainer'
 import { SidebarSection } from './sidebarSection'
 import { SidebarToggle } from './sidebarToggle'
-
-const CONFIG = {
-  // storybook
-  development: {
-    logoPath: Logo,
-    version: '0.0.0',
-    versionUrl: 'https://github.com/drewrodrigues/blocky',
-  },
-  production: () => {
-    const version = chrome.runtime.getManifest().version
-
-    return {
-      logoPath: chrome.runtime.getURL('./icons/icon48.png'),
-      version,
-      versionUrl: `https://github.com/drewrodrigues/blocky/releases/tag/${version}`,
-    }
-  },
-}
-const SELECTED_CONFIG =
-  (process.env.ENV as string) === 'production'
-    ? CONFIG.production()
-    : CONFIG.development
 
 export class _Sidebar extends React.Component {
   static Container = SidebarContainer
@@ -61,7 +39,7 @@ export function Sidebar(props: Props) {
         <header className="flex bg-grey-lighter px-[20px] pr-0 items-center justify-between select-none">
           <main className="flex">
             <img
-              src={SELECTED_CONFIG.logoPath}
+              src={CONFIG.logoPath}
               alt="Blocky Logo"
               className="w-[25px] h-[25px] mr-[5px]"
             />
@@ -127,8 +105,13 @@ export function Sidebar(props: Props) {
       <footer className="text-[12px] text-grey-light mb-[20px] mx-[20px] flex justify-between">
         <p>
           Version{' '}
-          <a className="font-bold underline" target="_blank" rel="noreferrer">
-            {SELECTED_CONFIG.version}
+          <a
+            className="font-bold underline"
+            target="_blank"
+            rel="noreferrer"
+            href={CONFIG.versionUrl}
+          >
+            {CONFIG.version}
           </a>
         </p>
 

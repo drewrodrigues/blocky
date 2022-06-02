@@ -1,3 +1,4 @@
+import React from 'react'
 import { CALENDAR_SELECTOR } from './consts'
 import { getElementsOrThrow } from './domAccess'
 import { BlockByTitle } from './types'

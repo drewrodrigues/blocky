@@ -1,3 +1,4 @@
+import React from 'react'
 import { CALENDAR_SELECTOR } from './consts'
 import { getElementOrThrow, getElementsOrThrow } from './domAccess'
 import { sleep } from './sleep'

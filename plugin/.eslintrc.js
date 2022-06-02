@@ -26,11 +26,24 @@ module.exports = {
     'max-lines-per-function': ['warn', { max: 25, skipComments: true }],
     '@typescript-eslint/no-namespace': ['off'],
     'no-inner-declarations': 'off',
+    'no-undef': 'error',
+  },
+  globals: {
+    process: true,
+    chrome: true,
+    google: true,
+    // ! hmm
+    NodeListOf: true,
+    JSX: true,
+    NodeJS: true,
   },
   overrides: [
     {
       files: 'src/**/*.tsx',
       rules: {
+        // functional components... Wish there was a
+        // rule where would scope to UI components and other components
+        // (could probably create something to do this based on function return typing)
         'max-lines-per-function': ['off'],
       },
     },
