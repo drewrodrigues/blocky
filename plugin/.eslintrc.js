@@ -25,7 +25,7 @@ module.exports = {
     'max-lines': ['warn', 150],
     'max-lines-per-function': ['warn', { max: 25, skipComments: true }],
     '@typescript-eslint/no-namespace': ['off'],
-    'no-inner-declarations': ['off'],
+    'no-inner-declarations': 'off',
   },
   overrides: [
     {

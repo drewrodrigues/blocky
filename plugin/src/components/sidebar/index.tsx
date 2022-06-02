@@ -1,7 +1,6 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
+import React, { useState } from 'react'
 import Logo from '../../icons/icon48.png'
 import { Block } from '../../utils/types'
 import { BlockContainer } from '../blocks/BlockContainer'
@@ -30,67 +29,83 @@ interface Props {
 }
 
 export function Sidebar(props: Props) {
+  const [isSidebarToggled, setIsSidebarToggled] = useState(true)
+
   const savedBlockCount = props.savedBlocks.length
   const generatedBlockCount = props.generatedBlocks.length
 
-  return (
-    <_Sidebar.Container>
-      <header className="flex bg-grey-lighter px-[20px] py-[10px] items-center justify-center select-none">
-        <img
-          src={ActualLogoPath}
-          alt="Blocky Logo"
-          className="w-[25px] h-[25px] mr-[5px]"
-        />
-        <h1 className="font-bold text-[14px]">Blocky</h1>
-      </header>
+  function onToggleSidebar() {
+    setIsSidebarToggled(!isSidebarToggled)
+  }
 
-      <_Sidebar.Section
-        title="Saved Blocks"
-        subtitle={
-          savedBlockCount
-            ? 'Right click to un-save blocks. Left click to select a block, then click on your calendar to create a block.'
-            : undefined
-        }
-        titleCount={savedBlockCount}
-      >
-        {savedBlockCount ? (
-          <BlockContainer
-            blocks={props.savedBlocks}
-            onClick={props.onSelectBlock}
-            onRightClick={props.onSaveOrUnsaveBlock}
-            selectedBlock={props.selectedBlock}
-          />
-        ) : (
-          <EmptyPlaceholder
-            title="No Saved Blocks Yet"
-            suggestion="Right click on a generated block to save it."
-          />
-        )}
-      </_Sidebar.Section>
-      <_Sidebar.Section
-        title="Generated Blocks"
-        subtitle={
-          generatedBlockCount
-            ? 'Right click on block to save it. Navigate through calendar days where you have existing events to generate blocks.'
-            : undefined
-        }
-        titleCount={generatedBlockCount}
-      >
-        {generatedBlockCount ? (
-          <BlockContainer
-            blocks={props.generatedBlocks}
-            onClick={props.onSelectBlock}
-            onRightClick={props.onSaveOrUnsaveBlock}
-            selectedBlock={props.selectedBlock}
-          />
-        ) : (
-          <EmptyPlaceholder
-            title="No Generated Blocks Yet"
-            suggestion="Navigate through days where you have existing events to generate blocks"
-          />
-        )}
-      </_Sidebar.Section>
-      <_Sidebar.Toggle />
+  return (
+    <_Sidebar.Container hide={!isSidebarToggled}>
+      <>
+        <header className="flex bg-grey-lighter px-[20px] pr-0 items-center justify-between select-none">
+          <main className="flex">
+            <img
+              src={ActualLogoPath}
+              alt="Blocky Logo"
+              className="w-[25px] h-[25px] mr-[5px]"
+            />
+            <h1 className="font-bold text-[14px]">Blocky</h1>
+          </main>
+          <aside>
+            <FontAwesomeIcon
+              icon={faClose}
+              className="text-grey-light cursor-pointer hover:text-grey-medium transition-colors px-[20px] py-[15px]"
+              onClick={onToggleSidebar}
+            />
+          </aside>
+        </header>
+        <_Sidebar.Section
+          title="Saved Blocks"
+          subtitle={
+            savedBlockCount
+              ? 'Right click to un-save blocks. Left click to select a block, then click on your calendar to create a block.'
+              : undefined
+          }
+          titleCount={savedBlockCount}
+        >
+          {savedBlockCount ? (
+            <BlockContainer
+              blocks={props.savedBlocks}
+              onClick={props.onSelectBlock}
+              onRightClick={props.onSaveOrUnsaveBlock}
+              selectedBlock={props.selectedBlock}
+            />
+          ) : (
+            <EmptyPlaceholder
+              title="No Saved Blocks Yet"
+              suggestion="Right click on a generated block to save it."
+            />
+          )}
+        </_Sidebar.Section>
+        <_Sidebar.Section
+          title="Generated Blocks"
+          subtitle={
+            generatedBlockCount
+              ? 'Right click on block to save it. Navigate through calendar days where you have existing events to generate blocks.'
+              : undefined
+          }
+          titleCount={generatedBlockCount}
+        >
+          {generatedBlockCount ? (
+            <BlockContainer
+              blocks={props.generatedBlocks}
+              onClick={props.onSelectBlock}
+              onRightClick={props.onSaveOrUnsaveBlock}
+              selectedBlock={props.selectedBlock}
+            />
+          ) : (
+            <EmptyPlaceholder
+              title="No Generated Blocks Yet"
+              suggestion="Navigate through days where you have existing events to generate blocks"
+            />
+          )}
+        </_Sidebar.Section>
+      </>
+      <_Sidebar.Toggle onClick={onToggleSidebar} />,
     </_Sidebar.Container>
   )
 }

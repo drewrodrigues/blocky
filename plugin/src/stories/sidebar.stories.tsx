@@ -29,17 +29,23 @@ export const withBothBlocks = () => (
   </div>
 )
 
+const BLOCK_FIXTURE = {
+  title: '💻 Microsoft',
+  backgroundColor: '#13B3C6',
+  calendar: '',
+}
+
 const SAVED_BLOCKS_FIXTURE: Block[] = [
-  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
-  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
-  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
-  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
-  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
-  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
-  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
-  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
-  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
-  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
-  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
-  { title: '💻 Microsoft', backgroundColor: '#13B3C6', calendar: '' },
+  BLOCK_FIXTURE,
+  BLOCK_FIXTURE,
+  BLOCK_FIXTURE,
+  BLOCK_FIXTURE,
+  BLOCK_FIXTURE,
+  BLOCK_FIXTURE,
+  BLOCK_FIXTURE,
+  BLOCK_FIXTURE,
+  BLOCK_FIXTURE,
+  BLOCK_FIXTURE,
+  BLOCK_FIXTURE,
+  BLOCK_FIXTURE,
 ]
