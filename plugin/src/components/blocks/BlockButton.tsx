@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome/index'
 import clsx from 'clsx'
 import React from 'react'
 import { Block } from '../../utils/types'

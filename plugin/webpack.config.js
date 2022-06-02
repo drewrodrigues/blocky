@@ -3,10 +3,17 @@ const path = require('path')
 const TailwindPlugin = require('tailwindcss')
 const Dotenv = require('dotenv-webpack')
 
+const buildEnv = process.env.ENV
+if (!['production', 'development'].includes(buildEnv)) {
+  throw new Error("ENV not in 'production' | 'development'")
+}
+
+const shouldBuildForProd = buildEnv === 'production'
+
 module.exports = {
-  mode: process.env.ENV === 'prod' ? 'production' : 'development',
+  mode: buildEnv,
   entry: './src/plugin.tsx',
-  devtool: process.env.ENV === 'prod' ? 'source-map' : 'inline-source-map',
+  devtool: shouldBuildForProd ? undefined : 'inline-source-map',
   module: {
     rules: [
       {

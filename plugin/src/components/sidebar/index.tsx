@@ -1,5 +1,5 @@
-import { faClose } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClose } from '@fortawesome/free-solid-svg-icons/faClose'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome/index'
 import React, { useState } from 'react'
 import { CONFIG } from '../../utils/config'
 import { Block } from '../../utils/types'
