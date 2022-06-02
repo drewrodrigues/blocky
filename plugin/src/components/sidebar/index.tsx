@@ -45,7 +45,7 @@ export function Sidebar(props: Props) {
         title="Saved Blocks"
         subtitle={
           savedBlockCount
-            ? 'Right click on saved blocks to un-save them. Right click on generated block to save them.'
+            ? 'Right click to un-save blocks. Left click to select a block, then click on your calendar to create a block.'
             : undefined
         }
         titleCount={savedBlockCount}
@@ -68,7 +68,7 @@ export function Sidebar(props: Props) {
         title="Generated Blocks"
         subtitle={
           generatedBlockCount
-            ? 'Navigate through calendar days where you have existing events to generate blocks.'
+            ? 'Right click on block to save it. Navigate through calendar days where you have existing events to generate blocks.'
             : undefined
         }
         titleCount={generatedBlockCount}
