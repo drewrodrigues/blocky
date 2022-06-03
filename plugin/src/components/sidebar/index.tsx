@@ -102,7 +102,7 @@ export function Sidebar(props: Props) {
       </>
       <_Sidebar.Toggle onClick={onToggleSidebar} />
 
-      <footer className="text-[12px] text-grey-light mb-[20px] mx-[20px] flex justify-between">
+      <footer className="text-[12px] text-grey-medium mb-[20px] mx-[20px] flex justify-between">
         <p>
           Version{' '}
           <a
