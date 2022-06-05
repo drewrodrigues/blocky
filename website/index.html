@@ -12,7 +12,7 @@
   <body
     class="text-[#444] lg:text-[16px] md:text-[14px] min-h-screen flex flex-col"
   >
-    <section style="background: linear-gradient(45deg, lightblue, transparent)">
+    <section>
       <header class="flex justify-center container max-w-[1000px] m-auto">
         <h1 class="font-bold flex items-center mt-[20px]">
           <img
@@ -25,37 +25,79 @@
         </h1>
       </header>
 
-      <div
-        class="flex justify-center items-center flex-col text-center border-b-[1px] border-b-[#ccc] border-solid overflow-hidden"
-      >
-        <main class="flex items-center flex-col py-[100px]">
-          <h2 class="text-[2rem] font-bold leading-[1] mb-[20px] px-[0.5rem]">
-            The fastest and easiest way to time block in Google Calendar Easily
+      <div class="items-center flex-col text-center">
+        <main class="flex items-center flex-col py-[75px]">
+          <h2
+            class="text-[1.8rem] font-bold mb-[10px] leading-[1.25] max-w-[448px]"
+          >
+            The fastest and easiest way to time block in Google Calendar
           </h2>
-          <h3>
+
+          <!-- Fast & delightful time blocking in Google Calendar -->
+
+          <h3 class="text-[0.8rem] mb-[2rem] max-w-[400px]">
             Goodbye to clicking multiple times to create time blocks. Now, you
             can easily create time blocks with just 2 clicks.
           </h3>
+
+          <!-- sale countdown -->
+          <div class="flex mb-[40px] items-center">
+            <div class="px-[0.6rem] rounded-[3px] mx-[5px]">
+              <p class="font-bold text-[1.5rem] leading-[1]">4</p>
+              <p class="text-[0.6rem]">Days</p>
+            </div>
+            <p class="text-[1.2rem]">:</p>
+            <div class="px-[0.6rem] rounded-[3px] mx-[5px]">
+              <p class="font-bold text-[1.5rem] leading-[1]">22</p>
+              <p class="text-[0.6rem]">Hours</p>
+            </div>
+            <p class="text-[1.2rem]">:</p>
+            <div class="px-[0.6rem] rounded-[3px] mx-[5px]">
+              <p class="font-bold text-[1.5rem] leading-[1]">45</p>
+              <p class="text-[0.6rem]">Minutes</p>
+            </div>
+            <p class="text-[1.2rem]">:</p>
+            <div class="px-[0.6rem] rounded-[3px] mx-[5px]">
+              <p class="font-bold text-[1.5rem] leading-[1]">45</p>
+              <p class="text-[0.6rem]">Seconds</p>
+            </div>
+          </div>
+
           <button
-            class="bg-[#A8E9FF] px-[1rem] py-[0.5rem] rounded-[10px] font-bold text-[0.8rem]"
-            style="box-shadow: 0 5px 4px rgba(0, 0, 0, 0.15)"
+            class="px-[1rem] py-[0.7rem] rounded-[5px] font-bold text-[0.8rem] bg-blue-200 flex items-center mb-[20px] shadow-xl hover:shadow-lg transition-shadow"
+            style="
+              background: linear-gradient(
+                to bottom,
+                rgb(168 233 255 / 0.5),
+                #41d3ff
+              );
+            "
           >
-            Get the Chrome Plugin
+            <img
+              src="chromeIcon.png"
+              alt="Chrome Icon"
+              class="w-[20px] mr-[7px]"
+            />
+            <span>Get the Chrome Plugin for only $5 / Month</span>
           </button>
+
+          <p
+            class="text-[0.65rem] text-green-400 py-[5px] px-[10px] rounded-[5px] bg-green-100"
+          >
+            🎁
+            <span class="font-bold ml-[3px]">Save 25%</span> until
+            <span data-sale-date>June 24th</span>
+          </p>
         </main>
 
-        <aside class="mb-[-50px] px-[1rem]">
-          <div class="rounded-[10px] overflow-hidden">
-            <video
-              src="./demonstration.mov"
-              autoplay="true"
-              loop
-              class="max-w-[1200px] border-solid border-[#dedede] border-b-[1px] w-full"
-              type="video/mov"
-            />
-          </div>
-        </aside>
-      </div>
+        <!-- TODO: replace with a gif places in a browser window for presentation -->
+        <div class="px-[2rem]">
+          <img
+            src="screenshot.png"
+            alt="Blocky Screenshot"
+            class="w-full max-w-[600px] rounded-[5px] m-auto shadow-xl"
+          />
+        </div>
     </section>
 
     <section class="md:flex container max-w-[1000px] m-auto flex-wrap sm:block">
@@ -88,7 +130,7 @@
       </div>
     </section>
 
-    <footer class="border-t border-t-gray-200 border-solid text-[0.8rem]">
+    <footer class="text-[0.8rem]">
       <div
         class="flex container justify-between max-w-[1000px] m-auto items-center p-[1rem]"
       >
@@ -110,4 +152,8 @@
       </div>
     </footer>
   </body>
+
+  <script>
+    // TODO: add countdown logic here (use A/B test to fill this)
+  </script>
 </html>
