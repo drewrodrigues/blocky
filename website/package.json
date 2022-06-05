@@ -22,24 +22,13 @@
     "webpack-cli": "^4.9.2"
   },
   "scripts": {
-    "_": "Dev Run Scripts",
-    "plugin:build:watch": "webpack build --watch",
-    "server:start:watch": "ts-node --project tsconfig.server.json src/server/index.ts",
-    "website:start:watch": "concurrently 'npm run _website:server' 'npm run _website:styles:watch'",
+    "start:watch": "concurrently 'npm run _server' 'npm run _styles:watch'",
     "__": "Build Scripts",
-    "website:build": "npm run _website:styles:build",
-    "plugin:build": "ENV=dev webpack build",
-    "plugin:build:prod": "ENV=prod webpack build",
+    "build": "npm run _styles:build",
     "___": "Dev Runtime Scripts",
-    "_website:styles:build": "npx tailwindcss -i ./src/website/index.css -o ./src/website/index_after.css",
-    "_website:styles:watch": "npx tailwindcss -i ./src/website/index.css -o ./src/website/index_after.css --watch",
-    "_website:server": "live-server --no-css-inject --watch=src/website --open=src/website --entry-file=src/website/index.html",
-    "____": "Packaging Scripts",
-    "prepack": "rm -f Blocky.zip && rm -rf dist*",
-    "pack": "npm run plugin:build:prod && zip -r Blocky.zip dist",
-    "_____": "Prod Scripts",
-    "server:build": "tsc --project tsconfig.server.json",
-    "server:start": "node src/server/index.ts"
+    "_styles:build": "npx tailwindcss -i index.css -o index_after.css",
+    "_styles:watch": "npx tailwindcss -i index.css -o index_after.css --watch",
+    "_server": "live-server --no-css-inject --entry-file=index.html"
   },
   "private": true,
   "author": "Drew Rodrigues"
