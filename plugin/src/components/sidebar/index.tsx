@@ -115,6 +115,17 @@ export function Sidebar(props: SidebarProps) {
           </a>
         </p>
       </footer>
+
+      <button
+        className="absolute left-[-37px] bottom-[60px] border border-grey-light p-[5px] flex justify-center items-center rounded-[5px_0_0_5px]"
+        onClick={onToggleSidebar}
+      >
+        <img
+          src={CONFIG.logoPath}
+          alt="Blocky Logo"
+          className="w-[25px] h-[25px]"
+        />
+      </button>
     </aside>
   )
 }
