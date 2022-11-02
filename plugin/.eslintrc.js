@@ -45,6 +45,7 @@ module.exports = {
         // rule where would scope to UI components and other components
         // (could probably create something to do this based on function return typing)
         'max-lines-per-function': ['off'],
+        'react/no-unescaped-entities': ['off'],
       },
     },
   ],
