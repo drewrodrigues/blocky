@@ -1,14 +1,23 @@
+import clsx from 'clsx'
 import React from 'react'
 
 interface Props {
   title: string
   children: JSX.Element | JSX.Element[]
   titleCount?: number
+  grow?: boolean
 }
 
 export function SidebarSection(props: Props) {
+  props = { ...props, grow: props.grow ?? true }
+
   return (
-    <section className="flex flex-col flex-[1_1_0] mx-[20px] my-[10px] first-of-type:mt-[20px] last-of-type:mb-[20px]">
+    <section
+      className={clsx(
+        props.grow && 'flex-[1_1_0]',
+        'flex flex-col mx-[20px] my-[10px] first-of-type:mt-[20px] last-of-type:mb-[20px] text-sm',
+      )}
+    >
       <header className="flex justify-between items-center mb-[10px] select-none">
         <div className="flex flex-col">
           <h2 className="font-bold">{props.title}</h2>
