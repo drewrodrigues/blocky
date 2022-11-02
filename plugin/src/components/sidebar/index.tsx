@@ -50,7 +50,7 @@ export function Sidebar(props: SidebarProps) {
           <img
             src={CONFIG.logoPath}
             alt="Blocky Logo"
-            className="w-[25px] h-[25px] mr-[5px]"
+            className="w-[25px] h-[25px] mr-[10px]"
           />
           <h1 className="font-bold text-[14px]">Blocky</h1>
         </main>
