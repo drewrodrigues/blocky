@@ -4,16 +4,14 @@ interface Props {
   title: string
   children: JSX.Element | JSX.Element[]
   titleCount?: number
-  subtitle?: string
 }
 
 export function SidebarSection(props: Props) {
   return (
-    <section className="flex flex-col flex-[1_1_0] mx-[20px] my-[20px] first-of-type:mb-0">
+    <section className="flex flex-col flex-[1_1_0] mx-[20px] my-[10px] first-of-type:mt-[20px] last-of-type:mb-[20px]">
       <header className="flex justify-between items-center mb-[10px] select-none">
         <div className="flex flex-col">
           <h2 className="font-bold">{props.title}</h2>
-          <h3 className="text-[12px] text-grey-medium">{props.subtitle}</h3>
         </div>
 
         {props.titleCount !== undefined && (
