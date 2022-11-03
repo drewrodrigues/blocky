@@ -10,6 +10,16 @@ import { Block, BlockByTitle } from './utils/types'
 
 // TODO: don't allow blocks to show up in both saved & generated
 
+function log(...args: any[]) {
+  // TODO: hide when in dev
+  console.log('[Blocky]: ', ...args)
+}
+
+function logError(...args: any[]) {
+  // TODO: add logging here
+  console.error('[Blocky]: ', ...args)
+}
+
 export function Plugin() {
   const [savedBlocks, setSavedBlocks] = useState<BlockByTitle>(
     pullCachedBlocks('SavedBlocks'),
@@ -96,10 +106,11 @@ const readyStateCheckInterval = setInterval(async function () {
     sidebarContainer?.append(sidebarRoot)
 
     if (sidebarContainer) {
+      log('Attaching blocky')
       const root = createRoot(sidebarRoot)
       root.render(<Plugin />)
     } else {
-      console.error('Failed to init Blocky')
+      logError('Failed to init Blocky')
     }
     clearInterval(readyStateCheckInterval)
   }
