@@ -4,14 +4,12 @@ import clsx from 'clsx'
 import React, { useState } from 'react'
 import { CONFIG } from '../../utils/config'
 import { Block } from '../../utils/types'
-import { SidebarContainer } from './sidebarContainer'
 import { SidebarSection } from './sidebarSection'
 import { SidebarSectionBlocks } from './SidebarSectionBlocks'
 import { SidebarSectionDocumentation } from './SidebarSectionDocumentation'
 import { SidebarToggle } from './sidebarToggle'
 
 export class _Sidebar extends React.Component {
-  static Container = SidebarContainer
   static Section = SidebarSection
   static Toggle = SidebarToggle
 }
