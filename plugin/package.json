@@ -3,7 +3,7 @@
   "scripts": {
     "_": "Dev Loop",
     "storybook": "ENV=development start-storybook -p 6006",
-    "start": "ENV=production webpack build --watch",
+    "start": "ENV=development webpack build --watch",
     "_start.comment": "To build dist and then load into chrome extensions unpacked",
     "__": "Packaging",
     "prepackage": "rm -f Blocky.zip && npm run lint",
