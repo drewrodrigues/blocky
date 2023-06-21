@@ -10,6 +10,7 @@ export function cacheBlocks(cacheFor: CacheFor, blocks: BlockByTitle) {
 
   // async write to not block main thread
   setTimeout(() => {
+    // TODO: use chrome storage instead -- this will be persistent
     localStorage.setItem(CACHE_KEY, JSON.stringify(blocks))
   }, 0)
 }
