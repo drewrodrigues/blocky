@@ -4,7 +4,7 @@ import { SidebarSection } from './sidebarSection'
 export function SidebarSectionDocumentation() {
   return (
     <>
-      <SidebarSection title="About Blocky" grow={false}>
+      <SidebarSection title="About" grow={false}>
         <p className="text-xs leading-[1.5]">
           I time block in Google Calendar every day. But, I found it a bit
           manual, needing multiple steps to duplicate an event. I went searching
@@ -51,7 +51,7 @@ export function SidebarSectionDocumentation() {
           ideas of how to extend blocky, love it or just want to say hi.
           Messages are more than welcome!
         </p>
-        <a className="text-xs leading-[1.5] underline">rodandrew95@gmail.com</a>
+        <a className="text-xs leading-[1.5] underline">me@drewrodrigues.com</a>
       </SidebarSection>
     </>
   )
