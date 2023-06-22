@@ -27,7 +27,7 @@ export function SidebarSectionBlocks(props: SidebarProps) {
           />
         ) : (
           <EmptyPlaceholder
-            title="No Saved Blocks Yet"
+            title="No Saved Blocks"
             suggestion="Right click on a generated block to save it."
           />
         )}
@@ -45,7 +45,7 @@ export function SidebarSectionBlocks(props: SidebarProps) {
           />
         ) : (
           <EmptyPlaceholder
-            title="No Generated Blocks Yet"
+            title="No Generated Blocks"
             suggestion="Navigate through days where you have existing events to generate blocks"
           />
         )}
