@@ -1,4 +1,3 @@
-import React from 'react'
 import { CALENDAR_SELECTOR } from './consts'
 import { getElementsOrThrow } from './domAccess'
 import { BlockByTitle } from './types'
@@ -7,11 +6,11 @@ export function listenToViewAndGenerateBlocks({
   isCreatingEvent,
   onUpdate,
 }: {
-  isCreatingEvent: React.MutableRefObject<boolean>
+  isCreatingEvent: boolean
   onUpdate: (blocks: BlockByTitle) => void
 }) {
   return setInterval(() => {
-    if (!isCreatingEvent.current) {
+    if (!isCreatingEvent) {
       const blocksFoundInView = _getFullDetailsFromAllBlocks()
       onUpdate(blocksFoundInView)
     }
@@ -26,7 +25,7 @@ function _getFullDetailsFromAllBlocks(): BlockByTitle {
 
   for (const block of calendarBlock) {
     // time block can be formatted with ',' at times. So, we'll just remove the whole section
-    //and the calendar section sometimes has 'Calendar: '
+    // and the calendar section sometimes has 'Calendar: '
     const sanitizedText = (block.textContent || '')
       .replace(/.*(am, |pm, )/, '')
       .replace('Calendar: ', '')

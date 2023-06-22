@@ -19,10 +19,13 @@ export function Plugin() {
   // to temporarily stop listeners while modal is open
   const isCreatingEvent = useRef(false)
 
+  // -----------------------------------------------------------------------------
+  // Populate generated blocks
+  // -----------------------------------------------------------------------------
   useEffect(() => {
     // ! don't force a re-render unless it's needed -- do a diff here
     const viewListener = listenToViewAndGenerateBlocks({
-      isCreatingEvent,
+      isCreatingEvent: isCreatingEvent.current,
       onUpdate: (blocks) => {
         setGeneratedBlocks((existingBlocks) => ({
           ...existingBlocks,
@@ -36,9 +39,12 @@ export function Plugin() {
     }
   }, [])
 
+  // -----------------------------------------------------------------------------
+  // Listen for modal, if found, create event if conditions are right
+  // -----------------------------------------------------------------------------
   useEffect(() => {
     const modalListener = listenForModalOpen({
-      isCreatingEvent: isCreatingEvent,
+      isCreatingEvent: isCreatingEvent.current,
       selectedBlock,
       onIsCreatingEvent: (_isCreatingEvent) => {
         isCreatingEvent.current = _isCreatingEvent
