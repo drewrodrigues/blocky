@@ -44,20 +44,12 @@ export function Sidebar(props: SidebarProps) {
       }}
     >
       <header className="flex bg-grey-lighter px-[20px] pr-0 items-center justify-between select-none">
-        <main className="flex items-center">
-          <img
-            src={CONFIG.logoPath}
-            alt="Blocky Logo"
-            className="w-[25px] h-[25px] mr-[10px]"
-          />
-          <h1 className="font-bold text-[14px]">Blocky</h1>
-        </main>
-
-        <aside className="flex items-center">
+        <aside className="flex items-center justify-between">
           <button
             className={clsx(
-              'text-[11px] py-[3px] px-[5px] rounded-[3px] text-grey-medium mr-[2px]',
-              selectedTab === 'blocks' && 'bg-white',
+              'text-[11px] py-[3px] px-[5px] rounded-[3px] text-grey-medium mr-[2px] hover:opacity-70 transition-opacity',
+              selectedTab === 'blocks' &&
+                'bg-[#42D3FC] text-white font-bold  cursor-default hover:opacity-100',
             )}
             onClick={() => setSelectedTab('blocks')}
           >
@@ -65,19 +57,21 @@ export function Sidebar(props: SidebarProps) {
           </button>
           <button
             className={clsx(
-              'text-[11px] py-[3px] px-[5px] rounded-[3px] text-grey-medium',
-              selectedTab === 'documentation' && 'bg-white',
+              'text-[11px] py-[3px] px-[5px] rounded-[3px] text-grey-medium hover:opacity-50 transition-opacity',
+              selectedTab === 'documentation' &&
+                'bg-[#42D3FC] text-white font-bold cursor-default hover:opacity-100',
             )}
             onClick={() => setSelectedTab('documentation')}
           >
             Documentation
           </button>
-          <FontAwesomeIcon
-            icon={faClose}
-            className="text-grey-light cursor-pointer hover:text-grey-medium transition-colors px-[20px] py-[15px]"
-            onClick={onToggleSidebar}
-          />
         </aside>
+
+        <FontAwesomeIcon
+          icon={faClose}
+          className="text-grey-light cursor-pointer hover:text-grey-medium transition-colors px-[20px] py-[15px]"
+          onClick={onToggleSidebar}
+        />
       </header>
 
       <main className="flex flex-col flex-grow overflow-y-scroll">

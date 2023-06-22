@@ -24,6 +24,7 @@ export function SidebarSectionBlocks(props: SidebarProps) {
           />
         )}
       </_Sidebar.Section>
+
       <_Sidebar.Section
         title="Generated Blocks"
         titleCount={generatedBlockCount}
