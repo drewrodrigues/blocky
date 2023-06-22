@@ -9,15 +9,7 @@ export function SidebarSectionBlocks(props: SidebarProps) {
 
   return (
     <>
-      <_Sidebar.Section
-        title="Saved Blocks"
-        // subtitle={
-        //   savedBlockCount
-        //     ? 'Right click to un-save blocks. Left click to select a block, then click on your calendar to create a block.'
-        //     : undefined
-        // }
-        titleCount={savedBlockCount}
-      >
+      <_Sidebar.Section title="Saved Blocks" titleCount={savedBlockCount}>
         {savedBlockCount ? (
           <BlockContainer
             blocks={props.savedBlocks}

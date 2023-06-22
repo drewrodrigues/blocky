@@ -81,6 +81,7 @@ export function Sidebar(props: SidebarProps) {
       </header>
 
       <main className="flex flex-col flex-grow overflow-y-scroll">
+        {/* ! we can improve threading through composition */}
         {selectedTab === 'blocks' ? (
           <SidebarSectionBlocks {...props} />
         ) : (
