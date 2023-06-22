@@ -2,27 +2,16 @@ import React, { useEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './assets/style.css'
 import { Sidebar } from './components/sidebar'
-import { cacheBlocks, pullCachedBlocks } from './utils/cache'
+import { cacheBlocks, getCachedBlocks } from './utils/cache'
 import { CALENDAR_SELECTOR } from './utils/consts'
 import { listenToViewAndGenerateBlocks } from './utils/generatedBlocksParser'
 import { listenForModalOpen } from './utils/modalListener'
 import { Block, BlockByTitle } from './utils/types'
-
-// TODO: don't allow blocks to show up in both saved & generated
-
-function log(...args: any[]) {
-  // TODO: hide when in dev
-  console.log('[Blocky]: ', ...args)
-}
-
-function logError(...args: any[]) {
-  // TODO: add logging here
-  console.error('[Blocky]: ', ...args)
-}
+import { log, logError } from './utils/logger'
 
 export function Plugin() {
   const [savedBlocks, setSavedBlocks] = useState<BlockByTitle>(
-    pullCachedBlocks('SavedBlocks'),
+    getCachedBlocks('SavedBlocks'),
   )
   const [generatedBlocks, setGeneratedBlocks] = useState<BlockByTitle>({})
   const [selectedBlock, setSelectedBlock] = useState<Block>()
