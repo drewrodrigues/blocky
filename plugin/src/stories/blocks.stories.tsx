@@ -46,7 +46,7 @@ export default {
       defaultValue: 'ℹ️ Default Title',
     },
     backgroundColor: {
-      defaultValue: 'rgb(138, 138, 138)',
+      defaultValue: 'rgb(255, 138, 138)',
     },
   },
 } as ComponentMeta<typeof BlockButton>
@@ -56,4 +56,17 @@ const Template: ComponentStory<typeof BlockButton> = (args) => (
 )
 
 export const _default = Template.bind({})
+
+export const IsLoading: ComponentStory<typeof BlockButton> = (args) => (
+  <BlockButton {...args} isLoading />
+)
+
+export const IsHighlighted: ComponentStory<typeof BlockButton> = (args) => (
+  <BlockButton {...args} isHighlighted />
+)
+
+export const HighlightedAndLoading: ComponentStory<typeof BlockButton> = (
+  args,
+) => <BlockButton {...args} isHighlighted isLoading />
+
 _default.args = {}
