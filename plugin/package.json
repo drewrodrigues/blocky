@@ -10,7 +10,9 @@
     "package": "ENV=production webpack build",
     "postpackage": "zip -r Blocky.zip dist",
     "___": "Quality",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -32,6 +34,7 @@
     "@storybook/manager-webpack5": "^6.5.6",
     "@storybook/react": "^6.5.6",
     "@storybook/testing-library": "0.0.11",
+    "@types/jest": "^29.5.2",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
@@ -42,8 +45,10 @@
     "dotenv-webpack": "^7.1.0",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^27.2.2",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
+    "jest": "^29.5.0",
     "postcss": "^8.4.14",
     "postcss-loader": "^7.0.0",
     "tailwindcss": "^3.0.24",
