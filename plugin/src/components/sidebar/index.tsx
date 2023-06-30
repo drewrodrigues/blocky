@@ -8,8 +8,9 @@ import { SidebarSection } from './sidebarSection'
 import { SidebarSectionBlocks } from './SidebarSectionBlocks'
 import { SidebarSectionDocumentation } from './SidebarSectionDocumentation'
 import { SidebarToggle } from './sidebarToggle'
+import '../../assets/style.css' // TODO: do this better my guy
 
-export class _Sidebar extends React.Component {
+export class _Sidebar extends React.Component { 
   static Section = SidebarSection
   static Toggle = SidebarToggle
 }
@@ -35,7 +36,7 @@ export function Sidebar(props: SidebarProps) {
   return (
     <aside
       className={clsx(
-        'border transition-[width,500s] ease-in-out box-border border-grey-light text-grey-dark h-[100vh] relative flex flex-col font-[Roboto,Helvetica,Arial,sans-serif]',
+        'border box-border border-grey-light text-grey-dark h-[100vh] relative flex flex-col font-[Roboto,Helvetica,Arial,sans-serif] sidebar-container',
         !isSidebarToggled ? 'w-0' : 'w-[300px]',
       )}
       style={{
