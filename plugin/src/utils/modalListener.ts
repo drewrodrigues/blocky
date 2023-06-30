@@ -4,7 +4,10 @@ import { log, logError } from './logger'
 import { sleep } from './sleep'
 import { Block } from './types'
 
-export function listenForModalOpen(selectedBlock?: Block): NodeJS.Timer {
+export function listenForModalOpen(
+  selectedBlock: Block,
+  callback?: (error: Error) => void,
+): NodeJS.Timer {
   let _isCreatingEvent = false
 
   return setInterval(async () => {
@@ -19,6 +22,8 @@ export function listenForModalOpen(selectedBlock?: Block): NodeJS.Timer {
           title: selectedBlock.title,
           calendar: selectedBlock.calendar,
         })
+      } catch (error) {
+        callback?.(error as Error)
       } finally {
         _isCreatingEvent = false
       }

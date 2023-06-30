@@ -33,29 +33,33 @@ const mockSaveButton = {
 // TODO: mock out actual function call instead of the underlying document object
 // ! this will be a good opportunity to mock out a esmodule's function
 
-jest.spyOn(document, 'querySelector').mockImplementation((argument) => {
-  if (argument === CALENDAR_SELECTOR.MODAL_TITLE_INPUT) {
-    return mockTitleInput
-  } else if (argument === CALENDAR_SELECTOR.MODAL) {
-    return { click: jest.fn() } as unknown as HTMLDivElement
-  } else if (argument === CALENDAR_SELECTOR.CALENDAR_OPTION_BUTTON) {
-    return mockCalendarOptionButton as unknown as HTMLButtonElement
-  } else if (argument === CALENDAR_SELECTOR.SAVE_BUTTON) {
-    return mockSaveButton as unknown as HTMLButtonElement
-  } else if (argument === CALENDAR_SELECTOR.SIDEBAR_CONTAINER) {
-    return { click: jest.fn() } as unknown as HTMLDivElement
-  }
+const selectorToElementMap: Record<string, HTMLElement> = {
+  [CALENDAR_SELECTOR.MODAL_TITLE_INPUT]: mockTitleInput,
+  [CALENDAR_SELECTOR.MODAL]: { click: jest.fn() } as unknown as HTMLDivElement,
+  [CALENDAR_SELECTOR.CALENDAR_OPTION_BUTTON]:
+    mockCalendarOptionButton as unknown as HTMLButtonElement,
+  [CALENDAR_SELECTOR.SAVE_BUTTON]:
+    mockSaveButton as unknown as HTMLButtonElement,
+  [CALENDAR_SELECTOR.SIDEBAR_CONTAINER]: {
+    click: jest.fn(),
+  } as unknown as HTMLDivElement,
+}
 
-  return null
+const selectorToElementsMap: Record<string, HTMLElement[]> = {
+  [CALENDAR_SELECTOR.CALENDAR_OPTION]: [
+    mockCalendarOption as unknown as HTMLElement,
+  ],
+}
+
+jest.spyOn(document, 'querySelector').mockImplementation((argument: string) => {
+  return selectorToElementMap[argument] || null
 })
 
-jest.spyOn(document, 'querySelectorAll').mockImplementation((argument) => {
-  if (argument === CALENDAR_SELECTOR.CALENDAR_OPTION) {
-    return [mockCalendarOption] as unknown as NodeListOf<Element>
-  }
-
-  return [] as unknown as NodeListOf<Element>
-})
+jest
+  .spyOn(document, 'querySelectorAll')
+  .mockImplementation((argument: string) => {
+    return selectorToElementsMap[argument] as unknown as NodeListOf<Element>
+  })
 
 describe('listenForModalOpen', () => {
   beforeEach(() => {
@@ -133,9 +137,124 @@ describe('listenForModalOpen', () => {
       expect(mockSaveButton.click).toHaveBeenCalled()
     })
 
-    it.todo('throws an error when unable to insert title')
-    it.todo('throws an error when unable to click calendar button')
-    it.todo('throws an error when unable to click calendar option')
-    it.todo('throws an error when unable to click save button')
+    it('calls back with error when unable to insert title', async () => {
+      jest
+        .spyOn(document, 'querySelector')
+        .mockImplementation((selector: string) => {
+          const selectors = { ...selectorToElementMap }
+          delete selectors[CALENDAR_SELECTOR.MODAL_TITLE_INPUT]
+          return selectors[selector]
+        })
+
+      await new Promise(async (resolve) => {
+        listenForModalOpen(
+          {
+            title: 'Test',
+            calendar: 'Test',
+          } as Block,
+          (error) => {
+            expect(error.message).toMatch(
+              `Failed to get element with selector: ${CALENDAR_SELECTOR.MODAL_TITLE_INPUT}`,
+            )
+            resolve('')
+          },
+        )
+
+        await jest.advanceTimersByTimeAsync(3_000)
+      })
+    })
+
+    it('calls back with error when unable to click calendar button', async () => {
+      jest
+        .spyOn(document, 'querySelector')
+        .mockImplementation((selector: string) => {
+          const selectors = { ...selectorToElementMap }
+          delete selectors[CALENDAR_SELECTOR.CALENDAR_OPTION_BUTTON]
+          return selectors[selector]
+        })
+
+      await new Promise(async (resolve) => {
+        listenForModalOpen(
+          {
+            title: 'Test',
+            calendar: 'Test',
+          } as Block,
+          (error) => {
+            expect(error.message).toMatch(
+              `Failed to get element with selector: ${CALENDAR_SELECTOR.CALENDAR_OPTION_BUTTON}`,
+            )
+            resolve('')
+          },
+        )
+
+        await jest.advanceTimersByTimeAsync(3_000)
+      })
+    })
+
+    it('calls back with error when unable to click calendar option', async () => {
+      jest
+        .spyOn(document, 'querySelector')
+        .mockImplementation((selector: string) => {
+          const selectors = { ...selectorToElementMap }
+          return selectors[selector]
+        })
+      jest
+        .spyOn(document, 'querySelectorAll')
+        .mockImplementation((selector: string) => {
+          const selectors = { ...selectorToElementsMap }
+          delete selectors[CALENDAR_SELECTOR.CALENDAR_OPTION]
+          return selectors[selector] as unknown as NodeListOf<Element>
+        })
+
+      await new Promise(async (resolve) => {
+        listenForModalOpen(
+          {
+            title: 'Test',
+            calendar: 'Test',
+          } as Block,
+          (error) => {
+            expect(error.message).toMatch(
+              `Failed to get element with selector: ${CALENDAR_SELECTOR.CALENDAR_OPTION}`,
+            )
+            resolve('')
+          },
+        )
+
+        await jest.advanceTimersByTimeAsync(3_000)
+      })
+    })
+
+    it('calls back with error when unable to click save button', async () => {
+      jest
+        .spyOn(document, 'querySelectorAll')
+        .mockImplementation((selector: string) => {
+          const selectors = { ...selectorToElementsMap }
+          return selectors[selector] as unknown as NodeListOf<Element>
+        })
+      jest
+        .spyOn(document, 'querySelector')
+        .mockImplementation((selector: string) => {
+          const selectors = { ...selectorToElementMap }
+          delete selectors[CALENDAR_SELECTOR.SAVE_BUTTON]
+          return selectors[selector]
+        })
+
+      await new Promise(async (resolve) => {
+        listenForModalOpen(
+          {
+            title: 'Test',
+            calendar: 'Test',
+          } as Block,
+          (error) => {
+            expect(error.message).toMatch(
+              `Failed to get element with selector: ${CALENDAR_SELECTOR.SAVE_BUTTON}`,
+            )
+            resolve('')
+          },
+        )
+
+        await jest.advanceTimersByTimeAsync(3_000)
+      })
+    })
   })
 })
