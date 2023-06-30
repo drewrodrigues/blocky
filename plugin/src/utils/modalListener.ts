@@ -1,40 +1,38 @@
 import { CALENDAR_SELECTOR } from './consts'
 import { getElementOrThrow, getElementsOrThrow } from './domAccess'
+import { log, logError } from './logger'
 import { sleep } from './sleep'
 import { Block } from './types'
 
-export function listenForModalOpen({
-  selectedBlock,
-  isCreatingEvent,
-  onIsCreatingEvent,
-}: {
-  isCreatingEvent: boolean
-  onIsCreatingEvent: (isCreatingEvent: boolean) => void
-  selectedBlock?: Block
-}): NodeJS.Timer {
-  return setInterval(() => {
+export function listenForModalOpen(selectedBlock?: Block): NodeJS.Timer {
+  let _isCreatingEvent = false
+
+  return setInterval(async () => {
+    if (_isCreatingEvent || !selectedBlock) return
     const modalFound = document.querySelector(CALENDAR_SELECTOR.MODAL)
 
-    const shouldCreateBlock = modalFound && selectedBlock && !isCreatingEvent
-    if (shouldCreateBlock) {
-      onIsCreatingEvent(true)
-      _createEventOnModal({
-        title: selectedBlock.title,
-        calendarTitle: selectedBlock.calendar,
-        onIsCreatingEvent,
-      })
+    if (modalFound) {
+      log('Modal found, creating block...')
+      _isCreatingEvent = true
+      try {
+        await _createEventOnModal({
+          title: selectedBlock.title,
+          calendar: selectedBlock.calendar,
+        })
+      } finally {
+        _isCreatingEvent = false
+      }
     }
   }, 100)
 }
 
 async function _createEventOnModal(options: {
   title: string
-  onIsCreatingEvent: (isCreatingEvent: boolean) => void
-  calendarTitle: string
+  calendar: string
 }) {
   _insertTitle(options.title)
-  await _clickSelectedCalendarOption(options.calendarTitle)
-  options.onIsCreatingEvent(false)
+  await _openCalendarSelectionMenu()
+  await _selectCalendarOption(options.calendar)
 }
 
 function _insertTitle(title: string) {
@@ -45,26 +43,48 @@ function _insertTitle(title: string) {
   titleInput.click()
 }
 
-async function _clickSelectedCalendarOption(calendarTitle: string) {
+async function _openCalendarSelectionMenu() {
   const calendarSelectionButton = getElementOrThrow<HTMLButtonElement>(
     CALENDAR_SELECTOR.CALENDAR_OPTION_BUTTON,
   )
   calendarSelectionButton.click()
+  log('Waiting for dropdown to open')
+  await sleep(500) // TODO: implement wait on element. This is fucked
+}
 
-  await sleep(500) // wait for dropdown to open
-
+async function _selectCalendarOption(calendarTitle: string) {
   const calendarOptions = getElementsOrThrow<HTMLButtonElement>(
     CALENDAR_SELECTOR.CALENDAR_OPTION,
   )
+  if (!calendarOptions.length) {
+    throw new Error('No calendar options found')
+  }
+
+  log('Looking for calendar option', { calendarTitle, calendarOptions })
+  let foundOption = false
   for (const element of calendarOptions) {
     const dropdownText = element.textContent
+
     if (dropdownText === calendarTitle) {
+      foundOption = true
+      log('Found calendar option', {
+        dropdownText,
+        calendarTitle,
+        calendarOptions,
+      })
+
       element.click()
       await sleep(250)
       const saveButton = getElementOrThrow(CALENDAR_SELECTOR.SAVE_BUTTON)
       saveButton.click()
       await sleep(250)
-      return
+      break
     }
+  }
+
+  if (!foundOption) {
+    const errorMessage = "Didn't find calendar option"
+    logError(errorMessage, { calendarOptions, calendarTitle })
+    throw new Error(errorMessage)
   }
 }
