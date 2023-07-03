@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { createRoot } from 'react-dom/client'
 import './assets/style.css'
 import { Sidebar } from './components/sidebar'
 import { cacheBlocks, getCachedBlocks } from './utils/cache'
 import { listenToViewAndGenerateBlocks } from './utils/generatedBlocksParser'
-import { logError } from './utils/logger'
+import { log, logError } from './utils/logger'
 import { listenForModalOpen } from './utils/modalListener'
 import { Block, BlockByTitle } from './utils/types'
+import { CALENDAR_SELECTOR } from './utils/consts'
 
 export function Plugin() {
   const [savedBlocks, setSavedBlocks] = useState<BlockByTitle>(
