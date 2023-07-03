@@ -1,11 +1,7 @@
-.sidebar-container {
+.tailwind {
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
-}
-
-.sidebar-container {
-  transition: opacity 250ms, transform 250ms;
 }
 
 .sidebar-container * {

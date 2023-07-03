@@ -1,3 +1,6 @@
+# 0.2.4
+- Fixed bug where styles were bleeding outside of plugin into Google Calendar
+
 # 0.2.3
 - Cut bundle size in half
 
