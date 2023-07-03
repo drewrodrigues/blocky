@@ -6,7 +6,6 @@
     "@types/chrome": "0.0.185"
   },
   "devDependencies": {
-    "@types/express": "^4.17.13",
     "@types/node": "^17.0.36",
     "concurrently": "^7.2.0",
     "copy-webpack-plugin": "^11.0.0",
