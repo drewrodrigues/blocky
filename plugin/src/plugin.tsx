@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { createRoot } from 'react-dom/client'
 import './assets/style.css'
 import { Sidebar } from './components/sidebar'
 import { cacheBlocks, getCachedBlocks } from './utils/cache'
-import { CALENDAR_SELECTOR } from './utils/consts'
 import { listenToViewAndGenerateBlocks } from './utils/generatedBlocksParser'
+import { logError } from './utils/logger'
 import { listenForModalOpen } from './utils/modalListener'
 import { Block, BlockByTitle } from './utils/types'
-import { log, logError } from './utils/logger'
 
 export function Plugin() {
   const [savedBlocks, setSavedBlocks] = useState<BlockByTitle>(
@@ -23,7 +21,6 @@ export function Plugin() {
   // Populate generated blocks when not creating an event
   // -----------------------------------------------------------------------------
   useEffect(() => {
-    // ! don't force a re-render unless it's needed -- do a diff here
     const viewListener = listenToViewAndGenerateBlocks({
       isCreatingEvent: isCreatingEvent.current,
       onUpdate: (blocks) => {
