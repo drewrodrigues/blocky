@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* TODO: scope these down to the sidebar so we don't get style bleed */
+
 * {
   box-sizing: border-box;
+}
+
+.sidebar-container {
+  transition: opacity 250ms, transform 250ms;
 }

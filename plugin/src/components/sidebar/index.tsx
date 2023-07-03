@@ -36,8 +36,8 @@ export function Sidebar(props: SidebarProps) {
   return (
     <aside
       className={clsx(
-        'border box-border border-grey-light text-grey-dark h-[100vh] relative flex flex-col font-[Roboto,Helvetica,Arial,sans-serif] sidebar-container',
-        !isSidebarToggled ? 'w-0' : 'w-[300px]',
+        'border box-border border-grey-light text-grey-dark h-[100vh] relative flex flex-col font-[Roboto,Helvetica,Arial,sans-serif] sidebar-container w-[300px]',
+        !isSidebarToggled ? 'translate-x-[300px]' : '',
       )}
       style={{
         boxShadow:
