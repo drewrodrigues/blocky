@@ -3,3 +3,4 @@ plugin/node_modules
 plugin/dist
 .git
 .vscode
+__tests__

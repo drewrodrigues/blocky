@@ -21,10 +21,9 @@ module.exports = {
   rules: {
     indent: ['error', 2],
     'linebreak-style': ['error', 'unix'],
-    quotes: ['error', 'single'],
     semi: ['error', 'never'],
     'max-lines': ['warn', 150],
-    'max-lines-per-function': ['warn', { max: 25, skipComments: true }],
+    'max-lines-per-function': ['warn', { max: 40, skipComments: true }],
     '@typescript-eslint/no-namespace': ['off'],
     'no-inner-declarations': 'off',
     'no-undef': 'error',
