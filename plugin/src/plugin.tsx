@@ -20,7 +20,7 @@ export function Plugin() {
   const isCreatingEvent = useRef(false)
 
   // -----------------------------------------------------------------------------
-  // Populate generated blocks
+  // Populate generated blocks when not creating an event
   // -----------------------------------------------------------------------------
   useEffect(() => {
     // ! don't force a re-render unless it's needed -- do a diff here
@@ -43,13 +43,19 @@ export function Plugin() {
   // Listen for modal, if found, create event if conditions are right
   // -----------------------------------------------------------------------------
   useEffect(() => {
-    const modalListener = listenForModalOpen({
-      isCreatingEvent: isCreatingEvent.current,
+    const modalListener = listenForModalOpen(
       selectedBlock,
-      onIsCreatingEvent: (_isCreatingEvent) => {
-        isCreatingEvent.current = _isCreatingEvent
+      (error, _isCreatingEvent) => {
+        if (error) {
+          logError(error)
+          return
+        }
+
+        if (_isCreatingEvent !== undefined) {
+          isCreatingEvent.current = _isCreatingEvent
+        }
       },
-    })
+    )
 
     return () => {
       clearInterval(modalListener)

@@ -153,10 +153,12 @@ describe('listenForModalOpen', () => {
             calendar: 'Test',
           } as Block,
           (error) => {
-            expect(error.message).toMatch(
-              `Failed to get element with selector: ${CALENDAR_SELECTOR.MODAL_TITLE_INPUT}`,
-            )
-            resolve('')
+            if (error) {
+              expect(error.message).toMatch(
+                `Failed to get element with selector: ${CALENDAR_SELECTOR.MODAL_TITLE_INPUT}`,
+              )
+              resolve('')
+            }
           },
         )
 
@@ -180,10 +182,12 @@ describe('listenForModalOpen', () => {
             calendar: 'Test',
           } as Block,
           (error) => {
-            expect(error.message).toMatch(
-              `Failed to get element with selector: ${CALENDAR_SELECTOR.CALENDAR_OPTION_BUTTON}`,
-            )
-            resolve('')
+            if (error) {
+              expect(error.message).toMatch(
+                `Failed to get element with selector: ${CALENDAR_SELECTOR.CALENDAR_OPTION_BUTTON}`,
+              )
+              resolve('')
+            }
           },
         )
 
@@ -213,10 +217,12 @@ describe('listenForModalOpen', () => {
             calendar: 'Test',
           } as Block,
           (error) => {
-            expect(error.message).toMatch(
-              `Failed to get element with selector: ${CALENDAR_SELECTOR.CALENDAR_OPTION}`,
-            )
-            resolve('')
+            if (error) {
+              expect(error.message).toMatch(
+                `Failed to get element with selector: ${CALENDAR_SELECTOR.CALENDAR_OPTION}`,
+              )
+              resolve('')
+            }
           },
         )
 
@@ -246,10 +252,12 @@ describe('listenForModalOpen', () => {
             calendar: 'Test',
           } as Block,
           (error) => {
-            expect(error.message).toMatch(
-              `Failed to get element with selector: ${CALENDAR_SELECTOR.SAVE_BUTTON}`,
-            )
-            resolve('')
+            if (error) {
+              expect(error.message).toMatch(
+                `Failed to get element with selector: ${CALENDAR_SELECTOR.SAVE_BUTTON}`,
+              )
+              resolve('')
+            }
           },
         )
 

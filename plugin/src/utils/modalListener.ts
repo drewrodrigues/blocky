@@ -5,8 +5,8 @@ import { sleep } from './sleep'
 import { Block } from './types'
 
 export function listenForModalOpen(
-  selectedBlock: Block,
-  callback?: (error: Error) => void,
+  selectedBlock?: Block,
+  callback?: (error?: Error, isCreatingEvent?: boolean) => void,
 ): NodeJS.Timer {
   let _isCreatingEvent = false
 
@@ -16,6 +16,7 @@ export function listenForModalOpen(
 
     if (modalFound) {
       log('Modal found, creating block...')
+      callback?.(undefined, true)
       _isCreatingEvent = true
       try {
         await _createEventOnModal({
@@ -25,6 +26,7 @@ export function listenForModalOpen(
       } catch (error) {
         callback?.(error as Error)
       } finally {
+        callback?.(undefined, false)
         _isCreatingEvent = false
       }
     }
