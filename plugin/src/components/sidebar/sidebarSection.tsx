@@ -19,9 +19,7 @@ export function SidebarSection(props: Props) {
       )}
     >
       <header className="flex justify-between items-center mb-[10px] select-none">
-        <div className="flex flex-col">
-          <h2 className="text-[12px] text-grey-medium">{props.title}</h2>
-        </div>
+        <h2 className="text-[12px]">{props.title}</h2>
 
         {props.titleCount !== undefined && (
           <p className="bg-grey-lighter rounded-[3px] text-[10px] h-[22px] min-w-[22px] text-grey-medium flex items-center justify-center p-[5px] ml-[10px]">
