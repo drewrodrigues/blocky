@@ -21,6 +21,7 @@ export interface SidebarProps {
   selectedBlock?: Block
   onSelectBlock?: (block: Block) => void
   onSaveOrUnsaveBlock?: (block: Block) => void
+  onCloseSidebar?: () => void
 }
 
 type SelectedTab = 'blocks' | 'documentation'
@@ -30,6 +31,7 @@ export function Sidebar(props: SidebarProps) {
   const [selectedTab, setSelectedTab] = useState<SelectedTab>('blocks')
 
   function onToggleSidebar() {
+    props.onCloseSidebar?.()
     setIsSidebarToggled(!isSidebarToggled)
   }
 
@@ -79,6 +81,7 @@ export function Sidebar(props: SidebarProps) {
         <main className="flex flex-col flex-grow overflow-y-scroll">
           {/* ! we can improve threading through composition */}
           {selectedTab === 'blocks' ? (
+            // ! ugh, why you just spreading props my guy?
             <SidebarSectionBlocks {...props} />
           ) : (
             <SidebarSectionDocumentation />

@@ -93,6 +93,7 @@ export function Plugin() {
       selectedBlock={selectedBlock}
       onSelectBlock={onSetSelectedBlock}
       onSaveOrUnsaveBlock={onSaveOrUnsaveBlock}
+      onCloseSidebar={() => setSelectedBlock(undefined)}
     />
   )
 }
