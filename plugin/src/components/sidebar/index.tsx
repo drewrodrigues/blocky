@@ -61,7 +61,7 @@ export function Sidebar(props: SidebarProps) {
             </button>
             <button
               className={clsx(
-                'text-[11px] py-[3px] px-[5px] rounded-[3px] text-grey-medium hover:opacity-50 transition-opacity',
+                'text-[11px] py-[3px] px-[5px] rounded-[3px] text-grey-medium mr-[2px] hover:opacity-70 transition-opacity',
                 selectedTab === 'documentation' &&
                   'bg-[#42D3FC] text-white font-bold cursor-default hover:opacity-100',
               )}
