@@ -1,4 +1,4 @@
-import { logError } from './logger'
+import { log, logError } from './logger'
 import { BlockByTitle } from './types'
 
 type CacheFor = 'SavedBlocks'
@@ -11,19 +11,21 @@ export function cacheBlocks(cacheFor: CacheFor, blocks: BlockByTitle) {
 
   // async write to not block main thread
   setTimeout(() => {
-    localStorage.setItem(CACHE_KEY, JSON.stringify(blocks))
+    chrome.storage.sync.set({ [CACHE_KEY]: blocks })
   }, 0)
 }
 
-export function getCachedBlocks(cacheFor: CacheFor) {
+export async function getCachedBlocks(cacheFor: CacheFor) {
   const CACHE_KEY = getCacheKey(cacheFor)
 
-  const unparsedJson = localStorage.getItem(CACHE_KEY)
   try {
-    const parsedBlocks = JSON.parse(unparsedJson || '{}')
-    return parsedBlocks as BlockByTitle
-  } catch {
-    logError(`getCachedBlocks(): Failed to parse blocks for ${cacheFor}`)
+    const cachedBlocks = await chrome.storage.sync.get(CACHE_KEY)
+    log(`Got cached blocks for ${CACHE_KEY}: ${JSON.stringify(cachedBlocks)}`)
+    return cachedBlocks[CACHE_KEY] as BlockByTitle
+  } catch (e) {
+    logError(
+      `getCachedBlocks(): Failed to parse blocks for ${CACHE_KEY} - ${e}`,
+    )
     return {}
   }
 }

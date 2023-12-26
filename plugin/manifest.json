@@ -20,5 +20,6 @@
       "resources": ["*.png"],
       "matches": ["https://calendar.google.com/*"]
     }
-  ]
+  ],
+  "permissions": ["storage"]
 }

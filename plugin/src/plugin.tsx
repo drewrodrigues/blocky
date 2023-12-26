@@ -10,14 +10,25 @@ import { Block, BlockByTitle } from './utils/types'
 import { CALENDAR_SELECTOR } from './utils/consts'
 
 export function Plugin() {
-  const [savedBlocks, setSavedBlocks] = useState<BlockByTitle>(
-    getCachedBlocks('SavedBlocks'),
-  )
+  const [savedBlocks, setSavedBlocks] = useState<BlockByTitle>({})
   const [generatedBlocks, setGeneratedBlocks] = useState<BlockByTitle>({})
   const [selectedBlock, setSelectedBlock] = useState<Block>()
 
   // to temporarily stop listeners while modal is open
   const isCreatingEvent = useRef(false)
+
+  // -----------------------------------------------------------------------------
+  // Init saved blocks
+  // -----------------------------------------------------------------------------
+  useEffect(() => {
+    getCachedBlocks('SavedBlocks')
+      .then((savedBlocks) => {
+        setSavedBlocks(savedBlocks)
+      })
+      .catch((e) => {
+        logError('Failed to retrieve saved blocks from cache', e)
+      })
+  }, [])
 
   // -----------------------------------------------------------------------------
   // Populate generated blocks when not creating an event
