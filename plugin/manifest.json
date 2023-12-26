@@ -1,6 +1,6 @@
 {
   "name": "Blocky",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "manifest_version": 3,
   "description": "Easily create time blocks in Google Calendar.",
   "icons": {
