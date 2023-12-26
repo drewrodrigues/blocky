@@ -23,7 +23,7 @@ export function Plugin() {
   useEffect(() => {
     getCachedBlocks('SavedBlocks')
       .then((savedBlocks) => {
-        setSavedBlocks(savedBlocks)
+        setSavedBlocks(savedBlocks || {})
       })
       .catch((e) => {
         logError('Failed to retrieve saved blocks from cache', e)

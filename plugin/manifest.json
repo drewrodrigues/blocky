@@ -8,7 +8,6 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "host_permissions": ["https://calendar.google.com/*"],
   "content_scripts": [
     {
       "matches": ["https://calendar.google.com/calendar*"],
