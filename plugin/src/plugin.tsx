@@ -97,10 +97,14 @@ export function Plugin() {
     cacheBlocks('SavedBlocks', newBlocks)
   }
 
+  const generatedBlocksWithoutSavedBlocks = Object.keys(generatedBlocks)
+    .filter((generatedBlockName) => !savedBlocks[generatedBlockName])
+    .map((generatedBlockKey) => generatedBlocks[generatedBlockKey])
+
   return (
     <Sidebar
       savedBlocks={Object.values(savedBlocks)}
-      generatedBlocks={Object.values(generatedBlocks)}
+      generatedBlocks={generatedBlocksWithoutSavedBlocks}
       selectedBlock={selectedBlock}
       onSelectBlock={onSetSelectedBlock}
       onSaveOrUnsaveBlock={onSaveOrUnsaveBlock}

@@ -1,3 +1,6 @@
+# 0.2.6
+- Remove generated blocks that are already saved blocks.
+
 # 0.2.5
 - Changed block storage method to chrome storage so they persist past local storage resets.
 
