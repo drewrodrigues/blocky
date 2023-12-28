@@ -1,7 +1,7 @@
 /**
  * Log in dev environment, otherwise supress logging
  */
-export function log(...args: any[]) {
+export function log(...args: any[]): void {
   if (process.env.ENV === 'production') {
     return
   }
@@ -11,7 +11,8 @@ export function log(...args: any[]) {
 /**
  * Log in dev environment, otherwise supress logging
  */
-export function logError(...args: any[]) {
+export function logError(...args: any[]): void {
+  // @ts-ignore
   if (process.env.ENV === 'production') {
     return
   }

@@ -27,6 +27,7 @@ module.exports = {
     '@typescript-eslint/no-namespace': ['off'],
     'no-inner-declarations': 'off',
     'no-undef': 'error',
+    '@typescript-eslint/ban-ts-comment': ['off'],
   },
   globals: {
     process: true,
