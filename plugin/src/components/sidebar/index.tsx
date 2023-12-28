@@ -26,13 +26,23 @@ export interface SidebarProps {
 
 type SelectedTab = 'blocks' | 'documentation'
 
+const SIDEBAR_STATE_CACHE = 'Blocky_SidebarState'
+
 export function Sidebar(props: SidebarProps) {
-  const [isSidebarToggled, setIsSidebarToggled] = useState(true)
+  const [isSidebarToggled, setIsSidebarToggled] = useState(() => {
+    try {
+      return localStorage.getItem(SIDEBAR_STATE_CACHE) === 'open'
+    } catch {
+      return false
+    }
+  })
   const [selectedTab, setSelectedTab] = useState<SelectedTab>('blocks')
 
   function onToggleSidebar() {
     props.onCloseSidebar?.()
-    setIsSidebarToggled(!isSidebarToggled)
+    const nextState = !isSidebarToggled
+    setIsSidebarToggled(nextState)
+    localStorage.setItem(SIDEBAR_STATE_CACHE, nextState ? 'open' : 'closed')
   }
 
   return (
