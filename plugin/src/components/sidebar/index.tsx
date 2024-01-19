@@ -63,7 +63,7 @@ export function Sidebar(props: SidebarProps) {
               className={clsx(
                 'text-[11px] py-[3px] px-[5px] rounded-[3px] text-grey-medium mr-[2px] hover:opacity-70 transition-opacity',
                 selectedTab === 'blocks' &&
-                  'bg-[#42D3FC] text-white font-bold  cursor-default hover:opacity-100',
+                  'bg-blue text-white font-bold  cursor-default hover:opacity-100',
               )}
               onClick={() => setSelectedTab('blocks')}
             >
@@ -73,7 +73,7 @@ export function Sidebar(props: SidebarProps) {
               className={clsx(
                 'text-[11px] py-[3px] px-[5px] rounded-[3px] text-grey-medium mr-[2px] hover:opacity-70 transition-opacity',
                 selectedTab === 'documentation' &&
-                  'bg-[#42D3FC] text-white font-bold cursor-default hover:opacity-100',
+                  'bg-blue text-white font-bold cursor-default hover:opacity-100',
               )}
               onClick={() => setSelectedTab('documentation')}
             >

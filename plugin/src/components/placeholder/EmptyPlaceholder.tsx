@@ -17,7 +17,7 @@ export function EmptyPlaceholder(props: Props) {
       <header className="flex items-center mb-[10px]">
         <FontAwesomeIcon
           icon={faInfoCircle}
-          className="text-[16px] text-[#42D3FC] mr-[7.5px]"
+          className="text-[16px] text-blue mr-[7.5px]"
         />
         <p className="font-bold text-[12px] leading-[1]">{props.title}</p>
       </header>

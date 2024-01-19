@@ -29,7 +29,7 @@ export function SidebarSection(props: Props) {
           <FontAwesomeIcon
             icon={faChevronCircleDown}
             className={clsx(
-              'mr-[5px] text-grey-medium transition-transform',
+              'mr-[5px] text-blue transition-transform',
               !childrenToggled && '-rotate-90',
             )}
           />

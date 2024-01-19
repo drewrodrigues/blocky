@@ -10,6 +10,7 @@ module.exports = {
         medium: '#85898E',
         dark: '#3E4144',
       },
+      blue: '#42D3FC',
     },
   },
   plugins: [],
