@@ -21,11 +21,11 @@ export function SidebarSection(props: Props) {
         'flex flex-col mx-[20px] my-[10px] first-of-type:mt-[20px] last-of-type:mb-[20px] text-sm',
       )}
     >
-      <header className="flex justify-between items-center mb-[10px] select-none">
-        <h2
-          className="text-[12px] flex items-center cursor-pointer"
-          onClick={() => setChildrenToggled(!childrenToggled)}
-        >
+      <header
+        className="flex justify-between items-center mb-[10px] select-none cursor-pointer hover:opacity-75 transition-opacity"
+        onClick={() => setChildrenToggled(!childrenToggled)}
+      >
+        <h2 className="text-[12px] flex items-center">
           <FontAwesomeIcon
             icon={faChevronCircleDown}
             className={clsx(
