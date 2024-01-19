@@ -1,3 +1,6 @@
+# 0.2.7
+- Allow toggling block sections.
+
 # 0.2.6
 - Remove generated blocks that are already saved blocks.
 
