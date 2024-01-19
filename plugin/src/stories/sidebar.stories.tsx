@@ -10,13 +10,21 @@ export default {
 
 export const emptyStates = () => (
   <div className="flex justify-end">
-    <Sidebar generatedBlocks={[]} savedBlocks={[]} />
+    <Sidebar
+      generatedBlocks={[]}
+      savedBlocks={[]}
+      onCloseSidebar={() => null}
+    />
   </div>
 )
 
 export const withSavedBlocks = () => (
   <div className="flex justify-end">
-    <Sidebar savedBlocks={SAVED_BLOCKS_FIXTURE} generatedBlocks={[]} />
+    <Sidebar
+      savedBlocks={SAVED_BLOCKS_FIXTURE}
+      generatedBlocks={[]}
+      onCloseSidebar={() => null}
+    />
   </div>
 )
 
@@ -25,6 +33,7 @@ export const withBothBlocks = () => (
     <Sidebar
       savedBlocks={SAVED_BLOCKS_FIXTURE}
       generatedBlocks={SAVED_BLOCKS_FIXTURE}
+      onCloseSidebar={() => null}
     />
   </div>
 )

@@ -21,7 +21,7 @@ export interface SidebarProps {
   selectedBlock?: Block
   onSelectBlock?: (block: Block) => void
   onSaveOrUnsaveBlock?: (block: Block) => void
-  onCloseSidebar?: () => void
+  onCloseSidebar: () => void
 }
 
 type SelectedTab = 'blocks' | 'documentation'
@@ -39,7 +39,7 @@ export function Sidebar(props: SidebarProps) {
   const [selectedTab, setSelectedTab] = useState<SelectedTab>('blocks')
 
   function onToggleSidebar() {
-    props.onCloseSidebar?.()
+    props.onCloseSidebar()
     const nextState = !isSidebarToggled
     setIsSidebarToggled(nextState)
     localStorage.setItem(SIDEBAR_STATE_CACHE, nextState ? 'open' : 'closed')
