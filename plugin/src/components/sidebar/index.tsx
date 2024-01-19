@@ -9,6 +9,7 @@ import { SidebarSectionBlocks } from './SidebarSectionBlocks'
 import { SidebarSectionDocumentation } from './SidebarSectionDocumentation'
 import { SidebarToggle } from './sidebarToggle'
 import '../../assets/style.css' // TODO: do this better my guy
+import { useBoolLocalStorage, useLocalStorage } from '../../utils/hooks'
 
 export class _Sidebar extends React.Component {
   static Section = SidebarSection
@@ -29,20 +30,13 @@ type SelectedTab = 'blocks' | 'documentation'
 const SIDEBAR_STATE_CACHE = 'Blocky_SidebarState'
 
 export function Sidebar(props: SidebarProps) {
-  const [isSidebarToggled, setIsSidebarToggled] = useState(() => {
-    try {
-      return localStorage.getItem(SIDEBAR_STATE_CACHE) === 'open'
-    } catch {
-      return false
-    }
-  })
+  const [isSidebarToggled, setSidebarToggled] =
+    useBoolLocalStorage(SIDEBAR_STATE_CACHE)
   const [selectedTab, setSelectedTab] = useState<SelectedTab>('blocks')
 
   function onToggleSidebar() {
     props.onCloseSidebar()
-    const nextState = !isSidebarToggled
-    setIsSidebarToggled(nextState)
-    localStorage.setItem(SIDEBAR_STATE_CACHE, nextState ? 'open' : 'closed')
+    setSidebarToggled(!isSidebarToggled)
   }
 
   return (
