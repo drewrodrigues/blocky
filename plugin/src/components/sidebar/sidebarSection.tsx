@@ -1,7 +1,8 @@
 import clsx from 'clsx'
-import React, { useState } from 'react'
+import React from 'react'
 import { faChevronCircleDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useBoolLocalStorage } from '../../utils/hooks'
 
 interface Props {
   title: string
@@ -11,8 +12,11 @@ interface Props {
 }
 
 export function SidebarSection(props: Props) {
-  const [childrenToggled, setChildrenToggled] = useState(true)
   props = { ...props, grow: props.grow ?? true }
+  const [childrenToggled, setChildrenToggled] = useBoolLocalStorage(
+    props.title,
+    true,
+  )
 
   return (
     <section
