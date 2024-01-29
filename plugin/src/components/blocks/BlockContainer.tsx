@@ -16,23 +16,29 @@ export function BlockContainer(props: Props) {
       className="overflow-y-scroll flex-[1_1_0] border border-grey-light p-[10px] rounded-[10px]"
       style={SharedStyles.containerBoxShadow}
     >
-      {Object.keys(props.blocks).map((calendar) => (
-        <>
-          {props.blocks[calendar].map((block) => {
-            const isSelected = block.title === props.selectedBlock?.title
-            return (
-              <BlockButton
-                {...block}
-                key={block.title}
-                isHighlighted={isSelected}
-                isLoading={isSelected}
-                onClick={() => props.onClick?.(block)}
-                onRightClick={() => props.onRightClick?.(block)}
-              />
-            )
-          })}
-        </>
-      ))}
+      {Object.keys(props.blocks)
+        .sort((a, b) =>
+          a.match(/[\w\s]+/)![0].localeCompare(b.match(/[\w\s]+/)![0]),
+        )
+        .map((calendar) => (
+          <div key={calendar}>
+            <h5 className="text-[12px] my-[5px]">{calendar}</h5>
+
+            {props.blocks[calendar].map((block) => {
+              const isSelected = block.title === props.selectedBlock?.title
+              return (
+                <BlockButton
+                  {...block}
+                  key={block.title}
+                  isHighlighted={isSelected}
+                  isLoading={isSelected}
+                  onClick={() => props.onClick?.(block)}
+                  onRightClick={() => props.onRightClick?.(block)}
+                />
+              )
+            })}
+          </div>
+        ))}
     </div>
   )
 }
