@@ -20,25 +20,27 @@ export function BlockContainer(props: Props) {
         .sort((a, b) =>
           a.match(/[\w\s]+/)![0].localeCompare(b.match(/[\w\s]+/)![0]),
         )
-        .map((calendar) => (
-          <div key={calendar}>
-            <h5 className="text-[12px] my-[5px]">{calendar}</h5>
+        .map((calendar) => {
+          return (
+            <div key={calendar}>
+              <h5 className="text-[12px] my-[5px]">{calendar}</h5>
 
-            {props.blocks[calendar].map((block) => {
-              const isSelected = block.title === props.selectedBlock?.title
-              return (
-                <BlockButton
-                  {...block}
-                  key={block.title}
-                  isHighlighted={isSelected}
-                  isLoading={isSelected}
-                  onClick={() => props.onClick?.(block)}
-                  onRightClick={() => props.onRightClick?.(block)}
-                />
-              )
-            })}
-          </div>
-        ))}
+              {props.blocks[calendar].map((block) => {
+                const isSelected = block.title === props.selectedBlock?.title
+                return (
+                  <BlockButton
+                    {...block}
+                    key={block.title}
+                    isHighlighted={isSelected}
+                    isLoading={isSelected}
+                    onClick={() => props.onClick?.(block)}
+                    onRightClick={() => props.onRightClick?.(block)}
+                  />
+                )
+              })}
+            </div>
+          )
+        })}
     </div>
   )
 }

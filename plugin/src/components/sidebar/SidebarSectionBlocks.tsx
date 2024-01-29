@@ -5,11 +5,11 @@ import { EmptyPlaceholder } from '../placeholder/EmptyPlaceholder'
 
 export function SidebarSectionBlocks(props: SidebarProps) {
   const savedBlockCount = Object.keys(props.savedBlocks).reduce(
-    (acc, calendar) => acc + props.generatedBlocks[calendar].length,
+    (acc, calendar) => acc + props.savedBlocks[calendar]?.length || 0,
     0,
   )
   const generatedBlockCount = Object.keys(props.generatedBlocks).reduce(
-    (acc, calendar) => acc + props.generatedBlocks[calendar].length,
+    (acc, calendar) => acc + props.generatedBlocks[calendar]?.length || 0,
     0,
   )
 
