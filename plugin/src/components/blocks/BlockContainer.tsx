@@ -2,6 +2,7 @@ import React from 'react'
 import { SharedStyles } from '../../utils/sharedStyles'
 import { Block } from '../../utils/types'
 import { BlockButton } from './BlockButton'
+import { compareWithoutEmojis } from '../../utils/dataManipulation'
 
 interface Props {
   blocks: Record<string, Block[]>
@@ -17,9 +18,7 @@ export function BlockContainer(props: Props) {
       style={SharedStyles.containerBoxShadow}
     >
       {Object.keys(props.blocks)
-        .sort((a, b) =>
-          a.match(/[\w\s]+/)![0].localeCompare(b.match(/[\w\s]+/)![0]),
-        )
+        .sort((a, b) => compareWithoutEmojis(a, b))
         .map((calendar) => {
           return (
             <div key={calendar}>

@@ -8,3 +8,7 @@ export function groupByCalendar(blocks: Block[]): Record<string, Block[]> {
   }
   return groups
 }
+
+export function compareWithoutEmojis(a: string, b: string) {
+  return a.match(/[\w\s]+/)![0].localeCompare(b.match(/[\w\s]+/)![0])
+}

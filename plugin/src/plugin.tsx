@@ -8,7 +8,7 @@ import { log, logError } from './utils/logger'
 import { listenForModalOpen } from './utils/modalListener'
 import { Block, BlockByTitle } from './utils/types'
 import { CALENDAR_SELECTOR } from './utils/consts'
-import { groupByCalendar } from './utils/dataManipulation'
+import { compareWithoutEmojis, groupByCalendar } from './utils/dataManipulation'
 
 // ! fix re-renders on interval
 export function Plugin() {
@@ -105,17 +105,13 @@ export function Plugin() {
     .filter((generatedBlockName) => !savedBlocks[generatedBlockName])
     .map((generatedBlockKey) => generatedBlocks[generatedBlockKey])
     // match to remove emojis, so sort isn't messed up
-    .sort((a, b) =>
-      a.title.match(/[\w\s]+/)![0].localeCompare(b.title.match(/[\w\s]+/)![0]),
-    )
+    .sort((a, b) => compareWithoutEmojis(a.title, b.title))
 
   return (
     <Sidebar
       savedBlocks={groupByCalendar(
         Object.values(savedBlocks).sort((a, b) =>
-          a.title
-            .match(/[\w\s]+/)![0]
-            .localeCompare(b.title.match(/[\w\s]+/)![0]),
+          compareWithoutEmojis(a.title, b.title),
         ),
       )}
       generatedBlocks={groupByCalendar(generatedBlocksWithoutSavedBlocks)}
