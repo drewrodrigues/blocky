@@ -4,8 +4,14 @@ import { BlockContainer } from '../blocks/BlockContainer'
 import { EmptyPlaceholder } from '../placeholder/EmptyPlaceholder'
 
 export function SidebarSectionBlocks(props: SidebarProps) {
-  const savedBlockCount = props.savedBlocks.length
-  const generatedBlockCount = props.generatedBlocks.length
+  const savedBlockCount = Object.keys(props.savedBlocks).reduce(
+    (acc, calendar) => acc + props.generatedBlocks[calendar].length,
+    0,
+  )
+  const generatedBlockCount = Object.keys(props.generatedBlocks).reduce(
+    (acc, calendar) => acc + props.generatedBlocks[calendar].length,
+    0,
+  )
 
   return (
     <>

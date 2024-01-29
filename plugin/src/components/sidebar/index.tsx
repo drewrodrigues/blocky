@@ -17,8 +17,8 @@ export class _Sidebar extends React.Component {
 }
 
 export interface SidebarProps {
-  savedBlocks: Block[]
-  generatedBlocks: Block[]
+  savedBlocks: Record<string, Block[]>
+  generatedBlocks: Record<string, Block[]>
   selectedBlock?: Block
   onSelectBlock?: (block: Block) => void
   onSaveOrUnsaveBlock?: (block: Block) => void

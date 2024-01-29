@@ -8,7 +8,9 @@ import { log, logError } from './utils/logger'
 import { listenForModalOpen } from './utils/modalListener'
 import { Block, BlockByTitle } from './utils/types'
 import { CALENDAR_SELECTOR } from './utils/consts'
+import { groupByCalendar } from './utils/dataManipulation'
 
+// ! fix re-renders on interval
 export function Plugin() {
   const [savedBlocks, setSavedBlocks] = useState<BlockByTitle>({})
   const [generatedBlocks, setGeneratedBlocks] = useState<BlockByTitle>({})
@@ -97,14 +99,26 @@ export function Plugin() {
     cacheBlocks('SavedBlocks', newBlocks)
   }
 
-  const generatedBlocksWithoutSavedBlocks = Object.keys(generatedBlocks)
+  const generatedBlocksWithoutSavedBlocks: Block[] = Object.keys(
+    generatedBlocks,
+  )
     .filter((generatedBlockName) => !savedBlocks[generatedBlockName])
     .map((generatedBlockKey) => generatedBlocks[generatedBlockKey])
+    // match to remove emojis, so sort isn't messed up
+    .sort((a, b) =>
+      a.title.match(/[\w\s]+/)![0].localeCompare(b.title.match(/[\w\s]+/)![0]),
+    )
 
   return (
     <Sidebar
-      savedBlocks={Object.values(savedBlocks)}
-      generatedBlocks={generatedBlocksWithoutSavedBlocks}
+      savedBlocks={groupByCalendar(
+        Object.values(savedBlocks).sort((a, b) =>
+          a.title
+            .match(/[\w\s]+/)![0]
+            .localeCompare(b.title.match(/[\w\s]+/)![0]),
+        ),
+      )}
+      generatedBlocks={groupByCalendar(generatedBlocksWithoutSavedBlocks)}
       selectedBlock={selectedBlock}
       onSelectBlock={onSetSelectedBlock}
       onSaveOrUnsaveBlock={onSaveOrUnsaveBlock}

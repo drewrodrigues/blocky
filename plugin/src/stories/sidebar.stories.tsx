@@ -11,8 +11,8 @@ export default {
 export const emptyStates = () => (
   <div className="flex justify-end">
     <Sidebar
-      generatedBlocks={[]}
-      savedBlocks={[]}
+      generatedBlocks={{}}
+      savedBlocks={{}}
       onCloseSidebar={() => null}
     />
   </div>
@@ -22,7 +22,7 @@ export const withSavedBlocks = () => (
   <div className="flex justify-end">
     <Sidebar
       savedBlocks={SAVED_BLOCKS_FIXTURE}
-      generatedBlocks={[]}
+      generatedBlocks={{}}
       onCloseSidebar={() => null}
     />
   </div>
@@ -41,20 +41,21 @@ export const withBothBlocks = () => (
 const BLOCK_FIXTURE = {
   title: '💻 Microsoft',
   backgroundColor: '#13B3C6',
-  calendar: '',
+  calendar: 'Career',
 }
 
-const SAVED_BLOCKS_FIXTURE: Block[] = [
-  BLOCK_FIXTURE,
-  BLOCK_FIXTURE,
-  BLOCK_FIXTURE,
-  BLOCK_FIXTURE,
-  BLOCK_FIXTURE,
-  BLOCK_FIXTURE,
-  BLOCK_FIXTURE,
-  BLOCK_FIXTURE,
-  BLOCK_FIXTURE,
-  BLOCK_FIXTURE,
-  BLOCK_FIXTURE,
-  BLOCK_FIXTURE,
-]
+// TODO: update me with different calendars
+const SAVED_BLOCKS_FIXTURE: Record<string, Block[]> = {
+  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
+  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
+  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
+  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
+  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
+  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
+  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
+  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
+  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
+  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
+  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
+  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
+}
