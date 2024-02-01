@@ -1,7 +1,7 @@
 import { ComponentMeta } from '@storybook/react'
 import React from 'react'
 import { Sidebar, _Sidebar } from '../components/sidebar/index'
-import { Block } from '../utils/types'
+import { Block, BlocksByCalendar } from '../utils/types'
 
 export default {
   title: 'Sidebar',
@@ -45,17 +45,6 @@ const BLOCK_FIXTURE = {
 }
 
 // TODO: update me with different calendars
-const SAVED_BLOCKS_FIXTURE: Record<string, Block[]> = {
-  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
-  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
-  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
-  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
-  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
-  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
-  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
-  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
-  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
-  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
-  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
-  [BLOCK_FIXTURE.title]: [BLOCK_FIXTURE],
+const SAVED_BLOCKS_FIXTURE: BlocksByCalendar = {
+  [BLOCK_FIXTURE.calendar]: { [BLOCK_FIXTURE.title]: BLOCK_FIXTURE },
 }
