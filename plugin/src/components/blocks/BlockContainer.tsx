@@ -14,7 +14,7 @@ interface Props {
 export function BlockContainer(props: Props) {
   return (
     <div
-      className="overflow-y-scroll flex-[1_1_0] border border-grey-light p-[10px] rounded-[10px]"
+      className="overflow-y-scroll flex-[1_1_0] border border-grey-light px-[10px] rounded-[10px]"
       style={SharedStyles.containerBoxShadow}
     >
       {Object.keys(props.blocks)
@@ -25,7 +25,7 @@ export function BlockContainer(props: Props) {
 
           return (
             <div key={calendarTitle}>
-              <h5 className="text-[12px] my-[5px]">{calendarTitle}</h5>
+              <h5 className="text-[12px] my-[10px]">{calendarTitle}</h5>
 
               {blocks
                 .sort((a, b) => compareWithoutEmojis(a.title, b.title))
