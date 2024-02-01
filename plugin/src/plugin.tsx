@@ -6,14 +6,14 @@ import { cacheBlocks, getCachedBlocks } from './utils/cache'
 import { listenToViewAndGenerateBlocks } from './utils/generatedBlocksParser'
 import { log, logError } from './utils/logger'
 import { listenForModalOpen } from './utils/modalListener'
-import { Block, BlockByTitle } from './utils/types'
+import { Block, BlocksByCalendar } from './utils/types'
 import { CALENDAR_SELECTOR } from './utils/consts'
 import { compareWithoutEmojis, groupByCalendar } from './utils/dataManipulation'
 
 // ! fix re-renders on interval
 export function Plugin() {
-  const [savedBlocks, setSavedBlocks] = useState<BlockByTitle>({})
-  const [generatedBlocks, setGeneratedBlocks] = useState<BlockByTitle>({})
+  const [savedBlocks, setSavedBlocks] = useState<BlocksByCalendar>({})
+  const [generatedBlocks, setGeneratedBlocks] = useState<BlocksByCalendar>({})
   const [selectedBlock, setSelectedBlock] = useState<Block>()
 
   // to temporarily stop listeners while modal is open
@@ -104,7 +104,6 @@ export function Plugin() {
   )
     .filter((generatedBlockName) => !savedBlocks[generatedBlockName])
     .map((generatedBlockKey) => generatedBlocks[generatedBlockKey])
-    // match to remove emojis, so sort isn't messed up
     .sort((a, b) => compareWithoutEmojis(a.title, b.title))
 
   return (

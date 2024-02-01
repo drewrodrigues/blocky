@@ -1,14 +1,14 @@
 import { CALENDAR_SELECTOR } from './consts'
 import { getElementsOrThrow } from './domAccess'
-import { BlockByTitle } from './types'
+import { BlocksByCalendar } from './types'
 
 export function listenToViewAndGenerateBlocks({
   isCreatingEvent,
   onUpdate,
 }: {
   isCreatingEvent: boolean
-  onUpdate: (blocks: BlockByTitle) => void
-}) {
+  onUpdate: (blocks: BlocksByCalendar) => void
+}): NodeJS.Timer {
   return setInterval(() => {
     if (!isCreatingEvent) {
       const blocksFoundInView = _getFullDetailsFromAllBlocks()
@@ -17,11 +17,11 @@ export function listenToViewAndGenerateBlocks({
   }, 1000)
 }
 
-function _getFullDetailsFromAllBlocks(): BlockByTitle {
+function _getFullDetailsFromAllBlocks(): BlocksByCalendar {
   const calendarBlock = getElementsOrThrow(
     CALENDAR_SELECTOR.CALENDAR_BLOCK_TO_PARSE,
   )
-  const parsedCalendarBlocks: BlockByTitle = {}
+  const parsedCalendarBlocks: BlocksByCalendar = {}
 
   for (const block of calendarBlock) {
     // time block can be formatted with ',' at times. So, we'll just remove the whole section
@@ -36,7 +36,7 @@ function _getFullDetailsFromAllBlocks(): BlockByTitle {
       continue
     }
 
-    parsedCalendarBlocks[title] = {
+    parsedCalendarBlocks[calendar] = {
       title,
       calendar,
       backgroundColor: block.parentElement?.style.backgroundColor,
