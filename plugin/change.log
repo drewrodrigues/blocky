@@ -1,11 +1,15 @@
+# 0.2.8
+- Render blocks grouped by calendar
+- Sort blocks by title
+
 # 0.2.7
-- Allow toggling block sections.
+- Allow toggling block sections
 
 # 0.2.6
-- Remove generated blocks that are already saved blocks.
+- Remove generated blocks that are already saved blocks
 
 # 0.2.5
-- Changed block storage method to chrome storage so they persist past local storage resets.
+- Changed block storage method to chrome storage so they persist past local storage resets
 
 # 0.2.4
 - Fixed bug where styles were bleeding outside of plugin into Google Calendar
