@@ -1,11 +1,11 @@
 import React from 'react'
 import { SharedStyles } from '../../utils/sharedStyles'
-import { Block } from '../../utils/types'
+import { Block, BlocksByCalendar } from '../../utils/types'
 import { BlockButton } from './BlockButton'
 import { compareWithoutEmojis } from '../../utils/dataManipulation'
 
 interface Props {
-  blocks: Record<string, Block[]>
+  blocks: BlocksByCalendar
   onClick?: (block: Block) => void
   onRightClick?: (block: Block) => void
   selectedBlock?: Block
@@ -19,24 +19,30 @@ export function BlockContainer(props: Props) {
     >
       {Object.keys(props.blocks)
         .sort((a, b) => compareWithoutEmojis(a, b))
-        .map((calendar) => {
-          return (
-            <div key={calendar}>
-              <h5 className="text-[12px] my-[5px]">{calendar}</h5>
+        .map((calendarTitle) => {
+          const blocks = Object.values(props.blocks[calendarTitle])
+          if (!blocks.length) return null
 
-              {props.blocks[calendar].map((block) => {
-                const isSelected = block.title === props.selectedBlock?.title
-                return (
-                  <BlockButton
-                    {...block}
-                    key={block.title}
-                    isHighlighted={isSelected}
-                    isLoading={isSelected}
-                    onClick={() => props.onClick?.(block)}
-                    onRightClick={() => props.onRightClick?.(block)}
-                  />
-                )
-              })}
+          return (
+            <div key={calendarTitle}>
+              <h5 className="text-[12px] my-[5px]">{calendarTitle}</h5>
+
+              {blocks
+                .sort((a, b) => compareWithoutEmojis(a.title, b.title))
+                .map((block) => {
+                  const isSelected = block.title === props.selectedBlock?.title
+
+                  return (
+                    <BlockButton
+                      {...block}
+                      key={block.title}
+                      isHighlighted={isSelected}
+                      isLoading={isSelected}
+                      onClick={() => props.onClick?.(block)}
+                      onRightClick={() => props.onRightClick?.(block)}
+                    />
+                  )
+                })}
             </div>
           )
         })}

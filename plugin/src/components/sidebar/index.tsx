@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome/index'
 import clsx from 'clsx'
 import React, { useState } from 'react'
 import { CONFIG } from '../../utils/config'
-import { Block } from '../../utils/types'
+import { Block, BlocksByCalendar } from '../../utils/types'
 import { SidebarSection } from './sidebarSection'
 import { SidebarSectionBlocks } from './SidebarSectionBlocks'
 import { SidebarSectionDocumentation } from './SidebarSectionDocumentation'
@@ -17,8 +17,8 @@ export class _Sidebar extends React.Component {
 }
 
 export interface SidebarProps {
-  savedBlocks: Record<string, Block[]>
-  generatedBlocks: Record<string, Block[]>
+  savedBlocks: BlocksByCalendar
+  generatedBlocks: BlocksByCalendar
   selectedBlock?: Block
   onSelectBlock?: (block: Block) => void
   onSaveOrUnsaveBlock?: (block: Block) => void

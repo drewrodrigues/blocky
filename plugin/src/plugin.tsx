@@ -8,7 +8,7 @@ import { log, logError } from './utils/logger'
 import { listenForModalOpen } from './utils/modalListener'
 import { Block, BlocksByCalendar } from './utils/types'
 import { CALENDAR_SELECTOR } from './utils/consts'
-import { compareWithoutEmojis, groupByCalendar } from './utils/dataManipulation'
+import { removeBlocksFrom } from './utils/dataManipulation'
 
 // ! fix re-renders on interval
 export function Plugin() {
@@ -85,35 +85,30 @@ export function Plugin() {
   }
 
   function onSaveOrUnsaveBlock(block: Block) {
-    const blockAlreadyExists = savedBlocks[block.title]
+    const blockAlreadyExists = savedBlocks[block.calendar]?.[block.title]
     const shouldUnsaveBlock = blockAlreadyExists
 
-    const newBlocks = { ...savedBlocks }
+    const newBlocks: BlocksByCalendar = { ...savedBlocks }
     if (shouldUnsaveBlock) {
-      delete newBlocks[block.title]
+      delete newBlocks[block.calendar][block.title]
     } else {
-      newBlocks[block.title] = block
+      newBlocks[block.calendar] = newBlocks[block.calendar] || {} // TODO: pull out
+      newBlocks[block.calendar][block.title] = block
     }
 
     setSavedBlocks(newBlocks)
     cacheBlocks('SavedBlocks', newBlocks)
   }
 
-  const generatedBlocksWithoutSavedBlocks: Block[] = Object.keys(
+  const generatedBlocksWithoutSavedBlocks: BlocksByCalendar = removeBlocksFrom(
     generatedBlocks,
+    savedBlocks,
   )
-    .filter((generatedBlockName) => !savedBlocks[generatedBlockName])
-    .map((generatedBlockKey) => generatedBlocks[generatedBlockKey])
-    .sort((a, b) => compareWithoutEmojis(a.title, b.title))
 
   return (
     <Sidebar
-      savedBlocks={groupByCalendar(
-        Object.values(savedBlocks).sort((a, b) =>
-          compareWithoutEmojis(a.title, b.title),
-        ),
-      )}
-      generatedBlocks={groupByCalendar(generatedBlocksWithoutSavedBlocks)}
+      savedBlocks={savedBlocks}
+      generatedBlocks={generatedBlocksWithoutSavedBlocks}
       selectedBlock={selectedBlock}
       onSelectBlock={onSetSelectedBlock}
       onSaveOrUnsaveBlock={onSaveOrUnsaveBlock}

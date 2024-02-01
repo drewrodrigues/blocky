@@ -36,7 +36,8 @@ function _getFullDetailsFromAllBlocks(): BlocksByCalendar {
       continue
     }
 
-    parsedCalendarBlocks[calendar] = {
+    parsedCalendarBlocks[calendar] = parsedCalendarBlocks[calendar] || {}
+    parsedCalendarBlocks[calendar][title] = {
       title,
       calendar,
       backgroundColor: block.parentElement?.style.backgroundColor,
