@@ -40,7 +40,7 @@ function _getFullDetailsFromAllBlocks(): BlocksByCalendar {
     parsedCalendarBlocks[calendar][title] = {
       title,
       calendar,
-      backgroundColor: block.parentElement?.style.backgroundColor,
+      backgroundColor: block.style.backgroundColor,
     }
   }
 

@@ -8,10 +8,12 @@ export function getElementOrThrow<T extends HTMLElement>(selector: string) {
 }
 
 export function getElementsOrThrow<T extends HTMLElement>(selector: string) {
-  const element = document.querySelectorAll(selector)
-  if (element) {
-    return element as NodeListOf<T>
+  const elements = document.querySelectorAll(selector)
+  if (elements.length) {
+    return elements as NodeListOf<T>
   } else {
-    throw new Error(`Failed to get element with selector: ${selector}`)
+    throw new Error(
+      `[Blocky]: Failed to get element with selector: ${selector}`,
+    )
   }
 }
