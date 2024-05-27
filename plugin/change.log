@@ -1,3 +1,6 @@
+# 0.2.9
+- Fix blocks not being generated because of Google Calendar HTML/CSS changes
+
 # 0.2.8
 - Render blocks grouped by calendar
 - Sort blocks by title
