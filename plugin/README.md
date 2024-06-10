@@ -9,3 +9,4 @@ When updating, bump the Git tag, `manifest.json` version and run `npm run packag
 # Todo
 
 - [ ] Add error handling when UI selection/clicking does not work correctly.
+- [ ] Double check cloud syncing blocks
