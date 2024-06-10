@@ -10,3 +10,4 @@ When updating, bump the Git tag, `manifest.json` version and run `npm run packag
 
 - [ ] Add error handling when UI selection/clicking does not work correctly.
 - [ ] Double check cloud syncing blocks
+- [ ] Update readme to be more friendly
