@@ -1,3 +1,6 @@
+# 0.2.10
+- Fix calendar selection not working from UI changes.
+
 # 0.2.9
 - Fix blocks not being generated because of Google Calendar HTML/CSS changes
 
