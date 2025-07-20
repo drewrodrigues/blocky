@@ -10,6 +10,7 @@ import { SidebarSectionDocumentation } from './SidebarSectionDocumentation'
 import { SidebarToggle } from './sidebarToggle'
 import '../../assets/style.css' // TODO: do this better my guy
 import { useBoolLocalStorage } from '../../utils/hooks'
+import { SidebarSectionAnalytics } from './SidebarSectionAnalytics'
 
 export class _Sidebar extends React.Component {
   static Section = SidebarSection
@@ -23,9 +24,10 @@ export interface SidebarProps {
   onSelectBlock?: (block: Block) => void
   onSaveOrUnsaveBlock?: (block: Block) => void
   onCloseSidebar: () => void
+  durationByTitle: Record<string, number>
 }
 
-type SelectedTab = 'blocks' | 'documentation'
+type SelectedTab = 'blocks' | 'analytics' | 'documentation'
 
 const SIDEBAR_STATE_CACHE = 'Blocky_SidebarState'
 
@@ -68,6 +70,16 @@ export function Sidebar(props: SidebarProps) {
             <button
               className={clsx(
                 'text-[11px] py-[3px] px-[5px] rounded-[3px] text-grey-medium mr-[2px] hover:opacity-70 transition-opacity',
+                selectedTab === 'analytics' &&
+                  'bg-blue text-white font-bold cursor-default hover:opacity-100',
+              )}
+              onClick={() => setSelectedTab('analytics')}
+            >
+              Analytics
+            </button>
+            <button
+              className={clsx(
+                'text-[11px] py-[3px] px-[5px] rounded-[3px] text-grey-medium mr-[2px] hover:opacity-70 transition-opacity',
                 selectedTab === 'documentation' &&
                   'bg-blue text-white font-bold cursor-default hover:opacity-100',
               )}
@@ -86,12 +98,16 @@ export function Sidebar(props: SidebarProps) {
 
         <main className="flex flex-col flex-grow overflow-y-scroll">
           {/* ! we can improve threading through composition */}
-          {selectedTab === 'blocks' ? (
+          {selectedTab === 'blocks' && (
             // ! ugh, why you just spreading props my guy?
             <SidebarSectionBlocks {...props} />
-          ) : (
-            <SidebarSectionDocumentation />
           )}
+
+          {selectedTab === 'analytics' && (
+            <SidebarSectionAnalytics durationByTitle={props.durationByTitle} />
+          )}
+
+          {selectedTab === 'documentation' && <SidebarSectionDocumentation />}
         </main>
 
         <footer className="text-[12px] text-grey-medium mb-[20px] mx-[20px] flex justify-between">

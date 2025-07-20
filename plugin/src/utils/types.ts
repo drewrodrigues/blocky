@@ -2,6 +2,9 @@ export interface Block {
   title: string
   calendar: string
   backgroundColor?: string
+  duration?: number
+  startDateTime?: Date
+  endDateTime?: Date
 }
 
 export type SavedCalendarBlock = Omit<Block, 'count'>
