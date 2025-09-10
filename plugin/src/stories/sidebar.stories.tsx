@@ -14,6 +14,8 @@ export const emptyStates = () => (
       generatedBlocks={{}}
       savedBlocks={{}}
       onCloseSidebar={() => null}
+      durationByTitle={{}}
+      durationByCalendar={{}}
     />
   </div>
 )
@@ -24,6 +26,8 @@ export const withSavedBlocks = () => (
       savedBlocks={SAVED_BLOCKS_FIXTURE}
       generatedBlocks={{}}
       onCloseSidebar={() => null}
+      durationByTitle={{}}
+      durationByCalendar={{}}
     />
   </div>
 )
@@ -34,6 +38,8 @@ export const withBothBlocks = () => (
       savedBlocks={SAVED_BLOCKS_FIXTURE}
       generatedBlocks={SAVED_BLOCKS_FIXTURE}
       onCloseSidebar={() => null}
+      durationByTitle={{}}
+      durationByCalendar={{}}
     />
   </div>
 )

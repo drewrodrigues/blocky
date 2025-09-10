@@ -10,21 +10,29 @@ export function listenToViewAndGenerateBlocks({
   onUpdate: (
     blocks: BlocksByCalendar,
     durationByTitle: Record<string, number>,
+    durationByCalendar: Record<string, number>,
   ) => void
 }): NodeJS.Timer {
   return setInterval(() => {
     if (!isCreatingEvent) {
       const [blocksFoundInView, allBlocks] = _getFullDetailsFromAllBlocks()
-      // compute durations for all blocks by title
+      // TODO: blocks not clearing when going to empty view
       const durationByTitle: Record<string, number> = {}
+      const durationByCalendar: Record<string, number> = {}
+
       allBlocks.forEach((block) => {
         if (block.duration) {
           durationByTitle[block.title] =
             (durationByTitle[block.title] || 0) + block.duration
+
+          if (block.calendar) {
+            durationByCalendar[block.calendar] =
+              (durationByCalendar[block.calendar] || 0) + block.duration
+          }
         }
       })
-      console.log(durationByTitle)
-      onUpdate(blocksFoundInView, durationByTitle)
+
+      onUpdate(blocksFoundInView, durationByTitle, durationByCalendar)
     }
   }, 1000)
 }
@@ -86,7 +94,7 @@ function _parseDateTime(blockString: string): {
       /([A-Za-z]+)\s(\d{1,2}),\s(\d{4}) at (\d{1,2}(?::\d{2})?[ap]m) to ([A-Za-z]+)\s(\d{1,2}),\s(\d{4}) at (\d{1,2}(?::\d{2})?[ap]m)/,
     )
 
-    if (!match) return { startDate: new Date(), endDate: new Date() }
+    if (!match) return { startDateTime: new Date(), endDateTime: new Date() }
 
     const [
       _full,

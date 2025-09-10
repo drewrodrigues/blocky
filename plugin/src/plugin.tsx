@@ -20,6 +20,9 @@ export function Plugin() {
   const [durationByTitle, setDurationByTitle] = useState<
     Record<string, number>
   >({})
+  const [durationByCalendar, setDurationByCalendar] = useState<
+    Record<string, number>
+  >({})
 
   // to temporarily stop listeners while modal is open
   const isCreatingEvent = useRef(false)
@@ -43,12 +46,13 @@ export function Plugin() {
   useEffect(() => {
     const viewListener = listenToViewAndGenerateBlocks({
       isCreatingEvent: isCreatingEvent.current,
-      onUpdate: (blocks, durationByTitle) => {
+      onUpdate: (blocks, durationByTitle, durationByCalendar) => {
         setGeneratedBlocks((existingBlocks) => ({
           ...existingBlocks,
           ...blocks,
         }))
         setDurationByTitle(durationByTitle)
+        setDurationByCalendar(durationByCalendar)
       },
     })
 
@@ -120,6 +124,7 @@ export function Plugin() {
       onSaveOrUnsaveBlock={onSaveOrUnsaveBlock}
       onCloseSidebar={() => setSelectedBlock(undefined)}
       durationByTitle={durationByTitle}
+      durationByCalendar={durationByCalendar}
     />
   )
 }

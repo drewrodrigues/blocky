@@ -25,6 +25,7 @@ export interface SidebarProps {
   onSaveOrUnsaveBlock?: (block: Block) => void
   onCloseSidebar: () => void
   durationByTitle: Record<string, number>
+  durationByCalendar: Record<string, number>
 }
 
 type SelectedTab = 'blocks' | 'analytics' | 'documentation'
@@ -104,7 +105,10 @@ export function Sidebar(props: SidebarProps) {
           )}
 
           {selectedTab === 'analytics' && (
-            <SidebarSectionAnalytics durationByTitle={props.durationByTitle} />
+            <SidebarSectionAnalytics
+              durationByTitle={props.durationByTitle}
+              durationByCalendar={props.durationByCalendar}
+            />
           )}
 
           {selectedTab === 'documentation' && <SidebarSectionDocumentation />}
